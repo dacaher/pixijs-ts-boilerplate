@@ -1,0 +1,38 @@
+{
+  "name": "spine-t",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build dist",
+    "build": "webpack --config webpack.dev.js --display 'verbose' --progress --profile",
+    "build:release": "webpack --config webpack.prod.js --display 'verbose' --progress --profile",
+    "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
+    "serve:dash": "webpack-dashboard -- webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
+    "serve:release": "http-server ./dist -p 9999 -o",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "dacaher",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pixi.js": "^4.5.7",
+    "pixi.js": "^4.5.6"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.3.0",
+    "filemanager-webpack-plugin": "^1.0.13",
+    "html-webpack-plugin": "^2.30.1",
+    "http-server": "^0.10.0",
+    "rimraf": "^2.6.2",
+    "source-map-loader": "^0.2.3",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "webpack": "^3.8.1",
+    "webpack-dashboard": "^1.0.2",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1",
+    "webpack-subresource-integrity": "^1.0.1"
+  }
+}

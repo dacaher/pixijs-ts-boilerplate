@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "declaration": false,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
