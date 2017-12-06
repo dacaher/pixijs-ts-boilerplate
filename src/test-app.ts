@@ -6,19 +6,16 @@ export class TestApp {
     constructor() {
         const appOptions: AppOptions = {
             stylePosition: "absolute",
-            align: "middle",
-            resize: "full-size",
-            width: 400,
-            height: 300,
+            align: "top-left",
+            resize: "none",
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
+            backgroundColor: 0x222222,
         };
 
-        /*
-        const container = document.getElementById("canvasContainer");
-        this.app = new App(appOptions, container);
-        */
+        // const container = document.getElementById("canvasContainer");
+        // this.app = new App(appOptions, container);
 
         this.app = new App(appOptions);
 

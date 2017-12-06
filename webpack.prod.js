@@ -6,6 +6,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const SriPlugin = require('webpack-subresource-integrity');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const outputDir = 'dist';
 const publicPath = '/';
@@ -32,6 +33,33 @@ module.exports = merge(common, {
                     }
                 ],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            minimize: true
+                        }
+                    }
+                })
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            sass: true,
+                            minimize: true
+                        }
+                    }
+                })
             }
         ]
     },
@@ -46,6 +74,11 @@ module.exports = merge(common, {
                     }
                 ]
             }
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].css',
+            allChunks: true,
+            disable: false
         }),
         new UglifyJSPlugin({
             sourceMap: true

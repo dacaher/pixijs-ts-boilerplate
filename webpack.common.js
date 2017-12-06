@@ -22,14 +22,19 @@ module.exports = {
         new CheckerPlugin(),
         new HtmlWebpackPlugin({
             title: 'My PIXI App',
-            template: 'src/index.html'
+            template: 'src/index.html',
+            hash: true,
+            minify: {
+                collapseWhitespace: false,
+                removeComments: true
+            }
         })
     ],
     externals: {
         'pixi.js': 'PIXI'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json', '.css']
+        extensions: ['.js', '.ts', '.tsx', '.css', '.scss']
     },
     stats: 'verbose'
 };

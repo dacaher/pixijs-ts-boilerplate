@@ -43,22 +43,28 @@ export class App {
             this.resizeStrategy = new ResizeNone();
         }
 
-        // App size
-        this._width = this.app.renderer.width;
-        this._height = this.app.renderer.height;
-
         // Set app container and its size
         this.setContainer(container);
 
-        this.resize();
+        // App size
+        // this._width = this.app.renderer.width;
+        // this._height = this.app.renderer.height;
+        this._width = this.app.view.clientWidth;
+        this._height = this.app.view.clientHeight;
 
-        window.onresize = this.resize.bind(this);
+        this.ticker.add(this.coolResize.bind(this));
+
+        // this.resize();
+
+        // window.onresize = this.resize.bind(this);
     }
 
     private configure(options: AppOptions) {
-        if (options.stylePosition !== undefined) {
+        /*
+        if (options.stylePosition) {
             this.app.renderer.view.style.position = options.stylePosition;
         }
+        */
 
         switch (options.align) {
             case "top-right":
@@ -147,7 +153,7 @@ export class App {
         if (this._container && this._container !== null) {
             w = this._container.clientWidth;
         } else {
-            w = window.innerWidth;
+            w = this.renderer.view.clientWidth;
         }
 
         return w;
@@ -159,7 +165,7 @@ export class App {
         if (this._container && this._container !== null) {
             h = this._container.clientHeight;
         } else {
-            h = window.innerHeight;
+            h = this.renderer.view.clientHeight;
         }
 
         return h;
@@ -188,5 +194,20 @@ export class App {
         } else {
             document.body.appendChild(this.app.view);
         }
+    }
+
+    private coolResize(): boolean {
+        const multiplier = this.renderer.options.resolution || 1;
+        const clientWidth = this.app.view.clientWidth * multiplier;
+        const clientHeight = this.app.view.clientHeight * multiplier;
+
+        if (this.app.view.width !== clientWidth || this.app.view.height !== clientHeight) {
+            this.app.view.width = clientWidth;
+            this.app.view.height = clientHeight;
+
+            return true;
+        }
+
+        return false;
     }
 }
