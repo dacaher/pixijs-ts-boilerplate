@@ -14,9 +14,10 @@ export class TestApp {
         document.body.appendChild(div);
 
         const appOptions: AppOptions = {
-            width: 412,
-            height: 604,
-            autoResize: false,
+            width: 800,
+            height: 600,
+            scale: "keep-aspect-ratio",
+            align: "bottom-center",
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
@@ -26,7 +27,7 @@ export class TestApp {
 
         this.app = new App(appOptions);
 
-        this.drawSquare(this.app.width / 2 - 25, this.app.height / 2 - 25);
+        this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
         this.drawDebugInfo();
 
         PIXI.loader
@@ -54,13 +55,13 @@ export class TestApp {
 
         const graphics = new PIXI.Graphics();
         graphics.lineStyle(width, 0xFF00FF, 1);
-        graphics.drawRect(halfWidth, halfWidth, this.app.width - width, this.app.height - width);
+        graphics.drawRect(halfWidth, halfWidth, this.app.initialWidth - width, this.app.initialHeight - width);
 
         this.app.stage.addChild(graphics);
     }
 
     private getDimensionsText(): string {
-        return `app original w:${this.app.width} h:${this.app.height} (css px)\n` +
+        return `app original w:${this.app.initialWidth} h:${this.app.initialHeight} (css px)\n` +
         `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
         `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
         `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
@@ -130,8 +131,8 @@ export class TestApp {
         }
 
         // Center on the screen
-        container.x = (this.app.width - container.width) / 2;
-        container.y = (this.app.height - container.height) / 2;
+        container.x = (this.app.initialWidth - container.width) / 2;
+        container.y = (this.app.initialHeight - container.height) / 2;
 
         window.console.log(`container x:${container.x} y:${container.y} w:${container.width} h:${container.height}`);
     }

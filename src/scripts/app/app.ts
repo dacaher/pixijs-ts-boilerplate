@@ -9,38 +9,38 @@ import {AlignStrategy} from "./align/align-strategy";
 import {AlignTopCenter} from "./align/align-top-center";
 import {AlignTopLeft} from "./align/align-top-left";
 import {AlignTopRight} from "./align/align-top-right";
-import {ResizeFullSize} from "./resize/resize-full-size";
-import {ResizeKeepAspectRatio} from "./resize/resize-keep-aspect-ratio";
-import {ResizeNone} from "./resize/resize-none";
-import {ResizeStrategy} from "./resize/resize-strategy";
+import {ScaleFullSize} from "./scale/scale-full-size";
+import {ScaleKeepAspectRatio} from "./scale/scale-keep-aspect-ratio";
+import {ScaleNone} from "./scale/scale-none";
+import {ScaleStrategy} from "./scale/scale-strategy";
 
 export interface AppOptions extends PIXI.ApplicationOptions {
     width: number;
     height: number;
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
-    resize?: "none" | "keep-aspect-ratio" | "full-size";
+    scale?: "none" | "keep-aspect-ratio" | "full-size";
 }
 
 export class App {
     private readonly defaultOptions: AppOptions = {
         width: 800,
         height: 600,
-        resize: "none",
+        scale: "none",
         align: "top-left",
     };
 
     private app: PIXI.Application;
 
-    private _width: number;
-    private _height: number;
+    private width: number;
+    private height: number;
 
     private alignStrategy: AlignStrategy;
-    private resizeStrategy: ResizeStrategy;
+    private scaleStrategy: ScaleStrategy;
 
     constructor(options?: AppOptions) {
         this.app = new PIXI.Application(options);
         this.configure(options);
-        this.ticker.add(this.coolResize.bind(this));
+        this.ticker.add(this.resize.bind(this));
     }
 
     private configure(options: AppOptions | undefined): void {
@@ -48,16 +48,16 @@ export class App {
             options = this.defaultOptions;
         }
 
-        this._width = options.width;
-        this._height = options.height;
+        this.width = options.width;
+        this.height = options.height;
 
         switch (options.align) {
-            case "top-right":
-                this.alignStrategy = new AlignTopRight();
-                break;
-
             case "top-center":
                 this.alignStrategy = new AlignTopCenter();
+                break;
+
+            case "top-right":
+                this.alignStrategy = new AlignTopRight();
                 break;
 
             case "middle-left":
@@ -89,17 +89,17 @@ export class App {
                 break;
         }
 
-        switch (options.resize) {
+        switch (options.scale) {
             case "keep-aspect-ratio":
-                this.resizeStrategy = new ResizeKeepAspectRatio();
+                this.scaleStrategy = new ScaleKeepAspectRatio();
                 break;
 
             case "full-size":
-                this.resizeStrategy = new ResizeFullSize();
+                this.scaleStrategy = new ScaleFullSize();
                 break;
 
             default:
-                this.resizeStrategy = new ResizeNone();
+                this.scaleStrategy = new ScaleNone();
                 break;
         }
 
@@ -108,12 +108,12 @@ export class App {
         }
     }
 
-    get height(): number {
-        return this._height;
+    get initialHeight(): number {
+        return this.height;
     }
 
-    get width(): number {
-        return this._width;
+    get initialWidth(): number {
+        return this.width;
     }
 
     get stage(): PIXI.Container {
@@ -137,38 +137,29 @@ export class App {
     }
 
     private resize(): void {
-        /*
-        // Resize
-        const {scaleX, scaleY} = this.resizeStrategy.resize(this._width, this._height, this.containerWidth, this.containerHeight);
-        this.stage.scale.x = scaleX;
-        this.stage.scale.y = scaleY;
-
-        this.renderer.resize(Math.ceil(this._width * scaleX), Math.ceil(this._height * scaleY));
-
-        // Alignment
-        const {x, y} = this.alignStrategy.align(this.renderer.width, this.renderer.height, this.containerWidth, this.containerHeight);
-        this.renderer.view.style.left = x + "px";
-        this.renderer.view.style.top = y + "px";
-        */
-    }
-
-    private coolResize(): boolean {
         const multiplier = this.renderer.options.resolution || 1;
         const width = Math.floor(this.app.view.clientWidth * multiplier);
         const height = Math.floor(this.app.view.clientHeight * multiplier);
 
         if (this.app.view.width !== width || this.app.view.height !== height) {
-            // Determine which screen dimension is most constrained
-            // const ratio = Math.min(width / this._width, height / this._height);
+            // scale
+            this.scale();
 
-            // Scale the view appropriately to fill that dimension
-            this.stage.scale.x = this.app.view.clientWidth / this._width;
-            this.stage.scale.y = this.app.view.clientHeight / this._height;
-
+            // resize
             this.renderer.resize(this.app.view.clientWidth, this.app.view.clientHeight);
-            return true;
-        }
 
-        return false;
+            // align
+            this.align();
+        }
+    }
+
+    private scale(): void {
+        const {scaleX, scaleY} = this.scaleStrategy.scale(this.initialWidth, this.initialHeight, this.app.view.clientWidth, this.app.view.clientHeight);
+        this.stage.scale.set(scaleX, scaleY);
+    }
+
+    private align(): void {
+        const {x, y} = this.alignStrategy.align(this.stage.width, this.stage.height, this.app.view.clientWidth, this.app.view.clientHeight);
+        this.stage.position.set(x, y);
     }
 }
