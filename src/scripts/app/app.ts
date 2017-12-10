@@ -15,13 +15,15 @@ import {ResizeNone} from "./resize/resize-none";
 import {ResizeStrategy} from "./resize/resize-strategy";
 
 export interface AppOptions extends PIXI.ApplicationOptions {
-    stylePosition?: "static" | "absolute" | "relative" | "fixed" | "sticky" | "initial" | "inherit";
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
     resize?: "none" | "keep-aspect-ratio" | "full-size";
 }
 
 export class App {
     private app: PIXI.Application;
+
+    private defaultWidth = 800;
+    private defaultHeight = 600;
 
     private _width: number;
     private _height: number;
@@ -39,6 +41,8 @@ export class App {
         if (options !== undefined) {
             this.configure(options);
         } else {
+            this._width = this.defaultWidth;
+            this._height = this.defaultHeight;
             this.alignStrategy = new AlignTopLeft();
             this.resizeStrategy = new ResizeNone();
         }
@@ -49,22 +53,18 @@ export class App {
         // App size
         // this._width = this.app.renderer.width;
         // this._height = this.app.renderer.height;
-        this._width = this.app.view.clientWidth;
-        this._height = this.app.view.clientHeight;
+        // this._width = this.app.view.clientWidth;
+        // this._height = this.app.view.clientHeight;
 
+        this.coolResize();
         this.ticker.add(this.coolResize.bind(this));
-
-        // this.resize();
 
         // window.onresize = this.resize.bind(this);
     }
 
     private configure(options: AppOptions) {
-        /*
-        if (options.stylePosition) {
-            this.app.renderer.view.style.position = options.stylePosition;
-        }
-        */
+        this._width = options.width || this.defaultWidth;
+        this._height = options.height || this.defaultHeight;
 
         switch (options.align) {
             case "top-right":
@@ -147,6 +147,14 @@ export class App {
         return this.app.renderer;
     }
 
+    get screen(): PIXI.Rectangle {
+        return this.app.screen;
+    }
+
+    get view(): HTMLCanvasElement {
+        return this.app.view;
+    }
+
     private get containerWidth(): number {
         let w;
 
@@ -198,13 +206,18 @@ export class App {
 
     private coolResize(): boolean {
         const multiplier = this.renderer.options.resolution || 1;
-        const clientWidth = this.app.view.clientWidth * multiplier;
-        const clientHeight = this.app.view.clientHeight * multiplier;
+        const width = Math.floor(this.app.view.clientWidth * multiplier);
+        const height = Math.floor(this.app.view.clientHeight * multiplier);
 
-        if (this.app.view.width !== clientWidth || this.app.view.height !== clientHeight) {
-            this.app.view.width = clientWidth;
-            this.app.view.height = clientHeight;
+        if (this.app.view.width !== width || this.app.view.height !== height) {
+            // Determine which screen dimension is most constrained
+            // const ratio = Math.min(width / this._width, height / this._height);
 
+            // Scale the view appropriately to fill that dimension
+            this.stage.scale.x = this.app.view.clientWidth / this._width;
+            this.stage.scale.y = this.app.view.clientHeight / this._height;
+
+            this.renderer.resize(this.app.view.clientWidth, this.app.view.clientHeight);
             return true;
         }
 

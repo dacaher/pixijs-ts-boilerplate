@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: './src/index.ts',
+        index: './src/scripts/index.ts',
     },
     module: {
         rules: [
@@ -22,7 +22,7 @@ module.exports = {
         new CheckerPlugin(),
         new HtmlWebpackPlugin({
             title: 'My PIXI App',
-            template: 'src/index.html',
+            template: 'src/html/index.html',
             hash: true,
             minify: {
                 collapseWhitespace: false,

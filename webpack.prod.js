@@ -76,7 +76,7 @@ module.exports = merge(common, {
             }
         }),
         new ExtractTextPlugin({
-            filename: '[name].css',
+            filename: '[name].bundle.css',
             allChunks: true,
             disable: false
         }),

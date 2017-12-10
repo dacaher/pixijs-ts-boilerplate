@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "dacaher",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/pixi.js": "^4.5.7",
     "pixi.js": "^4.5.6"
