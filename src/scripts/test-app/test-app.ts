@@ -2,22 +2,27 @@ import {App, AppOptions} from "../app/app";
 
 export class TestApp {
     private app: App;
+    private screenInfo: PIXI.Container;
 
     constructor() {
+        const canvas = document.createElement("canvas");
+        canvas.setAttribute("id", "myCanvas");
+
+        const div = document.createElement("div");
+        div.appendChild(canvas);
+
+        document.body.appendChild(div);
+
         const appOptions: AppOptions = {
-            width: 1920,
-            height: 1080,
-            align: "top-left",
-            resize: "none",
+            width: 412,
+            height: 604,
             autoResize: false,
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
             backgroundColor: 0x222222,
+            view: canvas,
         };
-
-        // const container = document.getElementById("canvasContainer");
-        // this.app = new App(appOptions, container);
 
         this.app = new App(appOptions);
 
@@ -31,10 +36,10 @@ export class TestApp {
     }
 
     public drawSquare(x = 0, y = 0, s = 50, r = 10): void {
-        this.drawRectangle(x, y, s, s, r);
+        this.drawRoundedRectangle(x, y, s, s, r);
     }
 
-    public drawRectangle(x = 0, y = 0, w = 50, h = 50, r = 10): void {
+    public drawRoundedRectangle(x = 0, y = 0, w = 50, h = 50, r = 10): void {
         const graphics = new PIXI.Graphics();
         graphics.lineStyle(2, 0xFF00FF, 1);
         graphics.beginFill(0xFF00BB, 0.25);
@@ -49,29 +54,26 @@ export class TestApp {
 
         const graphics = new PIXI.Graphics();
         graphics.lineStyle(width, 0xFF00FF, 1);
-        // graphics.beginFill(0xFF00BB, 0.25);
         graphics.drawRect(halfWidth, halfWidth, this.app.width - width, this.app.height - width);
-        // graphics.endFill();
 
         this.app.stage.addChild(graphics);
     }
 
     private getDimensionsText(): string {
-        return `
-        app original w:${this.app.width} h:${this.app.height}
-        app.view w:${this.app.view.width} h:${this.app.view.height} (real px)
-        clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)
-        app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)
-        window innerW:${window.innerWidth} innerH:${window.innerHeight} (css px)
-        stage pos(${this.app.stage.x}, ${this.app.stage.y}) size(${this.app.stage.width}, ${this.app.stage.height}) scale(${this.app.stage.scale.x}, ${this.app.stage.scale.y}) (css px)
-        `;
+        return `app original w:${this.app.width} h:${this.app.height} (css px)\n` +
+        `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
+        `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
+        `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
+        `window innerW:${window.innerWidth} innerH:${window.innerHeight} (css px)\n` +
+        `stage pos(${this.app.stage.x}, ${this.app.stage.y}) size(${Math.ceil(this.app.stage.width)}, ${Math.ceil(this.app.stage.height)}) scale(${this.app.stage.scale.x.toFixed(2)}, ${this.app.stage.scale.y.toFixed(2)}) (css px)`
+        ;
     }
 
     private drawDebugInfo(): void {
-        const container = new PIXI.Container();
-        container.x = 10;
-        container.y = 10;
-        this.app.stage.addChild(container);
+        this.screenInfo = new PIXI.Container();
+        this.screenInfo.x = 10;
+        this.screenInfo.y = 10;
+        this.app.stage.addChild(this.screenInfo);
 
         const style = new PIXI.TextStyle({
             fontFamily: "Verdana",
@@ -81,7 +83,7 @@ export class TestApp {
         });
 
         const pixiText = new PIXI.Text(this.getDimensionsText(), style);
-        container.addChild(pixiText);
+        this.screenInfo.addChild(pixiText);
 
         this.app.ticker.add(() => {
             pixiText.text = this.getDimensionsText();
@@ -99,15 +101,13 @@ export class TestApp {
 
         // Setup the position of the explorer
         const maxEdge = Math.max(explorer.width, explorer.height);
-        explorer.position.set(Math.ceil(maxEdge / 2) + 5, Math.ceil(maxEdge / 2) + 5);
+        explorer.position.set(this.screenInfo.x + Math.ceil(maxEdge / 2), this.screenInfo.y + this.screenInfo.height + Math.ceil(maxEdge / 2) + 6);
 
         // Rotate around the center
         explorer.anchor.set(0.5, 0.5);
 
         // Add the explorer to the scene we are building
         this.app.stage.addChild(explorer);
-
-        window.console.log(`pos(${explorer.x}, ${explorer.y}) size(${explorer.width}, ${explorer.height}) scale(${explorer.scale.x}, ${explorer.scale.y})`);
 
         // Listen for frame updates
         this.app.ticker.add(() => {

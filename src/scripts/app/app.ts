@@ -15,15 +15,21 @@ import {ResizeNone} from "./resize/resize-none";
 import {ResizeStrategy} from "./resize/resize-strategy";
 
 export interface AppOptions extends PIXI.ApplicationOptions {
+    width: number;
+    height: number;
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
     resize?: "none" | "keep-aspect-ratio" | "full-size";
 }
 
 export class App {
-    private app: PIXI.Application;
+    private readonly defaultOptions: AppOptions = {
+        width: 800,
+        height: 600,
+        resize: "none",
+        align: "top-left",
+    };
 
-    private defaultWidth = 800;
-    private defaultHeight = 600;
+    private app: PIXI.Application;
 
     private _width: number;
     private _height: number;
@@ -31,40 +37,19 @@ export class App {
     private alignStrategy: AlignStrategy;
     private resizeStrategy: ResizeStrategy;
 
-    private _container: HTMLDivElement | HTMLSpanElement | undefined | null;
-
-    constructor(options?: AppOptions,
-                container?: HTMLDivElement | HTMLSpanElement | null) {
+    constructor(options?: AppOptions) {
         this.app = new PIXI.Application(options);
-
-        // Configure with opts
-        if (options !== undefined) {
-            this.configure(options);
-        } else {
-            this._width = this.defaultWidth;
-            this._height = this.defaultHeight;
-            this.alignStrategy = new AlignTopLeft();
-            this.resizeStrategy = new ResizeNone();
-        }
-
-        // Set app container and its size
-        this.setContainer(container);
-
-        // App size
-        // this._width = this.app.renderer.width;
-        // this._height = this.app.renderer.height;
-        // this._width = this.app.view.clientWidth;
-        // this._height = this.app.view.clientHeight;
-
-        this.coolResize();
+        this.configure(options);
         this.ticker.add(this.coolResize.bind(this));
-
-        // window.onresize = this.resize.bind(this);
     }
 
-    private configure(options: AppOptions) {
-        this._width = options.width || this.defaultWidth;
-        this._height = options.height || this.defaultHeight;
+    private configure(options: AppOptions | undefined): void {
+        if (!options) {
+            options = this.defaultOptions;
+        }
+
+        this._width = options.width;
+        this._height = options.height;
 
         switch (options.align) {
             case "top-right":
@@ -117,6 +102,10 @@ export class App {
                 this.resizeStrategy = new ResizeNone();
                 break;
         }
+
+        if (!options.view) {
+            document.body.appendChild(this.app.view);
+        }
     }
 
     get height(): number {
@@ -125,14 +114,6 @@ export class App {
 
     get width(): number {
         return this._width;
-    }
-
-    get currentHeight(): number {
-        return this.renderer.height;
-    }
-
-    get currentWidth(): number {
-        return this.renderer.width;
     }
 
     get stage(): PIXI.Container {
@@ -155,31 +136,8 @@ export class App {
         return this.app.view;
     }
 
-    private get containerWidth(): number {
-        let w;
-
-        if (this._container && this._container !== null) {
-            w = this._container.clientWidth;
-        } else {
-            w = this.renderer.view.clientWidth;
-        }
-
-        return w;
-    }
-
-    private get containerHeight(): number {
-        let h;
-
-        if (this._container && this._container !== null) {
-            h = this._container.clientHeight;
-        } else {
-            h = this.renderer.view.clientHeight;
-        }
-
-        return h;
-    }
-
     private resize(): void {
+        /*
         // Resize
         const {scaleX, scaleY} = this.resizeStrategy.resize(this._width, this._height, this.containerWidth, this.containerHeight);
         this.stage.scale.x = scaleX;
@@ -191,17 +149,7 @@ export class App {
         const {x, y} = this.alignStrategy.align(this.renderer.width, this.renderer.height, this.containerWidth, this.containerHeight);
         this.renderer.view.style.left = x + "px";
         this.renderer.view.style.top = y + "px";
-
-        window.console.log(`orig:${this.width},${this.height} current:${this.currentWidth},${this.currentHeight} scale:${this.stage.scale.x},${this.stage.scale.y}`);
-    }
-
-    private setContainer(container: HTMLDivElement | HTMLSpanElement | any) {
-        if (container && container !== null && container.nodeName && (container.nodeName === "DIV" || container.nodeName === "SPAN")) {
-            this._container = container;
-            container.appendChild(this.app.view);
-        } else {
-            document.body.appendChild(this.app.view);
-        }
+        */
     }
 
     private coolResize(): boolean {
