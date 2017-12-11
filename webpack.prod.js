@@ -16,7 +16,7 @@ const tsConfig = 'tsconfig.prod.json';
 module.exports = merge(common, {
     output: {
         path: path.resolve(__dirname, outputDir),
-        filename: '[name].bundle.js',
+        filename: '[name].bundle.min.js',
         publicPath: publicPath,
         crossOriginLoading: 'anonymous'
     },
@@ -76,7 +76,7 @@ module.exports = merge(common, {
             }
         }),
         new ExtractTextPlugin({
-            filename: '[name].bundle.css',
+            filename: '[name].bundle.min.css',
             allChunks: true,
             disable: false
         }),
