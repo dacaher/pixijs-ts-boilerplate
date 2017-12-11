@@ -14,10 +14,10 @@ export class TestApp {
         document.body.appendChild(div);
 
         const appOptions: AppOptions = {
-            width: 800,
+            width: 600,
             height: 600,
             scale: "keep-aspect-ratio",
-            align: "bottom-center",
+            align: "middle",
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
@@ -61,7 +61,7 @@ export class TestApp {
     }
 
     private getDimensionsText(): string {
-        return `app original w:${this.app.initialWidth} h:${this.app.initialHeight} (css px)\n` +
+        return `initial res w:${this.app.initialWidth} h:${this.app.initialHeight} (css px)\n` +
         `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
         `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
         `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
@@ -121,19 +121,17 @@ export class TestApp {
         const container = new PIXI.Container();
         this.app.stage.addChild(container);
 
-        // Create a 4x4 grid of bunnies
-        for (let i = 0; i < 16; i++) {
+        // Create a 5x5 grid of bunnies
+        for (let i = 0; i < 25; i++) {
             const bunny = new PIXI.Sprite(PIXI.loader.resources.bunny.texture);
             // bunny.anchor.set(0.5);
-            bunny.x = (i % 4) * 40;
-            bunny.y = Math.floor(i / 4) * 40;
+            bunny.x = (i % 5) * 40;
+            bunny.y = Math.floor(i / 5) * 40;
             container.addChild(bunny);
         }
 
         // Center on the screen
-        container.x = (this.app.initialWidth - container.width) / 2;
-        container.y = (this.app.initialHeight - container.height) / 2;
-
-        window.console.log(`container x:${container.x} y:${container.y} w:${container.width} h:${container.height}`);
+        container.x = (this.app.initialWidth - container.width) - 15;
+        container.y = (this.app.initialHeight - container.height) - 15;
     }
 }

@@ -5,7 +5,7 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
-const outputDir = 'build';
+const outputDir = 'dev';
 const publicPath = '/';
 const tsConfig = 'tsconfig.dev.json';
 

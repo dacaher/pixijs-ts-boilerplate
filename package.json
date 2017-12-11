@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf build dist",
+    "clean": "rimraf dev dist",
     "build": "webpack --config webpack.dev.js --display 'verbose' --progress --profile",
     "build:release": "webpack --config webpack.prod.js --display 'verbose' --progress --profile",
     "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",

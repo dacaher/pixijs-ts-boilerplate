@@ -52,10 +52,10 @@ Note that pixi.js is kept as a external dependency and it is not bundled within 
 
 ## NPM scripts
 
-- clean - [removes](https://github.com/isaacs/rimraf) build and dist dir
-- build - compiles and copy all the assets to build dir
+- clean - [removes](https://github.com/isaacs/rimraf) dev and dist dir
+- build - compiles and copy all the assets to dev dir
 - build:release - compiles and [uglifies](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) to dist dir
-- serve - serves (0.0.0.0:9000) build dir with Hot Module Replacement enabled through [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+- serve - serves (0.0.0.0:9000) dev dir with Hot Module Replacement enabled through [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 - serve:dash - same as serve with a fancy interface thanks to [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 - serve:release - serves (0.0.0.0:9999) dist dir through [http-server](https://github.com/indexzero/http-server) to test production bundle
 - test: does nothing yet
@@ -65,7 +65,7 @@ Note that pixi.js is kept as a external dependency and it is not bundled within 
 - [ ] Add some ts testing lib/framework
 - [ ] Replace npm with yarn?
 - [ ] Bundle (s)css styles within the app?
-- [ ] Avoid using 2 http servers to serve build & dist if possible
+- [ ] Avoid using 2 http servers to serve dev & dist
 
 ## Contributing
 
