@@ -23,6 +23,7 @@ export class TestApp {
             transparent: false,
             backgroundColor: 0x222222,
             view: canvas,
+            showFPS: true,
         };
 
         this.app = new App(appOptions);
@@ -62,12 +63,12 @@ export class TestApp {
 
     private getDimensionsText(): string {
         return `initial res w:${this.app.initialWidth} h:${this.app.initialHeight} (css px)\n` +
-        `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
-        `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
-        `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
-        `window innerW:${window.innerWidth} innerH:${window.innerHeight} (css px)\n` +
-        `stage pos(${this.app.stage.x}, ${this.app.stage.y}) size(${Math.ceil(this.app.stage.width)}, ${Math.ceil(this.app.stage.height)}) scale(${this.app.stage.scale.x.toFixed(2)}, ${this.app.stage.scale.y.toFixed(2)}) (css px)`
-        ;
+            `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
+            `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
+            `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
+            `window innerW:${window.innerWidth} innerH:${window.innerHeight} (css px)\n` +
+            `stage pos(${this.app.stage.x}, ${this.app.stage.y}) size(${Math.ceil(this.app.stage.width)}, ${Math.ceil(this.app.stage.height)}) scale(${this.app.stage.scale.x.toFixed(2)}, ${this.app.stage.scale.y.toFixed(2)}) (css px)`
+            ;
     }
 
     private drawDebugInfo(): void {

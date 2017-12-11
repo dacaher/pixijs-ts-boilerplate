@@ -1,3 +1,4 @@
+import "fpsmeter";
 import * as PIXI from "pixi.js";
 import {AlignBottomCenter} from "./align/align-bottom-center";
 import {AlignBottomLeft} from "./align/align-bottom-left";
@@ -19,6 +20,7 @@ export interface AppOptions extends PIXI.ApplicationOptions {
     height: number;
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
     scale?: "none" | "keep-aspect-ratio" | "full-size";
+    showFPS?: boolean;
 }
 
 export class App {
@@ -27,6 +29,14 @@ export class App {
         height: 600,
         scale: "none",
         align: "top-left",
+        showFPS: false,
+    };
+
+    private readonly fpsmeterOpts: FPSMeterOptions = {
+        graph: 1,
+        heat: 1,
+        history: 20,
+        theme: "transparent",
     };
 
     private app: PIXI.Application;
@@ -37,17 +47,50 @@ export class App {
     private alignStrategy: AlignStrategy;
     private scaleStrategy: ScaleStrategy;
 
+    private fpsmeter: FPSMeter;
+
     constructor(options?: AppOptions) {
+        if (!options) {
+            options = this.defaultOptions;
+        }
+
+        this.fpsmeter = new FPSMeter(document.body, this.fpsmeterOpts);
+        this.fpsmeter.hide();
+
         this.app = new PIXI.Application(options);
         this.configure(options);
         this.ticker.add(this.resize.bind(this));
     }
 
-    private configure(options: AppOptions | undefined): void {
-        if (!options) {
-            options = this.defaultOptions;
-        }
+    get initialHeight(): number {
+        return this.height;
+    }
 
+    get initialWidth(): number {
+        return this.width;
+    }
+
+    get stage(): PIXI.Container {
+        return this.app.stage;
+    }
+
+    get ticker(): PIXI.ticker.Ticker {
+        return this.app.ticker;
+    }
+
+    get renderer(): PIXI.WebGLRenderer | PIXI.CanvasRenderer {
+        return this.app.renderer;
+    }
+
+    get screen(): PIXI.Rectangle {
+        return this.app.screen;
+    }
+
+    get view(): HTMLCanvasElement {
+        return this.app.view;
+    }
+
+    private configure(options: AppOptions): void {
         this.width = options.width;
         this.height = options.height;
 
@@ -103,37 +146,14 @@ export class App {
                 break;
         }
 
-        if (!options.view) {
-            document.body.appendChild(this.app.view);
+        if (options.showFPS) {
+            this.ticker.add(this.fpsmeter.tick);
+            this.fpsmeter.show();
         }
-    }
 
-    get initialHeight(): number {
-        return this.height;
-    }
-
-    get initialWidth(): number {
-        return this.width;
-    }
-
-    get stage(): PIXI.Container {
-        return this.app.stage;
-    }
-
-    get ticker(): PIXI.ticker.Ticker {
-        return this.app.ticker;
-    }
-
-    get renderer(): PIXI.WebGLRenderer | PIXI.CanvasRenderer {
-        return this.app.renderer;
-    }
-
-    get screen(): PIXI.Rectangle {
-        return this.app.screen;
-    }
-
-    get view(): HTMLCanvasElement {
-        return this.app.view;
+        if (!options.view) {
+            document.body.appendChild(this.app.view); // If no container specified, add it to html body
+        }
     }
 
     private resize(): void {

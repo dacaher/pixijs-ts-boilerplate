@@ -16,7 +16,9 @@
   "author": "dacaher",
   "license": "MIT",
   "dependencies": {
+    "@types/fpsmeter": "^0.3.29",
     "@types/pixi.js": "^4.5.7",
+    "fpsmeter": "^0.3.1",
     "pixi.js": "^4.5.6"
   },
   "devDependencies": {
