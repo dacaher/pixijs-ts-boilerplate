@@ -33,10 +33,11 @@ export class App {
     };
 
     private readonly fpsmeterOpts: FPSMeterOptions = {
-        graph: 1,
-        heat: 1,
-        history: 20,
         theme: "transparent",
+        heat: 1,
+        graph: 1,
+        history: 20,
+        zIndex: 100,
     };
 
     private app: PIXI.Application;
@@ -53,9 +54,6 @@ export class App {
         if (!options) {
             options = this.defaultOptions;
         }
-
-        this.fpsmeter = new FPSMeter(document.body, this.fpsmeterOpts);
-        this.fpsmeter.hide();
 
         this.app = new PIXI.Application(options);
         this.configure(options);
@@ -147,6 +145,7 @@ export class App {
         }
 
         if (options.showFPS) {
+            this.fpsmeter = new FPSMeter(document.body, this.fpsmeterOpts);
             this.ticker.add(this.fpsmeter.tick);
             this.fpsmeter.show();
         }
