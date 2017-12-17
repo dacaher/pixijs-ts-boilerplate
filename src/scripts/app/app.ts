@@ -1,19 +1,21 @@
 import "fpsmeter";
 import * as PIXI from "pixi.js";
-import {AlignBottomCenter} from "./align/align-bottom-center";
-import {AlignBottomLeft} from "./align/align-bottom-left";
-import {AlignBottomRight} from "./align/align-bottom-right";
-import {AlignMiddle} from "./align/align-middle";
-import {AlignMiddleLeft} from "./align/align-middle-left";
-import {AlignMiddleRight} from "./align/align-middle-right";
-import {AlignStrategy} from "./align/align-strategy";
-import {AlignTopCenter} from "./align/align-top-center";
-import {AlignTopLeft} from "./align/align-top-left";
-import {AlignTopRight} from "./align/align-top-right";
-import {ScaleFullSize} from "./scale/scale-full-size";
-import {ScaleKeepAspectRatio} from "./scale/scale-keep-aspect-ratio";
-import {ScaleNone} from "./scale/scale-none";
-import {ScaleStrategy} from "./scale/scale-strategy";
+import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
+import {AlignBottomCenter} from "./stage/align/align-bottom-center";
+import {AlignBottomLeft} from "./stage/align/align-bottom-left";
+import {AlignBottomRight} from "./stage/align/align-bottom-right";
+import {AlignMiddle} from "./stage/align/align-middle";
+import {AlignMiddleLeft} from "./stage/align/align-middle-left";
+import {AlignMiddleRight} from "./stage/align/align-middle-right";
+import {AlignStrategy} from "./stage/align/align-strategy";
+import {AlignTopCenter} from "./stage/align/align-top-center";
+import {AlignTopLeft} from "./stage/align/align-top-left";
+import {AlignTopRight} from "./stage/align/align-top-right";
+import {ScaleFullSize} from "./stage/scale/scale-full-size";
+import {ScaleKeepAspectRatio} from "./stage/scale/scale-keep-aspect-ratio";
+import {ScaleNone} from "./stage/scale/scale-none";
+import {ScaleStrategy} from "./stage/scale/scale-strategy";
+import {Dom} from "./util/dom";
 
 export interface AppOptions extends PIXI.ApplicationOptions {
     width: number;
@@ -21,15 +23,20 @@ export interface AppOptions extends PIXI.ApplicationOptions {
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
     scale?: "none" | "keep-aspect-ratio" | "full-size";
     showFPS?: boolean;
+    showMediaInfo?: boolean;
 }
 
 export class App {
+    private readonly defaultScaleMethod = "none";
+    private readonly defaultAlignMethod = "top-left";
+
     private readonly defaultOptions: AppOptions = {
         width: 800,
         height: 600,
-        scale: "none",
-        align: "top-left",
+        scale: this.defaultScaleMethod,
+        align: this.defaultAlignMethod,
         showFPS: false,
+        showMediaInfo: false,
     };
 
     private readonly fpsmeterOpts: FPSMeterOptions = {
@@ -41,6 +48,7 @@ export class App {
     };
 
     private app: PIXI.Application;
+    private appOptions: AppOptions;
 
     private width: number;
     private height: number;
@@ -49,15 +57,20 @@ export class App {
     private scaleStrategy: ScaleStrategy;
 
     private fpsmeter: FPSMeter;
+    private mediaInfoViewer: MediaInfoViewer;
 
     constructor(options?: AppOptions) {
         if (!options) {
             options = this.defaultOptions;
         }
 
+        this.mediaInfoViewer = new MediaInfoViewer();
+
         this.app = new PIXI.Application(options);
         this.configure(options);
         this.ticker.add(this.resize.bind(this));
+
+        this.appOptions = options;
     }
 
     get initialHeight(): number {
@@ -145,40 +158,78 @@ export class App {
         }
 
         if (options.showFPS) {
-            this.fpsmeter = new FPSMeter(document.body, this.fpsmeterOpts);
-            this.ticker.add(this.fpsmeter.tick);
-            this.fpsmeter.show();
+            this.createFPSmeter();
+        }
+
+        if (!options.showMediaInfo) {
+            this.mediaInfoViewer.hide();
         }
 
         if (!options.view) {
-            document.body.appendChild(this.app.view); // If no container specified, add it to html body
+            document.body.appendChild(this.app.view); // If no canvas specified, add it to html body
         }
+    }
+
+    private createFPSmeter(): void {
+        this.fpsmeter = new FPSMeter(Dom.getElementOrBody("fps-meter"), this.fpsmeterOpts);
+        this.ticker.add(this.fpsmeter.tick);
+        this.fpsmeter.show();
     }
 
     private resize(): void {
         const multiplier = this.renderer.options.resolution || 1;
-        const width = Math.floor(this.app.view.clientWidth * multiplier);
-        const height = Math.floor(this.app.view.clientHeight * multiplier);
+        const width = Math.floor(this.view.clientWidth * multiplier);
+        const height = Math.floor(this.view.clientHeight * multiplier);
 
-        if (this.app.view.width !== width || this.app.view.height !== height) {
+        if (this.view.width !== width || this.view.height !== height) {
+            // resize
+            this.renderer.resize(this.view.clientWidth, this.view.clientHeight);
+
             // scale
             this.scale();
 
-            // resize
-            this.renderer.resize(this.app.view.clientWidth, this.app.view.clientHeight);
-
             // align
             this.align();
+
+            // update media info
+            this.mediaInfoViewer.update(this.getMediaInfo());
         }
     }
 
     private scale(): void {
-        const {scaleX, scaleY} = this.scaleStrategy.scale(this.initialWidth, this.initialHeight, this.app.view.clientWidth, this.app.view.clientHeight);
+        const {scaleX, scaleY} = this.scaleStrategy.scale(this.initialWidth, this.initialHeight, this.view.clientWidth, this.view.clientHeight);
         this.stage.scale.set(scaleX, scaleY);
     }
 
     private align(): void {
-        const {x, y} = this.alignStrategy.align(this.stage.width, this.stage.height, this.app.view.clientWidth, this.app.view.clientHeight);
+        const {x, y} = this.alignStrategy.align(this.stage.width, this.stage.height, this.view.clientWidth, this.view.clientHeight);
         this.stage.position.set(x, y);
+    }
+
+    private getMediaInfo(): MediaInfoData {
+        return {
+            display: {
+                screen: {
+                    width: this.screen.width,
+                    height: this.screen.height,
+                },
+                view: {
+                    width: this.view.clientWidth,
+                    height: this.view.clientHeight,
+                },
+                stage: {
+                    x: this.stage.x,
+                    y: this.stage.y,
+                    initialWidth: this.initialWidth,
+                    initialHeight: this.initialHeight,
+                    currentWidth: Math.ceil(this.stage.width),
+                    currentHeight: Math.ceil(this.stage.height),
+                    scaleX: this.stage.scale.x.toFixed(2),
+                    scaleY: this.stage.scale.y.toFixed(2),
+                    scaleMethod: this.appOptions.scale ? this.appOptions.scale.valueOf() : this.defaultScaleMethod,
+                    alignMethod: this.appOptions.align ? this.appOptions.align.valueOf() : this.defaultAlignMethod,
+                },
+            },
+        };
     }
 }

@@ -1,10 +1,12 @@
 import {App, AppOptions} from "../app/app";
+import {RotatingSprite} from "./rotating-sprite";
 
 export class TestApp {
     private app: App;
-    private screenInfo: PIXI.Container;
 
     constructor() {
+
+        /* if no view is specified, it appends canvas to body */
         const canvas = document.createElement("canvas");
         canvas.setAttribute("id", "myCanvas");
 
@@ -14,22 +16,22 @@ export class TestApp {
         document.body.appendChild(div);
 
         const appOptions: AppOptions = {
-            width: 600,
-            height: 600,
-            scale: "keep-aspect-ratio",
-            align: "middle",
+            width: 1280,
+            height: 720,
+            scale: "full-size",
+            align: "top-left",
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
-            backgroundColor: 0x222222,
+            backgroundColor: 0x000000,
             view: canvas,
             showFPS: true,
+            showMediaInfo: true,
         };
 
         this.app = new App(appOptions);
 
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
-        this.drawDebugInfo();
 
         PIXI.loader
             .add("explorer", "assets/gfx/explorer.png")
@@ -61,37 +63,6 @@ export class TestApp {
         this.app.stage.addChild(graphics);
     }
 
-    private getDimensionsText(): string {
-        return `initial res w:${this.app.initialWidth} h:${this.app.initialHeight} (css px)\n` +
-            `app.view w:${this.app.view.width} h:${this.app.view.height} (real px)\n` +
-            `clientW:${this.app.view.clientWidth} clientH:${this.app.view.clientHeight} (css px)\n` +
-            `app.screen w:${this.app.screen.width} h:${this.app.screen.height} (css px)\n` +
-            `window innerW:${window.innerWidth} innerH:${window.innerHeight} (css px)\n` +
-            `stage pos(${this.app.stage.x}, ${this.app.stage.y}) size(${Math.ceil(this.app.stage.width)}, ${Math.ceil(this.app.stage.height)}) scale(${this.app.stage.scale.x.toFixed(2)}, ${this.app.stage.scale.y.toFixed(2)}) (css px)`
-            ;
-    }
-
-    private drawDebugInfo(): void {
-        this.screenInfo = new PIXI.Container();
-        this.screenInfo.x = 10;
-        this.screenInfo.y = 10;
-        this.app.stage.addChild(this.screenInfo);
-
-        const style = new PIXI.TextStyle({
-            fontFamily: "Verdana",
-            fontSize: 12,
-            fontWeight: "bold",
-            fill: 0xFFFFFF,
-        });
-
-        const pixiText = new PIXI.Text(this.getDimensionsText(), style);
-        this.screenInfo.addChild(pixiText);
-
-        this.app.ticker.add(() => {
-            pixiText.text = this.getDimensionsText();
-        });
-    }
-
     private onAssetsLoaded(): void {
         this.drawRotatingExplorer();
         this.drawBunnies();
@@ -99,14 +70,22 @@ export class TestApp {
 
     private drawRotatingExplorer(): void {
         // This creates a texture from a "explorer.png" image
-        const explorer: PIXI.Sprite = new PIXI.Sprite(PIXI.loader.resources.explorer.texture);
+        const explorer: RotatingSprite = new RotatingSprite(PIXI.loader.resources.explorer.texture);
 
         // Setup the position of the explorer
         const maxEdge = Math.max(explorer.width, explorer.height);
-        explorer.position.set(this.screenInfo.x + Math.ceil(maxEdge / 2), this.screenInfo.y + this.screenInfo.height + Math.ceil(maxEdge / 2) + 6);
+        explorer.position.set(Math.ceil(maxEdge / 2) + 10, Math.ceil(maxEdge / 2) + 10);
 
         // Rotate around the center
         explorer.anchor.set(0.5, 0.5);
+
+        explorer.interactive = true;
+        explorer.buttonMode = true;
+        explorer.rotationVelocity = 0.02;
+
+        explorer.on("pointerdown", () => {
+            explorer.rotationVelocity *= -1;
+        });
 
         // Add the explorer to the scene we are building
         this.app.stage.addChild(explorer);
@@ -114,7 +93,7 @@ export class TestApp {
         // Listen for frame updates
         this.app.ticker.add(() => {
             // each frame we spin the explorer around a bit
-            explorer.rotation += 0.02;
+            explorer.rotation += explorer.rotationVelocity;
         });
     }
 
@@ -132,7 +111,7 @@ export class TestApp {
         }
 
         // Center on the screen
-        container.x = (this.app.initialWidth - container.width) - 15;
-        container.y = (this.app.initialHeight - container.height) - 15;
+        container.x = (this.app.initialWidth - container.width) - 10;
+        container.y = (this.app.initialHeight - container.height) - 10;
     }
 }
