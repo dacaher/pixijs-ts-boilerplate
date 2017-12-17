@@ -37,7 +37,7 @@ module.exports = merge(common, {
                     {
                         loader: 'typings-for-css-modules-loader',
                         options: {
-                            modules: true
+                            modules: false
                         }
                     }
                 ]
@@ -49,7 +49,7 @@ module.exports = merge(common, {
                     {
                         loader: 'typings-for-css-modules-loader',
                         options: {
-                            modules: true,
+                            modules: false,
                             sass: true
                         }
                     }
