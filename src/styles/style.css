@@ -8,6 +8,11 @@ html {
     height: 100%;
 }
 
+body {
+    width: inherit;
+    height: inherit;
+}
+
 canvas {
     display: block;
     position: absolute;
@@ -17,6 +22,14 @@ canvas {
 
 .hidden {
     visibility: hidden;
+}
+
+.stretch-width {
+    width: 100%;
+}
+
+.stretch-height {
+    height: 100%;
 }
 
 .button {

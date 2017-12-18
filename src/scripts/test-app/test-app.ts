@@ -1,4 +1,5 @@
 import {App, AppOptions} from "../app/app";
+import {Dom} from "../app/util/dom";
 import {RotatingSprite} from "./rotating-sprite";
 
 export class TestApp {
@@ -6,15 +7,9 @@ export class TestApp {
 
     constructor() {
 
-        /* if no view is specified, it appends canvas to body */
-        const canvas = document.createElement("canvas");
-        canvas.setAttribute("id", "myCanvas");
+        const canvas = Dom.getElementOrCreateNew<HTMLCanvasElement>("app-canvas", "canvas", document.getElementById("app-root"));
 
-        const div = document.createElement("div");
-        div.appendChild(canvas);
-
-        document.body.appendChild(div);
-
+        // if no view is specified, it appends canvas to body
         const appOptions: AppOptions = {
             width: 1280,
             height: 720,
@@ -32,6 +27,7 @@ export class TestApp {
         this.app = new App(appOptions);
 
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
+        this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
 
         PIXI.loader
             .add("explorer", "assets/gfx/explorer.png")
@@ -50,6 +46,12 @@ export class TestApp {
         graphics.drawRoundedRect(x, y, w, h, r);
         graphics.endFill();
 
+        graphics.interactive = true;
+        graphics.buttonMode = true;
+        graphics.on("pointerdown", () => {
+            this.app.toggleFulscreen(document.getElementById("app-root"));
+        });
+
         this.app.stage.addChild(graphics);
     }
 
@@ -61,6 +63,24 @@ export class TestApp {
         graphics.drawRect(halfWidth, halfWidth, this.app.initialWidth - width, this.app.initialHeight - width);
 
         this.app.stage.addChild(graphics);
+    }
+
+    private addFullscreenText(x: number, y: number): void {
+        const style = new PIXI.TextStyle({
+            fontFamily: "Verdana",
+            fontSize: 18,
+            fill: "#FFFFFF",
+            wordWrap: true,
+            wordWrapWidth: 440,
+        });
+
+        const richText = new PIXI.Text("Click the square to toggle fullscreen!", style);
+        richText.anchor.set(0.5, 0.5);
+        richText.x = x;
+        richText.y = y;
+
+        this.app.stage.addChild(richText);
+
     }
 
     private onAssetsLoaded(): void {

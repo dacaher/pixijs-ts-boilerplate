@@ -1,3 +1,5 @@
+import {Dom} from "../util/dom";
+
 export interface DisplayData {
     screen: { width: number, height: number };
     view: { width: number, height: number };
@@ -10,8 +12,8 @@ export interface DisplayData {
         currentHeight: number,
         scaleX: string,
         scaleY: string,
-        scaleMethod: string;
-        alignMethod: string;
+        scaling: string;
+        alignment: string;
     };
 }
 
@@ -20,7 +22,7 @@ export interface MediaInfoData {
 }
 
 export class MediaInfoViewer {
-    private rootContainer: HTMLDivElement;
+    private rootContainer: HTMLElement;
     private textContainer: HTMLDivElement;
     private data: MediaInfoData;
 
@@ -44,9 +46,8 @@ export class MediaInfoViewer {
 
     private createContainer(): void {
         // root container
-        this.rootContainer = document.createElement("div");
+        this.rootContainer = Dom.getElementOrCreateNew("media-info", "div");
         this.rootContainer.className = "media-info";
-        document.body.appendChild(this.rootContainer);
 
         // close button
         const closeBtn = document.createElement("button");
@@ -75,8 +76,8 @@ export class MediaInfoViewer {
             `<div>initial ${this.data.display.stage.initialWidth}x${this.data.display.stage.initialHeight} ${this.data.display.stage.initialWidth / stageInitialGCD}:${this.data.display.stage.initialHeight / stageInitialGCD}</div>` +
             `<div>current ${this.data.display.stage.currentWidth}x${this.data.display.stage.currentHeight}</div>` +
             `<div>scale (${this.data.display.stage.scaleX}, ${this.data.display.stage.scaleY})</div>` +
-            `<div>scaling ${this.data.display.stage.scaleMethod}</div>` +
-            `<div>alignment ${this.data.display.stage.alignMethod}</div>`
+            `<div>scaling ${this.data.display.stage.scaling}</div>` +
+            `<div>alignment ${this.data.display.stage.alignment}</div>`
             ;
     }
 }

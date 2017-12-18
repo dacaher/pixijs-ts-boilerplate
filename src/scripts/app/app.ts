@@ -1,5 +1,6 @@
 import "fpsmeter";
 import * as PIXI from "pixi.js";
+import * as screenfull from "screenfull";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
 import {AlignBottomLeft} from "./stage/align/align-bottom-left";
@@ -39,7 +40,7 @@ export class App {
         showMediaInfo: false,
     };
 
-    private readonly fpsmeterOpts: FPSMeterOptions = {
+    private readonly fpsmeterOptions: FPSMeterOptions = {
         theme: "transparent",
         heat: 1,
         graph: 1,
@@ -99,6 +100,49 @@ export class App {
 
     get view(): HTMLCanvasElement {
         return this.app.view;
+    }
+
+    /**
+     * Requests fullscreen for given element or documentElement if not provided.
+     * @param {Element} element - Element requesting to go full screen.
+     */
+    public toggleFulscreen(element?: Element | null): void {
+        const target: Element = element ? element : document.documentElement;
+
+        if (screenfull.enabled) {
+            screenfull.toggle(target);
+        }
+    }
+
+    /**
+     * Returns media info from the application.
+     * @returns {MediaInfoData} Media info
+     */
+    public getMediaInfo(): MediaInfoData {
+        return {
+            display: {
+                screen: {
+                    width: this.screen.width,
+                    height: this.screen.height,
+                },
+                view: {
+                    width: this.view.clientWidth,
+                    height: this.view.clientHeight,
+                },
+                stage: {
+                    x: this.stage.x,
+                    y: this.stage.y,
+                    initialWidth: this.initialWidth,
+                    initialHeight: this.initialHeight,
+                    currentWidth: Math.ceil(this.stage.width),
+                    currentHeight: Math.ceil(this.stage.height),
+                    scaleX: this.stage.scale.x.toFixed(2),
+                    scaleY: this.stage.scale.y.toFixed(2),
+                    scaling: this.appOptions.scale ? this.appOptions.scale.valueOf() : this.defaultScaleMethod,
+                    alignment: this.appOptions.align ? this.appOptions.align.valueOf() : this.defaultAlignMethod,
+                },
+            },
+        };
     }
 
     private configure(options: AppOptions): void {
@@ -171,7 +215,7 @@ export class App {
     }
 
     private createFPSmeter(): void {
-        this.fpsmeter = new FPSMeter(Dom.getElementOrBody("fps-meter"), this.fpsmeterOpts);
+        this.fpsmeter = new FPSMeter(Dom.getElementOrBody("fps-meter"), this.fpsmeterOptions);
         this.ticker.add(this.fpsmeter.tick);
         this.fpsmeter.show();
     }
@@ -204,32 +248,5 @@ export class App {
     private align(): void {
         const {x, y} = this.alignStrategy.align(this.stage.width, this.stage.height, this.view.clientWidth, this.view.clientHeight);
         this.stage.position.set(x, y);
-    }
-
-    private getMediaInfo(): MediaInfoData {
-        return {
-            display: {
-                screen: {
-                    width: this.screen.width,
-                    height: this.screen.height,
-                },
-                view: {
-                    width: this.view.clientWidth,
-                    height: this.view.clientHeight,
-                },
-                stage: {
-                    x: this.stage.x,
-                    y: this.stage.y,
-                    initialWidth: this.initialWidth,
-                    initialHeight: this.initialHeight,
-                    currentWidth: Math.ceil(this.stage.width),
-                    currentHeight: Math.ceil(this.stage.height),
-                    scaleX: this.stage.scale.x.toFixed(2),
-                    scaleY: this.stage.scale.y.toFixed(2),
-                    scaleMethod: this.appOptions.scale ? this.appOptions.scale.valueOf() : this.defaultScaleMethod,
-                    alignMethod: this.appOptions.align ? this.appOptions.align.valueOf() : this.defaultAlignMethod,
-                },
-            },
-        };
     }
 }
