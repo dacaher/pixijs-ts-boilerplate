@@ -65,13 +65,14 @@ export class MediaInfoViewer {
     private getText(): string {
         const stageInitialGCD = Math.gcd(this.data.display.stage.initialWidth, this.data.display.stage.initialHeight);
 
-        return `<div>[screen]</div>` +
-            `<div>${this.data.display.screen.width}x${this.data.display.screen.height}</div>` +
+        return `` +
             `<div>[window.inner]</div>` +
             `<div>${window.innerWidth}x${window.innerHeight}</div>` +
-            `<div>[view]</div>` +
+            `<div>[app.screen]</div>` +
+            `<div>${this.data.display.screen.width}x${this.data.display.screen.height}</div>` +
+            `<div>[app.view]</div>` +
             `<div>${this.data.display.view.width}x${this.data.display.view.height}</div>` +
-            `<div>[stage]</div>` +
+            `<div>[app.stage]</div>` +
             `<div>position (${this.data.display.stage.x}, ${this.data.display.stage.y})</div>` +
             `<div>initial ${this.data.display.stage.initialWidth}x${this.data.display.stage.initialHeight} ${this.data.display.stage.initialWidth / stageInitialGCD}:${this.data.display.stage.initialHeight / stageInitialGCD}</div>` +
             `<div>current ${this.data.display.stage.currentWidth}x${this.data.display.stage.currentHeight}</div>` +

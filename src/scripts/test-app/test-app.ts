@@ -48,7 +48,7 @@ export class TestApp {
 
         graphics.interactive = true;
         graphics.buttonMode = true;
-        graphics.on("pointerdown", () => {
+        graphics.on("pointerup", () => {
             this.app.toggleFulscreen(document.getElementById("app-root"));
         });
 
