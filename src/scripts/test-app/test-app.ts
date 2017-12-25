@@ -75,7 +75,7 @@ export class TestApp {
             wordWrapWidth: 440,
         });
 
-        const richText = new PIXI.Text("Click the square to toggle fullscreen!", style);
+        const richText = new PIXI.Text("Click on the square to toggle fullscreen!", style);
         richText.anchor.set(0.5, 0.5);
         richText.x = x;
         richText.y = y;
