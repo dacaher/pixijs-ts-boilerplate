@@ -18,7 +18,7 @@ import {ScaleNone} from "./stage/scale/scale-none";
 import {ScaleStrategy} from "./stage/scale/scale-strategy";
 import {Dom} from "./util/dom";
 
-export interface AppOptions extends PIXI.ApplicationOptions {
+export interface PixiAppOptions extends PIXI.ApplicationOptions {
     width: number;
     height: number;
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
@@ -27,11 +27,14 @@ export interface AppOptions extends PIXI.ApplicationOptions {
     showMediaInfo?: boolean;
 }
 
-export class App {
+/**
+ * Wrapper for PIXI.Application class enabling features like scaling, aligning, fps-meter and a media info viewer.
+ */
+export class PixiApp {
     private readonly defaultScaleMethod = "none";
     private readonly defaultAlignMethod = "top-left";
 
-    private readonly defaultOptions: AppOptions = {
+    private readonly defaultOptions: PixiAppOptions = {
         width: 800,
         height: 600,
         scale: this.defaultScaleMethod,
@@ -49,7 +52,7 @@ export class App {
     };
 
     private app: PIXI.Application;
-    private appOptions: AppOptions;
+    private appOptions: PixiAppOptions;
 
     private width: number;
     private height: number;
@@ -60,7 +63,7 @@ export class App {
     private fpsmeter: FPSMeter;
     private mediaInfoViewer: MediaInfoViewer;
 
-    constructor(options?: AppOptions) {
+    constructor(options?: PixiAppOptions) {
         if (!options) {
             options = this.defaultOptions;
         }
@@ -145,7 +148,7 @@ export class App {
         };
     }
 
-    private configure(options: AppOptions): void {
+    private configure(options: PixiAppOptions): void {
         this.width = options.width;
         this.height = options.height;
 

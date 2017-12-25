@@ -1,16 +1,16 @@
-import {App, AppOptions} from "../app/app";
-import {Dom} from "../app/util/dom";
+import {PixiApp, PixiAppOptions} from "../pixi-app/pixi-app";
+import {Dom} from "../pixi-app/util/dom";
 import {RotatingSprite} from "./rotating-sprite";
 
 export class TestApp {
-    private app: App;
+    private app: PixiApp;
 
     constructor() {
 
         const canvas = Dom.getElementOrCreateNew<HTMLCanvasElement>("app-canvas", "canvas", document.getElementById("app-root"));
 
         // if no view is specified, it appends canvas to body
-        const appOptions: AppOptions = {
+        const appOptions: PixiAppOptions = {
             width: 1280,
             height: 720,
             scale: "full-size",
@@ -24,7 +24,7 @@ export class TestApp {
             showMediaInfo: true,
         };
 
-        this.app = new App(appOptions);
+        this.app = new PixiApp(appOptions);
 
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
         this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
