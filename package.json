@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dev dist",
+    "clean": "rimraf dev dist doc",
     "build": "webpack --config webpack.dev.js --display 'verbose' --progress --profile",
     "build:release": "webpack --config webpack.prod.js --display 'verbose' --progress --profile",
     "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
     "serve:dash": "webpack-dashboard -- webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
     "serve:release": "http-server ./dist -p 9999 -o",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "typedoc --out doc --target ES6 --mode modules --exclude '**/{node_modules/**/*, *.spec}.ts' ."
   },
   "keywords": [],
   "author": "dacaher",
@@ -34,6 +35,7 @@
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.0",
     "tslint": "^5.8.0",
+    "typedoc": "^0.9.0",
     "typescript": "^2.6.1",
     "typings-for-css-modules-loader": "^1.7.0",
     "uglifyjs-webpack-plugin": "^1.0.1",
