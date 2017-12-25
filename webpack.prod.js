@@ -9,7 +9,7 @@ const SriPlugin = require('webpack-subresource-integrity');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const outputDir = 'dist';
-const publicPath = '/';
+const publicPath = '';
 const tsConfig = 'tsconfig.prod.json';
 
 // noinspection JSUnresolvedFunction

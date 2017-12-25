@@ -49,6 +49,7 @@ export class TestApp {
         graphics.interactive = true;
         graphics.buttonMode = true;
         graphics.on("pointerup", () => {
+            // pointerdown does not trigger a user event in chrome-android
             this.app.toggleFulscreen(document.getElementById("app-root"));
         });
 
@@ -124,13 +125,11 @@ export class TestApp {
         // Create a 5x5 grid of bunnies
         for (let i = 0; i < 25; i++) {
             const bunny = new PIXI.Sprite(PIXI.loader.resources.bunny.texture);
-            // bunny.anchor.set(0.5);
             bunny.x = (i % 5) * 40;
             bunny.y = Math.floor(i / 5) * 40;
             container.addChild(bunny);
         }
 
-        // Center on the screen
         container.x = (this.app.initialWidth - container.width) - 10;
         container.y = (this.app.initialHeight - container.height) - 10;
     }

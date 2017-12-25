@@ -6,7 +6,7 @@ const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const outputDir = 'dev';
-const publicPath = '/';
+const publicPath = '';
 const tsConfig = 'tsconfig.dev.json';
 
 module.exports = merge(common, {
