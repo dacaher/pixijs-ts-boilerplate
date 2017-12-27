@@ -2,7 +2,10 @@ import {PixiApp, PixiAppOptions} from "../pixi-app/pixi-app";
 import {Dom} from "../pixi-app/util/dom";
 import {RotatingSprite} from "./rotating-sprite";
 
-export class TestApp {
+/**
+ * Showcase for PixiApp class.
+ */
+export class SampleApp {
     private app: PixiApp;
 
     constructor() {

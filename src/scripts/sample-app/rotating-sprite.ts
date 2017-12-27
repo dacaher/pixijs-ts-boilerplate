@@ -1,3 +1,6 @@
+/**
+ * Sprite class with a rotation velocity.
+ */
 export class RotatingSprite extends PIXI.Sprite {
     private _rotationVelocity = 0;
 
