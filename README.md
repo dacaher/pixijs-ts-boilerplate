@@ -69,8 +69,8 @@ Not really sure if I should bundle it as well.
 - serve - serves (0.0.0.0:9000) dev dir with Hot Module Replacement enabled through [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 - serve:dash - same as serve with a fancy interface thanks to [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 - serve:release - serves (0.0.0.0:9999) dist dir through [http-server](https://github.com/indexzero/http-server) to test production bundle
-- test: does nothing right now
-- doc: generate app doc with [typedoc](http://typedoc.org/)
+- test - does nothing right now
+- doc - generate app doc with [typedoc](http://typedoc.org/)
 
 ## TODO List
 
@@ -80,6 +80,7 @@ Not really sure if I should bundle it as well.
 - [ ] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
 - [ ] Display some device info (cpu, ram, etc.) through the Media Info Viewer if possible.
 - [ ] Try to avoid relative paths for importing modules (../../..) if possible.
+- [ ] Extract global declarations from the index file to its own file.
 
 ## Contributing
 
