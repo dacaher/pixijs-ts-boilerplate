@@ -47,10 +47,10 @@ canvas {
     letter-spacing: normal;
     word-spacing: normal;
     text-transform: none;
-    text-indent: 0px;
+    text-indent: 0;
     text-shadow: none;
     display: inline-block;
-    margin: 0em;
+    margin: 0;
     cursor: pointer;
     -webkit-writing-mode: horizontal-tb;
     -webkit-appearance: button;
