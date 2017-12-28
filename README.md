@@ -6,7 +6,8 @@ Just another PixiJS Typescript Boilerplate
 
 Another boilerplate to speed up project setup for developing typescript apps with PixiJS.
 Ready to compile code for dev and production env. 
-Provides a helper class (PixiApp) to manage resizing and alignment of the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
+Provides a helper class (PixiApp) to manage resizing (full size, keeping aspect ratio or no resize at all),
+alignment of the stage within the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
 display some media info and a [fps-meter](https://github.com/darsain/fpsmeter).
 
 Versions:
@@ -53,8 +54,8 @@ You should see a sample app with a fps-meter and a div containing some display i
 - See src/sample-app for a showcase.
 - Edit src/html/index.html, src/scripts/index.ts and src/styles/style.css as desired.
 Index.ts is the entry point for bundling the application.
-- Instantiate App with parameters width, height align, resize and a canvas view container if required.
-- Optionally add/remove custom linter rules from tslint.json
+- Instantiate App with parameters width, height, align, resize and a canvas view container if required.
+- Optionally add/remove custom linter rules from tslint.json.
 - Finally remove src/sample-app and assets/gfx/* when not needed.
 
 Note that pixi.js is kept as a external dependency and it is not bundled within the application.
@@ -78,6 +79,7 @@ Not really sure if I should bundle it as well.
 - [x] Bundle (s)css styles within the app.
 - [ ] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
 - [ ] Display some device info (cpu, ram, etc.) through the Media Info Viewer if possible.
+- [ ] Try to avoid relative paths for importing modules (../../..) if possible.
 
 ## Contributing
 

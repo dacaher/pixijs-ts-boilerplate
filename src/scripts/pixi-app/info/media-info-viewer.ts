@@ -1,4 +1,4 @@
-import {Dom} from "../util/dom";
+import {Dom} from "../../util/dom";
 
 export interface DisplayData {
     screen: { width: number, height: number };
