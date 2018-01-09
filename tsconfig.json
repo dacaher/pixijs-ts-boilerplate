@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./src/scripts",
     "strictNullChecks": true,
     "moduleResolution": "node",
     "target": "es5",

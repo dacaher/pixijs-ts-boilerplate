@@ -5,7 +5,7 @@ after https://github.com/webpack/webpack/issues/3460 will be resolved.
 */
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const path = require('path');
 
 module.exports = {
     entry: {
@@ -35,7 +35,13 @@ module.exports = {
         'pixi.js': 'PIXI'
     },
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.css', '.scss']
+        extensions: ['.js', '.ts', '.tsx', '.css', '.scss'],
+        alias: {
+            // CUSTOM PACKAGES:
+            'styles': path.resolve(__dirname, 'src/styles/'),
+            'app': path.resolve(__dirname, 'src/scripts/app/'),
+            'pixi-app': path.resolve(__dirname, 'src/scripts/pixi-app/'),
+        }
     },
     stats: 'verbose'
 };

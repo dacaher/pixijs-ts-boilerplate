@@ -79,7 +79,7 @@ Not really sure if I should bundle it as well.
 - [x] Bundle (s)css styles within the app.
 - [ ] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
 - [ ] Display some device info (cpu, ram, etc.) through the Media Info Viewer if possible.
-- [ ] Try to avoid relative paths for importing modules (../../..) if possible.
+- [x] Try to avoid relative paths for importing modules (../../..) if possible.
 - [ ] Extract global declarations from the index file to its own file.
 
 ## Contributing
