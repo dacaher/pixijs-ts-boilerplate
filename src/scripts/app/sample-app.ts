@@ -1,6 +1,6 @@
 import {RotatingSprite} from "app/rotating-sprite";
 import {PixiApp, PixiAppOptions} from "pixi-app/pixi-app";
-import {Dom} from "../util/dom";
+import {Dom} from "pixi-app/util/dom";
 
 /**
  * Showcase for PixiApp class.

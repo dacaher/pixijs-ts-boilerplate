@@ -1,7 +1,6 @@
 import "fpsmeter";
 import * as PIXI from "pixi.js";
 import * as screenfull from "screenfull";
-import {Dom} from "../util/dom";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
 import {AlignBottomLeft} from "./stage/align/align-bottom-left";
@@ -17,6 +16,7 @@ import {ScaleFullSize} from "./stage/scale/scale-full-size";
 import {ScaleKeepAspectRatio} from "./stage/scale/scale-keep-aspect-ratio";
 import {ScaleNone} from "./stage/scale/scale-none";
 import {ScaleStrategy} from "./stage/scale/scale-strategy";
+import {Dom} from "./util/dom";
 
 export interface PixiAppOptions extends PIXI.ApplicationOptions {
     width: number;
