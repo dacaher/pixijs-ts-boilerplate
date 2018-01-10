@@ -68,6 +68,8 @@ export class MediaInfoViewer {
         return `` +
             `<div>[window.inner]</div>` +
             `<div>${window.innerWidth}x${window.innerHeight}</div>` +
+            `<div>[devicePixelRatio]</div>` +
+            `<div>${window.devicePixelRatio}</div>` +
             `<div>[app.screen]</div>` +
             `<div>${this.data.display.screen.width}x${this.data.display.screen.height}</div>` +
             `<div>[app.view]</div>` +
