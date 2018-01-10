@@ -66,10 +66,10 @@ export class MediaInfoViewer {
         const stageInitialGCD = Math.gcd(this.data.display.stage.initialWidth, this.data.display.stage.initialHeight);
 
         return `` +
-            `<div>[window.inner]</div>` +
-            `<div>${window.innerWidth}x${window.innerHeight}</div>` +
             `<div>[devicePixelRatio]</div>` +
             `<div>${window.devicePixelRatio}</div>` +
+            `<div>[window.inner]</div>` +
+            `<div>${window.innerWidth}x${window.innerHeight}</div>` +
             `<div>[app.screen]</div>` +
             `<div>${this.data.display.screen.width}x${this.data.display.screen.height}</div>` +
             `<div>[app.view]</div>` +
