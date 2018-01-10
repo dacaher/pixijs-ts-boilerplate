@@ -2,8 +2,7 @@ const common = require('./webpack.common');
 const merge = require('webpack-merge');
 const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
-const DashboardPlugin = require('webpack-dashboard/plugin');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 const outputDir = 'dev';
 const publicPath = '';
@@ -17,17 +16,14 @@ module.exports = merge(common, {
         crossOriginLoading: 'anonymous'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: 'awesome-typescript-loader',
-                        options: {
-                            configFileName: tsConfig
-                        }
+                use: [{
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        configFileName: tsConfig
                     }
-                ],
+                }],
                 exclude: /node_modules/
             },
             {
@@ -58,20 +54,17 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new DashboardPlugin(),
         new FileManagerPlugin({
             onEnd: {
-                copy: [
-                    {
-                        source: path.resolve(__dirname, 'assets'),
-                        destination: path.resolve(__dirname, outputDir) + '/assets'
-                    }
-                ]
+                copy: [{
+                    source: path.resolve(__dirname, 'assets'),
+                    destination: path.resolve(__dirname, outputDir) + '/assets'
+                }]
             }
         }),
-        new TsConfigPathsPlugin({configFileName: tsConfig})
+        new TsConfigPathsPlugin({ configFileName: tsConfig })
     ],
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     devServer: {
         contentBase: path.join(__dirname, outputDir),
         compress: false,
