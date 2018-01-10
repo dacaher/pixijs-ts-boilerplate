@@ -51,12 +51,12 @@ npm run build && npm run serve
 ```
 You should see a sample app with a fps-meter and a div containing some display info.
 
-- See src/sample-app for a showcase.
+- See src/app for a showcase.
 - Edit src/html/index.html, src/scripts/index.ts and src/styles/style.css as desired.
 Index.ts is the entry point for bundling the application.
-- Instantiate App with parameters width, height, align, resize and a canvas view container if required.
+- Instantiate App with parameters width, height, align, resize and a canvas view container if desired.
 - Optionally add/remove custom linter rules from tslint.json.
-- Finally remove src/sample-app and assets/gfx/* when not needed.
+- Finally remove src/app/* and assets/gfx/* when not needed.
 
 Note that pixi.js is kept as a external dependency and it is not bundled within the application.
 Not really sure if I should bundle it as well.
@@ -67,7 +67,6 @@ Not really sure if I should bundle it as well.
 - build - compiles and copy all the assets to dev dir
 - build:release - compiles and [uglifies](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) to dist dir
 - serve - serves (0.0.0.0:9000) dev dir with Hot Module Replacement enabled through [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-- serve:dash - same as serve with a fancy interface thanks to [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard)
 - serve:release - serves (0.0.0.0:9999) dist dir through [http-server](https://github.com/indexzero/http-server) to test production bundle
 - test - does nothing right now
 - doc - generate app doc with [typedoc](http://typedoc.org/)
@@ -77,7 +76,7 @@ Not really sure if I should bundle it as well.
 - [ ] Add some ts testing framework.
 - [ ] Replace npm with yarn?
 - [x] Bundle (s)css styles within the app.
-- [ ] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
+- [x] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
 - [ ] Display some device info (cpu, ram, etc.) through the Media Info Viewer if possible.
 - [x] Try to avoid relative paths for importing modules (../../..) if possible.
 - [ ] Extract global declarations from the index file to its own file.

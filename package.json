@@ -8,7 +8,6 @@
     "build": "webpack --config webpack.dev.js --display 'verbose' --progress --profile",
     "build:release": "webpack --config webpack.prod.js --display 'verbose' --progress --profile",
     "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
-    "serve:dash": "webpack-dashboard -- webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
     "serve:release": "http-server ./dist -p 9999 -o",
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "typedoc --out doc --target ES6 --mode modules --exclude '**/{node_modules/**/*, *.spec}.ts' ."
@@ -40,7 +39,6 @@
     "typings-for-css-modules-loader": "^1.7.0",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1",
-    "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.1",
     "webpack-subresource-integrity": "^1.0.1"
