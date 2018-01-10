@@ -3,7 +3,6 @@ const merge = require('webpack-merge');
 const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const outputDir = 'dev';
 const publicPath = '';
@@ -58,7 +57,6 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new DashboardPlugin(),
         new FileManagerPlugin({
             onEnd: {
                 copy: [
