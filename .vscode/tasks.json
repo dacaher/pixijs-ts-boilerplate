@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-serve",
+            "type": "shell",
+            "command": "npm run build && npm run serve",
+            "isBackground": true,
+            "problemMatcher": [
+                "$tsc"
+            ]
+        }
+    ]
+}

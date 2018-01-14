@@ -69,7 +69,6 @@ module.exports = merge(common, {
         }),
         new TsConfigPathsPlugin({configFileName: tsConfig})
     ],
-    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, outputDir),
         compress: false,

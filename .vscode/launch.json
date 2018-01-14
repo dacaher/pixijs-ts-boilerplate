@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug",
+            "url": "http://localhost:9000",
+            "webRoot": "${workspaceFolder}",
+            "userDataDir": "${workspaceFolder}/.vscode/chrome",
+            "sourceMaps": true,
+            "smartStep": true,
+            "trace": true,
+            // "preLaunchTask": "build-serve",
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnFirstSessionStart"
+        },
+        {
+            "name": "Attach to Chrome, with sourcemap",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "sourceMaps": true,
+            "smartStep": true,
+            "trace": true,
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
