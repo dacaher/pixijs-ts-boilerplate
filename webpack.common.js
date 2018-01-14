@@ -20,6 +20,7 @@ module.exports = {
             }
         ]
     },
+    devtool: 'source-map',
     plugins: [
         new CheckerPlugin(),
         new HtmlWebpackPlugin({
