@@ -90,6 +90,7 @@ export class SampleApp {
     private onAssetsLoaded(): void {
         this.drawRotatingExplorer();
         this.drawBunnies();
+        this.drawLayeredBunnies();
     }
 
     private drawRotatingExplorer(): void {
@@ -135,5 +136,37 @@ export class SampleApp {
 
         container.x = (this.app.initialWidth - container.width) - 10;
         container.y = (this.app.initialHeight - container.height) - 10;
+    }
+
+    private drawLayeredBunnies(): void {
+        const layer = new PIXI.display.Layer();
+        layer.group.enableSort = true;
+        this.app.stage.addChild(layer);
+
+        const container = new PIXI.Container();
+        this.app.stage.addChild(container);
+        container.parentLayer = layer;
+
+        // Create a 5x5 grid of bunnies
+        for (let i = 0; i < 25; i++) {
+            const bunny = new PIXI.Sprite(PIXI.loader.resources.bunny.texture);
+            bunny.x = (i % 5) * 20;
+            bunny.y = Math.floor(i / 5) * 20;
+            container.addChild(bunny);
+
+            bunny.parentLayer = layer;
+
+            if (i % 2 === 0) {
+                bunny.tint = 0x999999;
+                bunny.zIndex = 0;
+                // bunny.zOrder = 1;
+            } else {
+                bunny.zIndex = 1;
+                // bunny.zOrder = 0;
+            }
+        }
+
+        container.x = (this.app.initialWidth - container.width) - 10;
+        container.y = 10;
     }
 }

@@ -1,4 +1,5 @@
 import "fpsmeter";
+import "pixi-layers";
 import * as PIXI from "pixi.js";
 import * as screenfull from "screenfull";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
@@ -71,6 +72,8 @@ export class PixiApp {
         this.mediaInfoViewer = new MediaInfoViewer();
 
         this.app = new PIXI.Application(options);
+        this.app.stage = new PIXI.display.Stage();
+
         this.configure(options);
         this.ticker.add(this.resize.bind(this));
 

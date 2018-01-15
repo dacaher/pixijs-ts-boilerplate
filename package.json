@@ -20,6 +20,7 @@
     "@types/pixi.js": "^4.5.7",
     "@types/screenfull": "^3.3.1",
     "fpsmeter": "^0.3.1",
+    "pixi-layers": "^0.1.4",
     "pixi.js": "^4.5.6",
     "screenfull": "^3.3.2"
   },
