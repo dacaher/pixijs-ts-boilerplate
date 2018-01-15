@@ -32,6 +32,18 @@ export interface PixiAppOptions extends PIXI.ApplicationOptions {
  * Wrapper for PIXI.Application class enabling features like scaling, aligning, fps-meter and a media info viewer.
  */
 export class PixiApp {
+    /**
+     * Requests fullscreen for given element or documentElement if not provided.
+     * @param {Element} element - Element requesting to go full screen.
+     */
+    public static toggleFulscreen(element?: Element | null): void {
+        const target: Element = element ? element : document.documentElement;
+
+        if (screenfull.enabled) {
+            screenfull.toggle(target);
+        }
+    }
+
     private readonly defaultScaleMethod = "none";
     private readonly defaultAlignMethod = "top-left";
 
@@ -106,18 +118,6 @@ export class PixiApp {
 
     get view(): HTMLCanvasElement {
         return this.app.view;
-    }
-
-    /**
-     * Requests fullscreen for given element or documentElement if not provided.
-     * @param {Element} element - Element requesting to go full screen.
-     */
-    public toggleFulscreen(element?: Element | null): void {
-        const target: Element = element ? element : document.documentElement;
-
-        if (screenfull.enabled) {
-            screenfull.toggle(target);
-        }
     }
 
     /**

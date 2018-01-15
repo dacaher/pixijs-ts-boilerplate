@@ -53,7 +53,7 @@ export class SampleApp {
         graphics.buttonMode = true;
         graphics.on("pointerup", () => {
             // pointerdown does not trigger a user event in chrome-android
-            this.app.toggleFulscreen(document.getElementById("app-root"));
+            PixiApp.toggleFulscreen(document.getElementById("app-root"));
         });
 
         this.app.stage.addChild(graphics);
