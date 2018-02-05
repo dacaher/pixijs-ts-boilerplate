@@ -18,6 +18,7 @@ import {ScaleKeepAspectRatio} from "./stage/scale/scale-keep-aspect-ratio";
 import {ScaleNone} from "./stage/scale/scale-none";
 import {ScaleStrategy} from "./stage/scale/scale-strategy";
 import {Dom} from "./util/dom";
+import "./util/math";
 
 export interface PixiAppOptions extends PIXI.ApplicationOptions {
     width: number;

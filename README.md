@@ -71,16 +71,6 @@ Not really sure if I should bundle it as well.
 - test - does nothing right now
 - doc - generate app doc with [typedoc](http://typedoc.org/)
 
-## TODO List
-
-- [ ] Add some ts testing framework.
-- [ ] Replace npm with yarn?
-- [x] Bundle (s)css styles within the app.
-- [x] Remove webpack-dashboard plugin to cut some dependencies. (Not really used anyways)
-- [ ] Display some device info (cpu, ram, etc.) through the Media Info Viewer if possible.
-- [x] Try to avoid relative paths for importing modules (../../..) if possible.
-- [ ] Extract global declarations from the index file to its own file.
-
 ## Contributing
 
 As a fairly new developer with Typescript (and javascript ecosystems in general) any suggestion, bug report or improvement submitted would be very much appreciated.
