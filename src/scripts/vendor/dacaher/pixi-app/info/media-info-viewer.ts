@@ -1,4 +1,4 @@
-import {Dom} from "pixi-app/util/dom";
+import {Dom} from "vendor/dacaher/pixi-app/util/dom";
 
 export interface DisplayData {
     screen: { width: number, height: number };

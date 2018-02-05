@@ -41,7 +41,7 @@ module.exports = {
             // CUSTOM PACKAGES:
             'styles': path.resolve(__dirname, 'src/styles/'),
             'app': path.resolve(__dirname, 'src/scripts/app/'),
-            'pixi-app': path.resolve(__dirname, 'src/scripts/pixi-app/'),
+            'vendor': path.resolve(__dirname, 'src/scripts/vendor/'),
         }
     },
     stats: 'verbose'
