@@ -12,7 +12,7 @@
     "removeComments": true,
     "typeRoots": [
       "node_modules/@types",
-      "src/types"
+      "./src/types"
     ]
   },
   "include": [
@@ -20,6 +20,7 @@
   ],
   "exclude": [
     "node_modules",
+    "**/vendor",
     "**/*.spec.ts"
   ]
 }

@@ -1,0 +1,48 @@
+{
+  "_from": "@types/fpsmeter",
+  "_id": "@types/fpsmeter@0.3.29",
+  "_inBundle": false,
+  "_integrity": "sha512-Nj8sAS9idIPScapyKZeXBhXk/AsaR3gTYaAuvyMQDIrVVy1sMIoCT5pHOYf/YUVjemgFaZmZbQKqzXUyXr1smw==",
+  "_location": "/@types/fpsmeter",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@types/fpsmeter",
+    "name": "@types/fpsmeter",
+    "escapedName": "@types%2ffpsmeter",
+    "scope": "@types",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/fpsmeter/-/fpsmeter-0.3.29.tgz",
+  "_shasum": "34d2685f1c6e3458e9a193e0ddaf90229829d21a",
+  "_spec": "@types/fpsmeter",
+  "_where": "/home/david/IdeaProjects/pixijs-ts-boilerplate",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Aaron Lampros",
+      "url": "https://github.com/alampros"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for FPSmeter",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/fpsmeter",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "typesPublisherContentHash": "bc6bed187e207603917e260a17e0171bbcd1d1dc5b3164140b97bd21086647a6",
+  "version": "0.3.29"
+}
