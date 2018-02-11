@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
-import * as screenfull from "screenfull";
 import "vendor/darsain/fpsmeter/fpsmeter";
 import "vendor/pixijs/pixi-layers/pixi-layers";
+import * as screenfull from "vendor/sindresorhus/screenfull/screenfull";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
 import {AlignBottomLeft} from "./stage/align/align-bottom-left";

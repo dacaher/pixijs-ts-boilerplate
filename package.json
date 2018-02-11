@@ -16,9 +16,7 @@
   "author": "dacaher",
   "license": "MIT",
   "dependencies": {
-    "@types/screenfull": "^3.3.1",
-    "pixi.js": "^4.7.0",
-    "screenfull": "^3.3.2"
+    "pixi.js": "^4.7.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
