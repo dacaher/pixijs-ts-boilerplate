@@ -12,11 +12,11 @@
     "removeComments": true,
     "typeRoots": [
       "node_modules/@types",
-      "./src/types"
+      "src/types"
     ]
   },
   "include": [
-    "./src/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
