@@ -1,6 +1,8 @@
 import {RotatingSprite} from "app/rotating-sprite";
 import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
+import "vendor/pixijs/pixi-layers/pixi-layers";
+import "vendor/pixijs/pixi-particles/pixi-particles";
 
 /**
  * Showcase for PixiApp class.
@@ -35,6 +37,7 @@ export class SampleApp {
         PIXI.loader
             .add("explorer", "assets/gfx/explorer.png")
             .add("bunny", "assets/gfx/bunny.png")
+            .add("bubble", "assets/gfx/Bubbles99.png")
             .load(this.onAssetsLoaded.bind(this));
     }
 
@@ -91,6 +94,7 @@ export class SampleApp {
         this.drawRotatingExplorer();
         this.drawBunnies();
         this.drawLayeredBunnies();
+        this.drawParticles();
     }
 
     private drawRotatingExplorer(): void {
@@ -168,5 +172,82 @@ export class SampleApp {
 
         container.x = (this.app.initialWidth - container.width) - 10;
         container.y = 10;
+    }
+
+    private drawParticles(): void {
+        const particlesContainer = new PIXI.particles.ParticleContainer();
+        particlesContainer.position.set(this.app.initialWidth * 0.5, this.app.initialHeight * 0.75);
+        this.app.stage.addChild(particlesContainer);
+
+        const emitter = new PIXI.particles.Emitter(particlesContainer, PIXI.loader.resources.bubble.texture, {
+            alpha: {
+                start: 0.8,
+                end: 0.1,
+            },
+            scale: {
+                start: 1,
+                end: 0.3,
+            },
+            color: {
+                start: "ffffff",
+                end: "0000ff",
+            },
+            speed: {
+                start: 200,
+                end: 100,
+            },
+            startRotation: {
+                min: 0,
+                max: 360,
+            },
+            rotationSpeed: {
+                min: 0,
+                max: 0,
+            },
+            lifetime: {
+                min: 0.5,
+                max: 2,
+            },
+            frequency: 0.1,
+            emitterLifetime: -1,
+            maxParticles: 1000,
+            pos: {
+                x: 0,
+                y: 0,
+            },
+            addAtBack: false,
+            spawnType: "circle",
+            spawnCircle: {
+                x: 0,
+                y: 0,
+                r: 10,
+            },
+            emit: false,
+            autoUpdate: true,
+        });
+
+        // Calculate the current time
+        let elapsed = Date.now();
+
+        // Update function every frame
+        const update = () => {
+
+            // Update the next frame
+            // requestAnimationFrame(update);
+
+            const now = Date.now();
+
+            // The emitter requires the elapsed
+            // number of seconds since the last update
+            emitter.update((now - elapsed) * 0.001);
+            elapsed = now;
+        };
+
+        // Start emitting
+        emitter.emit = true;
+
+        // Start the update
+        // update();
+        this.app.ticker.add(update);
     }
 }
