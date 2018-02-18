@@ -33,7 +33,7 @@ module.exports = {
         })
     ],
     externals: {
-        'pixi.js': 'PIXI'
+        'vendor/pixijs/pixi.js/pixi.js': 'PIXI'
     },
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.css', '.scss'],
