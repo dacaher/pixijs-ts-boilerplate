@@ -15,6 +15,14 @@ Versions:
 - [Webpack](https://webpack.js.org/) 3.10.0
 - [PixiJS](http://www.pixijs.com/) 4.7.0
 
+
+Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions). 
+This means that those deps will have to be manually managed. Some companies do not really want to heavily rely on npm repos.
+Let me know if this is a bad idea overall so I can revert the changes. Thanks!
+
+### Included PixiJS plugins
+- pixi-layers
+
 ### Prerequisites
 
 Install Node & NPM from [here](https://www.npmjs.com/get-npm) or using [NVM](https://github.com/creationix/nvm)
@@ -66,6 +74,7 @@ Not really sure if I should bundle it as well.
 - clean - [removes](https://github.com/isaacs/rimraf) dev, dist and doc dirs
 - build - compiles and copy all the assets to dev dir
 - build:release - compiles and [uglifies](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) to dist dir
+- rebuild:all - cleans and rebuilds dev, dist and doc. 
 - serve - serves (0.0.0.0:9000) dev dir with Hot Module Replacement enabled through [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 - serve:release - serves (0.0.0.0:9999) dist dir through [http-server](https://github.com/indexzero/http-server) to test production bundle
 - test - does nothing right now
