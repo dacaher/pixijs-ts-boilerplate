@@ -7,6 +7,7 @@
     "clean": "rimraf dev dist doc",
     "build": "webpack --config webpack.dev.js --display 'verbose' --progress --profile",
     "build:release": "webpack --config webpack.prod.js --display 'verbose' --progress --profile",
+    "rebuild:all": "npm run clean && npm run build && npm run build:release && npm run doc",
     "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
     "serve:release": "http-server ./dist -p 9999 -o",
     "test": "echo \"Error: no test specified\" && exit 1",
