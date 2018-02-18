@@ -1,5 +1,4 @@
 import "vendor/darsain/fpsmeter/fpsmeter";
-import "vendor/pixijs/pixi-layers/pixi-layers";
 import "vendor/pixijs/pixi.js/pixi.js";
 import * as screenfull from "vendor/sindresorhus/screenfull/screenfull";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
