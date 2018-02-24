@@ -3,6 +3,7 @@ import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
 import "vendor/pixijs/pixi-layers/pixi-layers";
 import "vendor/pixijs/pixi-particles/pixi-particles";
+import "vendor/pixijs/pixi-spine/pixi-spine";
 
 /**
  * Showcase for PixiApp class.
@@ -38,6 +39,7 @@ export class SampleApp {
             .add("explorer", "assets/gfx/explorer.png")
             .add("bunny", "assets/gfx/bunny.png")
             .add("bubble", "assets/gfx/Bubbles99.png")
+            .add("spineboy", "assets/gfx/spineboy.json")
             .load(this.onAssetsLoaded.bind(this));
     }
 
@@ -95,6 +97,7 @@ export class SampleApp {
         this.drawBunnies();
         this.drawLayeredBunnies();
         this.drawParticles();
+        this.drawSpineBoyAnim();
     }
 
     private drawRotatingExplorer(): void {
@@ -176,7 +179,7 @@ export class SampleApp {
 
     private drawParticles(): void {
         const particlesContainer = new PIXI.particles.ParticleContainer();
-        particlesContainer.position.set(this.app.initialWidth * 0.5, this.app.initialHeight * 0.75);
+        particlesContainer.position.set(this.app.initialWidth * 0.75, this.app.initialHeight * 0.5);
         this.app.stage.addChild(particlesContainer);
 
         const emitter = new PIXI.particles.Emitter(particlesContainer, PIXI.loader.resources.bubble.texture, {
@@ -249,5 +252,32 @@ export class SampleApp {
         // Start the update
         // update();
         this.app.ticker.add(update);
+    }
+
+    private drawSpineBoyAnim() {
+        // create a spine boy
+        const spineBoy = new PIXI.spine.Spine(PIXI.loader.resources.spineboy.spineData);
+
+        spineBoy.scale.set(0.5);
+
+        // set the position
+        spineBoy.x = this.app.initialWidth * 0.5;
+        spineBoy.y = this.app.initialHeight;
+
+        // set up the mixes!
+        spineBoy.stateData.setMix("walk", "jump", 0.2);
+        spineBoy.stateData.setMix("jump", "walk", 0.4);
+
+        // play animation
+        spineBoy.state.setAnimation(0, "walk", true);
+
+        spineBoy.interactive = true;
+
+        spineBoy.on("pointerdown", () => {
+            spineBoy.state.setAnimation(0, "jump", false);
+            spineBoy.state.addAnimation(0, "walk", true, 0);
+        });
+
+        this.app.stage.addChild(spineBoy);
     }
 }
