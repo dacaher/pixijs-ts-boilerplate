@@ -22,9 +22,10 @@ Let me know if this is a bad idea overall so I can revert the changes. Thanks!
 
 ### Included PixiJS plugins
 - pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 8c14aa9a8c842c028e97e353eb5eb7d4663ebee1)
-- pixi-particles 3.0.0
-- pixi-spine ...
-FOR YOU TO USE THE SPINE RUNTIME YOU MUST OWN/PURCHASE A SPINE LICENSE FIRST!!!
+- [pixi-particles](https://github.com/pixijs/pixi-particles) 3.0.0
+- [pixi-spine](https://github.com/pixijs/pixi-spine) (296c7039c107520e4bc0e0e4a3cc62545f970fca) ***
+
+*** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID SPINE LICENSE FIRST !!! (SEE [SPINE-LICENSE](https://github.com/dacaher/pixijs-ts-boilerplate/blob/master/SPINE-LICENSE))
 
 ### Prerequisites
 
