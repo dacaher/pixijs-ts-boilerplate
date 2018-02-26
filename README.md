@@ -25,7 +25,7 @@ Let me know if this is a bad idea overall so I can revert the changes. Thanks!
 - [pixi-particles](https://github.com/pixijs/pixi-particles) 3.0.0
 - [pixi-spine](https://github.com/pixijs/pixi-spine) (296c7039c107520e4bc0e0e4a3cc62545f970fca) ***
 
-*** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID SPINE LICENSE FIRST !!! (SEE [SPINE-LICENSE](https://github.com/dacaher/pixijs-ts-boilerplate/blob/master/SPINE-LICENSE))
+*** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID [SPINE LICENSE](https://esotericsoftware.com/spine-purchase).
 
 ### Prerequisites
 
