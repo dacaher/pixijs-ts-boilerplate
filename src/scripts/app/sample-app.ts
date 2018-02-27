@@ -1,4 +1,5 @@
 import {RotatingSprite} from "app/rotating-sprite";
+import {TweenLite} from "gsap";
 import PixiAppEvent from "vendor/dacaher/pixi-app/event/pixi-app-event";
 import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
@@ -154,6 +155,8 @@ export class SampleApp {
             // each frame we spin the explorer around a bit
             explorer.rotation += explorer.rotationVelocity;
         });
+
+        TweenLite.to(explorer, 2, {y: 100});
     }
 
     private drawBunnies(): void {

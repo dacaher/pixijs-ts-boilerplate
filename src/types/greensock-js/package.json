@@ -1,0 +1,60 @@
+{
+  "_from": "@types/gsap@^1.19.1",
+  "_id": "@types/gsap@1.19.2",
+  "_inBundle": false,
+  "_integrity": "sha512-rEEGaIt6Q8IYRiwLfkJjcQOxFX/UehwXUvjvxiWT4WN07U0C4omh5WWciy99KFChJWYoCHAZY3FdAeFMKXTgDg==",
+  "_location": "/@types/gsap",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@types/gsap@^1.19.1",
+    "name": "@types/gsap",
+    "escapedName": "@types%2fgsap",
+    "scope": "@types",
+    "rawSpec": "^1.19.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.19.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/gsap/-/gsap-1.19.2.tgz",
+  "_shasum": "ffa045fe9ca25f18a175fac4918e17d6a7ef8d7b",
+  "_spec": "@types/gsap@^1.19.1",
+  "_where": "/home/david/projects/test-projects/pixi-tests",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "VILIC VANE",
+      "url": "https://vilic.github.io/"
+    },
+    {
+      "name": "Robert S",
+      "url": "https://github.com/codebelt"
+    },
+    {
+      "name": "Richard Fox",
+      "url": "https://github.com/ProbablePrime"
+    },
+    {
+      "name": "Philip Bulley",
+      "url": "https://github.com/philipbulley"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for GSAP",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/gsap",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "typesPublisherContentHash": "3be91d980c9f21bbb183e86a7463bfbe7acc5e1834692e81721afc3aa116b9cf",
+  "version": "1.19.2"
+}
