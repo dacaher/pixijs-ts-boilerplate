@@ -15,7 +15,6 @@ Versions:
 - [Webpack](https://webpack.js.org/) 3.10.0
 - [PixiJS](http://www.pixijs.com/) 4.7.0
 
-
 Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions). 
 This means that those deps will have to be manually managed. Some companies do not really want to heavily rely on npm repos.
 Let me know if this is a bad idea overall so I can revert the changes. Thanks!
@@ -26,6 +25,11 @@ Let me know if this is a bad idea overall so I can revert the changes. Thanks!
 - [pixi-spine](https://github.com/pixijs/pixi-spine) (296c7039c107520e4bc0e0e4a3cc62545f970fca) ***
 
 *** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID [SPINE LICENSE](https://esotericsoftware.com/spine-purchase).
+
+### Other 3rd party libs
+- [fullscreen](https://github.com/sindresorhus/screenfull.js/) 3.3.2
+- [fps-meter](https://github.com/darsain/fpsmeter) 0.3.1
+- [Eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
 
 ### Prerequisites
 

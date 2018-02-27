@@ -1,6 +1,8 @@
 import "vendor/darsain/fpsmeter/fpsmeter";
 import "vendor/pixijs/pixi.js/pixi.js";
+import EventEmitter = require("vendor/primus/eventemitter3");
 import * as screenfull from "vendor/sindresorhus/screenfull/screenfull";
+import PixiAppEvent from "./event/pixi-app-event";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
 import {AlignBottomLeft} from "./stage/align/align-bottom-left";
@@ -31,7 +33,8 @@ export interface PixiAppOptions extends PIXI.ApplicationOptions {
 /**
  * Wrapper for PIXI.Application class enabling features like scaling, aligning, fps-meter and a media info viewer.
  */
-export class PixiApp {
+export class PixiApp extends EventEmitter {
+
     /**
      * Requests fullscreen for given element or documentElement if not provided.
      * @param {Element} element - Element requesting to go full screen.
@@ -76,10 +79,16 @@ export class PixiApp {
     private fpsmeter: FPSMeter;
     private mediaInfoViewer: MediaInfoViewer;
 
+    private resizing: boolean;
+
     constructor(options?: PixiAppOptions) {
+        super();
+
         if (!options) {
             options = this.defaultOptions;
         }
+
+        this.resizing = false;
 
         this.mediaInfoViewer = new MediaInfoViewer();
 
@@ -231,7 +240,12 @@ export class PixiApp {
         const width = Math.floor(this.view.clientWidth * multiplier);
         const height = Math.floor(this.view.clientHeight * multiplier);
 
-        if (this.view.width !== width || this.view.height !== height) {
+        if (!this.resizing && (this.view.width !== width || this.view.height !== height)) {
+            this.resizing = true;
+
+            // dispatch resize start event
+            this.emit(PixiAppEvent.RESIZE_START);
+
             // resize
             this.renderer.resize(this.view.clientWidth, this.view.clientHeight);
 
@@ -243,6 +257,30 @@ export class PixiApp {
 
             // update media info
             this.mediaInfoViewer.update(this.getMediaInfo());
+
+            this.resizing = false;
+
+            // dispatch resize end event
+            this.emit(PixiAppEvent.RESIZE_END, {
+                stage: {
+                    position: {
+                        x: this.stage.position.x,
+                        y: this.stage.position.y,
+                    },
+                    scale: {
+                        x: this.stage.scale.x,
+                        y: this.stage.scale.y,
+                    },
+                    size: {
+                        width: this.stage.width,
+                        height: this.stage.height,
+                    },
+                },
+                view: {
+                    width: this.view.width,
+                    height: this.view.height,
+                },
+            });
         }
     }
 

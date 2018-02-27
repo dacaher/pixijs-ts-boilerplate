@@ -1,4 +1,5 @@
 import {RotatingSprite} from "app/rotating-sprite";
+import PixiAppEvent from "vendor/dacaher/pixi-app/event/pixi-app-event";
 import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
 import "vendor/pixijs/pixi-layers/pixi-layers";
@@ -10,6 +11,7 @@ import "vendor/pixijs/pixi-spine/pixi-spine";
  */
 export class SampleApp {
     private app: PixiApp;
+    private particlesEmitter: PIXI.particles.Emitter;
 
     constructor() {
 
@@ -19,8 +21,8 @@ export class SampleApp {
         const appOptions: PixiAppOptions = {
             width: 1280,
             height: 720,
-            scale: "full-size",
-            align: "top-left",
+            scale: "keep-aspect-ratio",
+            align: "middle",
             resolution: window.devicePixelRatio,
             roundPixels: true,
             transparent: false,
@@ -31,6 +33,8 @@ export class SampleApp {
         };
 
         this.app = new PixiApp(appOptions);
+        this.app.on(PixiAppEvent.RESIZE_START, this.onResizeStart.bind(this));
+        this.app.on(PixiAppEvent.RESIZE_END, this.onResizeEnd.bind(this));
 
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
         this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
@@ -72,6 +76,29 @@ export class SampleApp {
         graphics.drawRect(halfWidth, halfWidth, this.app.initialWidth - width, this.app.initialHeight - width);
 
         this.app.stage.addChild(graphics);
+    }
+
+    private onResizeStart(): void {
+        window.console.log("RESIZE STARTED!");
+        this.stopEmittingParticles();
+    }
+
+    private onResizeEnd(args: any): void {
+        window.console.log("RESIZE ENDED!", args);
+        this.startEmittingParticles();
+    }
+
+    private stopEmittingParticles(): void {
+        if (this.particlesEmitter) {
+            this.particlesEmitter.emit = false;
+            this.particlesEmitter.cleanup();
+        }
+    }
+
+    private startEmittingParticles(): void {
+        if (this.particlesEmitter) {
+            this.particlesEmitter.emit = true;
+        }
     }
 
     private addFullscreenText(x: number, y: number): void {
@@ -182,7 +209,7 @@ export class SampleApp {
         particlesContainer.position.set(this.app.initialWidth * 0.75, this.app.initialHeight * 0.5);
         this.app.stage.addChild(particlesContainer);
 
-        const emitter = new PIXI.particles.Emitter(particlesContainer, PIXI.loader.resources.bubble.texture, {
+        this.particlesEmitter = new PIXI.particles.Emitter(particlesContainer, PIXI.loader.resources.bubble.texture, {
             alpha: {
                 start: 0.8,
                 end: 0.1,
@@ -242,12 +269,12 @@ export class SampleApp {
 
             // The emitter requires the elapsed
             // number of seconds since the last update
-            emitter.update((now - elapsed) * 0.001);
+            this.particlesEmitter.update((now - elapsed) * 0.001);
             elapsed = now;
         };
 
         // Start emitting
-        emitter.emit = true;
+        this.particlesEmitter.emit = true;
 
         // Start the update
         // update();
