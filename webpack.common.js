@@ -41,22 +41,20 @@ module.exports = {
         modules: ['node_modules'],
         alias: {
             'styles': path.resolve(__dirname, 'src/styles/'),
-            'vendor': path.resolve(__dirname, 'src/scripts/vendor/'),
-            'app': path.resolve(__dirname, 'src/scripts/app/'),
-            'pixi-app-wrapper': path.resolve(__dirname, 'src/scripts/vendor/dacaher/pixi-app-wrapper'),
-            'fpsmeter': path.resolve(__dirname, 'src/scripts/vendor/darsain/fpsmeter/fpsmeter'),
-            'screenfull': path.resolve(__dirname, 'src/scripts/vendor/sindresorhus/screenfull/screenfull'),
-            'eventemitter3': path.resolve(__dirname, 'src/scripts/vendor/primus/eventemitter3'),
-            'gsap': path.resolve(__dirname, 'src/scripts/vendor/greensock/greensock-js'),
-            'pixi-layers': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-layers/pixi-layers'),
-            'pixi-particles': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-particles/pixi-particles'),
-            'pixi-spine': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-spine/pixi-spine'),
+            // 'vendor': path.resolve(__dirname, 'src/scripts/vendor/'),
+            // 'app': path.resolve(__dirname, 'src/scripts/app/'),
+            // 'pixi-app-wrapper': path.resolve(__dirname, 'src/scripts/vendor/dacaher/pixi-app-wrapper'),
+            // 'fpsmeter': path.resolve(__dirname, 'src/scripts/vendor/darsain/fpsmeter/fpsmeter'),
+            // 'screenfull': path.resolve(__dirname, 'src/scripts/vendor/sindresorhus/screenfull/screenfull'),
+            // 'eventemitter3': path.resolve(__dirname, 'src/scripts/vendor/primus/eventemitter3'),
+            // 'gsap': path.resolve(__dirname, 'src/scripts/vendor/greensock/greensock-js'),
+            // 'pixi-layers': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-layers/pixi-layers'),
+            // 'pixi-particles': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-particles/pixi-particles'),
+            // 'pixi-spine': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-spine/pixi-spine'),
         },
-        /* TODO auto resolve paths from tsconfig => paths
         plugins: [
             new TsConfigPathsPlugin()
         ],
-        */
     },
     stats: 'verbose',
 };
