@@ -5,7 +5,7 @@ Just another PixiJS Typescript Boilerplate
 ## Getting Started
 
 Another boilerplate to speed up project setup for developing typescript apps with PixiJS.
-Ready to compile code for dev and production env. 
+Ready to compile code for dev and production env.
 Provides a helper class (PixiApp) to manage resizing (full size, keeping aspect ratio or no resize at all),
 alignment of the stage within the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
 display some media info and a [fps-meter](https://github.com/darsain/fpsmeter).
@@ -15,9 +15,8 @@ Versions:
 - [Webpack](https://webpack.js.org/) 3.10.0
 - [PixiJS](http://www.pixijs.com/) 4.7.0
 
-Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions). 
-This means that those deps will have to be manually managed. Some companies do not really want to heavily rely on npm repos.
-Let me know if this is a bad idea overall so I can revert the changes. Thanks!
+Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions).
+This means that those deps will have to be manually managed. Some companies do not want to heavily rely on npm repos.
 
 ### Included PixiJS plugins
 - pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 8c14aa9a8c842c028e97e353eb5eb7d4663ebee1)
@@ -29,7 +28,8 @@ Let me know if this is a bad idea overall so I can revert the changes. Thanks!
 ### Other 3rd party libs
 - [fullscreen](https://github.com/sindresorhus/screenfull.js/) 3.3.2
 - [fps-meter](https://github.com/darsain/fpsmeter) 0.3.1
-- [Eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
+- [eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
+- [gsap](https://github.com/greensock/GreenSock-JS) 1.20.4
 
 ### Prerequisites
 
@@ -62,17 +62,18 @@ npm install
 ## Initial Steps
 
 - Test it by running and browsing to [localhost:9000](http://localhost:9000/) 
+
 ```
 npm run build && npm run serve
 ```
 You should see a sample app with a fps-meter and a div containing some display info.
 
-- See src/app for a showcase.
+- See src/scripts/app for a showcase.
 - Edit src/html/index.html, src/scripts/index.ts and src/styles/style.css as desired.
 Index.ts is the entry point for bundling the application.
 - Instantiate App with parameters width, height, align, resize and a canvas view container if desired.
 - Optionally add/remove custom linter rules from tslint.json.
-- Finally remove src/app/* and assets/gfx/* when not needed.
+- Finally remove folder src/scripts/app and assets/gfx/* when not needed.
 
 Note that pixi.js is kept as a external dependency and it is not bundled within the application.
 Not really sure if I should bundle it as well.
@@ -87,6 +88,7 @@ Not really sure if I should bundle it as well.
 - serve:release - serves (0.0.0.0:9999) dist dir through [http-server](https://github.com/indexzero/http-server) to test production bundle
 - test - does nothing right now
 - doc - generate app doc with [typedoc](http://typedoc.org/)
+- start - runs build & serve
 
 ## Contributing
 
@@ -104,4 +106,4 @@ See also the list of [contributors](https://github.com/dacaher/pixijs-ts-boilerp
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

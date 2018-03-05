@@ -11,7 +11,8 @@
     "serve": "webpack-dev-server --config webpack.dev.js --color --progress --inline --hot",
     "serve:release": "http-server ./dist -p 9999 -o",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "doc": "typedoc --out doc --target ES6 --mode modules --exclude '**/{node_modules/**/*, *.spec, vendor/**/*}.ts' ."
+    "doc": "typedoc --out doc --target ES6 --mode modules --exclude '**/{node_modules/**/*, *.spec, vendor/**/*}.ts' .",
+    "start": "npm run build && npm run serve"
   },
   "keywords": [],
   "author": "dacaher",
