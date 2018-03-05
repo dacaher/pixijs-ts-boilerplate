@@ -16,7 +16,9 @@
     ],
     "paths": {
       "app/*": ["src/scripts/app/*"],
+      "vendor/*": ["src/scripts/vendor/*"],
       "pixi-app-wrapper": ["src/scripts/vendor/dacaher/pixi-app-wrapper"],
+      "fpsmeter": ["src/scripts/vendor/darsain/fpsmeter/fpsmeter"],
       "screenfull": ["src/scripts/vendor/sindresorhus/screenfull/screenfull"],
       "eventemitter3": ["src/scripts/vendor/primus/eventemitter3"],
       "gsap": ["src/scripts/vendor/greensock/greensock-js"],
