@@ -43,6 +43,7 @@ module.exports = {
             'styles': path.resolve(__dirname, 'src/styles/'),
             'app': path.resolve(__dirname, 'src/scripts/app/'),
             'vendor': path.resolve(__dirname, 'src/scripts/vendor/'),
+            'pixi-app-wrapper': path.resolve(__dirname, 'src/scripts/vendor/dacaher/pixi-app-wrapper'),
             'fpsmeter': path.resolve(__dirname, 'src/scripts/vendor/darsain/fpsmeter/fpsmeter'),
             'screenfull': path.resolve(__dirname, 'src/scripts/vendor/sindresorhus/screenfull/screenfull'),
             'eventemitter3': path.resolve(__dirname, 'src/scripts/vendor/primus/eventemitter3'),

@@ -15,7 +15,7 @@
       "src/types"
     ],
     "paths": {
-      "dacaher/*": ["vendor/dacaher/*"],
+      "pixi-app-wrapper": ["vendor/dacaher/pixi-app-wrapper"],
       "screenfull": ["vendor/sindresorhus/screenfull/screenfull"],
       "eventemitter3": ["vendor/primus/eventemitter3"],
       "gsap": ["vendor/greensock/greensock-js"],

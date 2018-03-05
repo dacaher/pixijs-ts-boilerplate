@@ -1,10 +1,14 @@
 import {RotatingSprite} from "app/rotating-sprite";
 import {TweenLite} from "gsap";
+import {
+    Dom,
+    PixiAppWrapper as Wrapper,
+    pixiAppWrapperEvent as WrapperEvent,
+    PixiAppWrapperOptions as WrapperOpts,
+} from "pixi-app-wrapper";
 import "pixi-layers";
 import "pixi-particles";
 import "pixi-spine";
-import {PixiAppWrapper as Wrapper, pixiAppWrapperEvent as WrapperEvent, PixiAppWrapperOptions as WrapperOpts} from "vendor/dacaher/pixi-app-wrapper";
-import {Dom} from "vendor/dacaher/pixi-app-wrapper/util/dom";
 
 /**
  * Showcase for PixiAppWrapper class.
