@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src/scripts",
+    "baseUrl": ".",
     "strictNullChecks": true,
     "moduleResolution": "node",
     "target": "es5",
@@ -15,13 +15,14 @@
       "src/types"
     ],
     "paths": {
-      "pixi-app-wrapper": ["vendor/dacaher/pixi-app-wrapper"],
-      "screenfull": ["vendor/sindresorhus/screenfull/screenfull"],
-      "eventemitter3": ["vendor/primus/eventemitter3"],
-      "gsap": ["vendor/greensock/greensock-js"],
-      "pixi-layers": ["vendor/pixijs/pixi-layers/pixi-layers"],
-      "pixi-particles": ["vendor/pixijs/pixi-particles/pixi-particles"],
-      "pixi-spine": ["vendor/pixijs/pixi-spine/pixi-spine"]
+      "app/*": ["src/scripts/app/*"],
+      "pixi-app-wrapper": ["src/scripts/vendor/dacaher/pixi-app-wrapper"],
+      "screenfull": ["src/scripts/vendor/sindresorhus/screenfull/screenfull"],
+      "eventemitter3": ["src/scripts/vendor/primus/eventemitter3"],
+      "gsap": ["src/scripts/vendor/greensock/greensock-js"],
+      "pixi-layers": ["src/scripts/vendor/pixijs/pixi-layers/pixi-layers"],
+      "pixi-particles": ["src/scripts/vendor/pixijs/pixi-particles/pixi-particles"],
+      "pixi-spine": ["src/scripts/vendor/pixijs/pixi-spine/pixi-spine"]
     }
   },
   "include": [
