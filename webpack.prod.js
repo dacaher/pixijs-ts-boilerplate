@@ -2,7 +2,6 @@ const common = require('./webpack.common');
 const merge = require('webpack-merge');
 const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const SriPlugin = require('webpack-subresource-integrity');
@@ -87,7 +86,6 @@ module.exports = merge(common, {
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
-        }),
-        new TsConfigPathsPlugin({configFileName: tsConfig})
-    ]
+        })
+    ],
 });

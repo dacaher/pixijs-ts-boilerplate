@@ -1,11 +1,11 @@
 import {RotatingSprite} from "app/rotating-sprite";
 import {TweenLite} from "gsap";
+import "pixi-layers";
+import "pixi-particles";
+import "pixi-spine";
 import PixiAppEvent from "vendor/dacaher/pixi-app/event/pixi-app-event";
 import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
-import "vendor/pixijs/pixi-layers/pixi-layers";
-import "vendor/pixijs/pixi-particles/pixi-particles";
-import "vendor/pixijs/pixi-spine/pixi-spine";
 
 /**
  * Showcase for PixiApp class.
@@ -156,7 +156,7 @@ export class SampleApp {
             explorer.rotation += explorer.rotationVelocity;
         });
 
-        TweenLite.to(explorer, 2, {y: 100});
+        TweenLite.to(explorer, 2, {y: this.app.initialHeight / 2});
     }
 
     private drawBunnies(): void {

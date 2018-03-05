@@ -2,7 +2,6 @@ const common = require('./webpack.common');
 const merge = require('webpack-merge');
 const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 
 const outputDir = 'dev';
 const publicPath = '';
@@ -66,8 +65,7 @@ module.exports = merge(common, {
                     }
                 ]
             }
-        }),
-        new TsConfigPathsPlugin({configFileName: tsConfig})
+        })
     ],
     devServer: {
         contentBase: path.join(__dirname, outputDir),
@@ -80,5 +78,5 @@ module.exports = merge(common, {
             warnings: true,
             errors: true
         }
-    }
+    },
 });

@@ -6,6 +6,7 @@ after https://github.com/webpack/webpack/issues/3460 will be resolved.
 const {CheckerPlugin} = require('awesome-typescript-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 
 module.exports = {
     entry: {
@@ -33,16 +34,28 @@ module.exports = {
         })
     ],
     externals: {
-        'vendor/pixijs/pixi.js/pixi.js': 'PIXI'
+        'pixi.js': 'PIXI',
     },
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.css', '.scss'],
+        extensions: ['.js', '.ts', '.tsx', '.css', '.scss', '.json'],
+        modules: ['node_modules'],
         alias: {
-            // CUSTOM PACKAGES:
             'styles': path.resolve(__dirname, 'src/styles/'),
             'app': path.resolve(__dirname, 'src/scripts/app/'),
             'vendor': path.resolve(__dirname, 'src/scripts/vendor/'),
-        }
+            'fpsmeter': path.resolve(__dirname, 'src/scripts/vendor/darsain/fpsmeter/fpsmeter'),
+            'screenfull': path.resolve(__dirname, 'src/scripts/vendor/sindresorhus/screenfull/screenfull'),
+            'eventemitter3': path.resolve(__dirname, 'src/scripts/vendor/primus/eventemitter3'),
+            'gsap': path.resolve(__dirname, 'src/scripts/vendor/greensock/greensock-js'),
+            'pixi-layers': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-layers/pixi-layers'),
+            'pixi-particles': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-particles/pixi-particles'),
+            'pixi-spine': path.resolve(__dirname, 'src/scripts/vendor/pixijs/pixi-spine/pixi-spine'),
+        },
+        /* TODO auto resolve paths from tsconfig => paths
+        plugins: [
+            new TsConfigPathsPlugin()
+        ],
+        */
     },
-    stats: 'verbose'
+    stats: 'verbose',
 };

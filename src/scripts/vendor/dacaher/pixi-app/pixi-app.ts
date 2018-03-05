@@ -1,7 +1,7 @@
-import "vendor/darsain/fpsmeter/fpsmeter";
-import "vendor/pixijs/pixi.js/pixi.js";
-import EventEmitter = require("vendor/primus/eventemitter3");
-import * as screenfull from "vendor/sindresorhus/screenfull/screenfull";
+import EventEmitter = require("eventemitter3");
+import "fpsmeter";
+import * as PIXI from "pixi.js";
+import * as screenfull from "screenfull";
 import PixiAppEvent from "./event/pixi-app-event";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
@@ -19,7 +19,6 @@ import {ScaleKeepAspectRatio} from "./stage/scale/scale-keep-aspect-ratio";
 import {ScaleNone} from "./stage/scale/scale-none";
 import {ScaleStrategy} from "./stage/scale/scale-strategy";
 import {Dom} from "./util/dom";
-import "./util/math";
 
 export interface PixiAppOptions extends PIXI.ApplicationOptions {
     width: number;

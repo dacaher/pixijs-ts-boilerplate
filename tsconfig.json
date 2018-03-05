@@ -13,7 +13,16 @@
     "typeRoots": [
       "node_modules/@types",
       "src/types"
-    ]
+    ],
+    "paths": {
+      "dacaher/*": ["vendor/dacaher/*"],
+      "screenfull": ["vendor/sindresorhus/screenfull/screenfull"],
+      "eventemitter3": ["vendor/primus/eventemitter3"],
+      "gsap": ["vendor/greensock/greensock-js"],
+      "pixi-layers": ["vendor/pixijs/pixi-layers/pixi-layers"],
+      "pixi-particles": ["vendor/pixijs/pixi-particles/pixi-particles"],
+      "pixi-spine": ["vendor/pixijs/pixi-spine/pixi-spine"]
+    }
   },
   "include": [
     "src/**/*"

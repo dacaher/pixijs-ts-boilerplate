@@ -1,4 +1,5 @@
 import {Dom} from "vendor/dacaher/pixi-app/util/dom";
+import "vendor/dacaher/pixi-app/util/math";
 
 export interface DisplayData {
     screen: { width: number, height: number };

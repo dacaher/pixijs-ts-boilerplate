@@ -1,0 +1,28 @@
+{
+  "name": "gsap",
+  "version": "1.20.4",
+  "main": "TweenMax.js",
+  "browser": {
+    "TimelineLite.js": "./uncompressed/TimelineLite.js",
+    "TimelineMax.js": "./uncompressed/TimelineMax.js",
+    "TweenLite": "./uncompressed/TweenLite.js",
+    "TweenMax.js": "./uncompressed/TweenMax.js",
+    "EasePack.js": "./uncompressed/easing/EasePack.js",
+    "jquery.gsap.js": "./uncompressed/jquery.gsap.js",
+    "AttrPlugin.js": "./uncompressed/plugins/AttrPlugin.js",
+    "BezierPlugin.js": "./uncompressed/plugins/BezierPlugin.js",
+    "CSSPlugin.js": "./uncompressed/plugins/CSSPlugin.js",
+    "CSSRulePlugin.js": "./uncompressed/plugins/CSSRulePlugin.js",
+    "ColorPropsPlugin.js": "./uncompressed/plugins/ColorPropsPlugin.js",
+    "DirectionalRotationPlugin.js": "./uncompressed/plugins/DirectionalRotationPlugin.js",
+    "EaselPlugin.js": "./uncompressed/plugins/EaselPlugin.js",
+    "EndArrayPlugin.js": "./uncompressed/plugins/EndArrayPlugin.js",
+    "ModifiersPlugin.js": "./uncompressed/plugins/ModifiersPlugin.js",
+    "PixiPlugin.js": "./uncompressed/plugins/PixiPlugin.js",
+    "RaphaelPlugin.js": "./uncompressed/plugins/RaphaelPlugin.js",
+    "RoundPropsPlugin.js": "./uncompressed/plugins/RoundPropsPlugin.js",
+    "ScrollToPlugin.js": "./uncompressed/plugins/ScrollToPlugin.js",
+    "TextPlugin.js": "./uncompressed/plugins/TextPlugin.js",
+    "Draggable.js": "./uncompressed/utils/Draggable.js"
+  }
+}
