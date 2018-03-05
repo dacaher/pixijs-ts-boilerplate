@@ -2,7 +2,7 @@ import EventEmitter = require("eventemitter3");
 import "fpsmeter";
 import * as PIXI from "pixi.js";
 import * as screenfull from "screenfull";
-import PixiAppEvent from "./event/pixi-app-event";
+import {pixiAppWrapperEvent} from "./event/pixi-app-wrapper-event";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
 import {AlignBottomCenter} from "./stage/align/align-bottom-center";
 import {AlignBottomLeft} from "./stage/align/align-bottom-left";
@@ -20,7 +20,7 @@ import {ScaleNone} from "./stage/scale/scale-none";
 import {ScaleStrategy} from "./stage/scale/scale-strategy";
 import {Dom} from "./util/dom";
 
-export interface PixiAppOptions extends PIXI.ApplicationOptions {
+export interface PixiAppWrapperOptions extends PIXI.ApplicationOptions {
     width: number;
     height: number;
     align?: "top-left" | "top-center" | "top-right" | "middle-left" | "middle" | "middle-right" | "bottom-left" | "bottom-center" | "bottom-right";
@@ -32,7 +32,7 @@ export interface PixiAppOptions extends PIXI.ApplicationOptions {
 /**
  * Wrapper for PIXI.Application class enabling features like scaling, aligning, fps-meter and a media info viewer.
  */
-export class PixiApp extends EventEmitter {
+export class PixiAppWrapper extends EventEmitter {
 
     /**
      * Requests fullscreen for given element or documentElement if not provided.
@@ -49,7 +49,7 @@ export class PixiApp extends EventEmitter {
     private readonly defaultScaleMethod = "none";
     private readonly defaultAlignMethod = "top-left";
 
-    private readonly defaultOptions: PixiAppOptions = {
+    private readonly defaultOptions: PixiAppWrapperOptions = {
         width: 800,
         height: 600,
         scale: this.defaultScaleMethod,
@@ -67,7 +67,7 @@ export class PixiApp extends EventEmitter {
     };
 
     private app: PIXI.Application;
-    private appOptions: PixiAppOptions;
+    private appOptions: PixiAppWrapperOptions;
 
     private width: number;
     private height: number;
@@ -80,7 +80,7 @@ export class PixiApp extends EventEmitter {
 
     private resizing: boolean;
 
-    constructor(options?: PixiAppOptions) {
+    constructor(options?: PixiAppWrapperOptions) {
         super();
 
         if (!options) {
@@ -159,7 +159,7 @@ export class PixiApp extends EventEmitter {
         };
     }
 
-    private configure(options: PixiAppOptions): void {
+    private configure(options: PixiAppWrapperOptions): void {
         this.width = options.width;
         this.height = options.height;
 
@@ -243,7 +243,7 @@ export class PixiApp extends EventEmitter {
             this.resizing = true;
 
             // dispatch resize start event
-            this.emit(PixiAppEvent.RESIZE_START);
+            this.emit(pixiAppWrapperEvent.RESIZE_START);
 
             // resize
             this.renderer.resize(this.view.clientWidth, this.view.clientHeight);
@@ -260,7 +260,7 @@ export class PixiApp extends EventEmitter {
             this.resizing = false;
 
             // dispatch resize end event
-            this.emit(PixiAppEvent.RESIZE_END, {
+            this.emit(pixiAppWrapperEvent.RESIZE_END, {
                 stage: {
                     position: {
                         x: this.stage.position.x,

@@ -1,5 +1,5 @@
-import {Dom} from "vendor/dacaher/pixi-app/util/dom";
-import "vendor/dacaher/pixi-app/util/math";
+import {Dom} from "vendor/dacaher/pixi-app-wrapper/util/dom";
+import "vendor/dacaher/pixi-app-wrapper/util/math";
 
 export interface DisplayData {
     screen: { width: number, height: number };

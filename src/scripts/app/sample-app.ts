@@ -3,15 +3,14 @@ import {TweenLite} from "gsap";
 import "pixi-layers";
 import "pixi-particles";
 import "pixi-spine";
-import PixiAppEvent from "vendor/dacaher/pixi-app/event/pixi-app-event";
-import {PixiApp, PixiAppOptions} from "vendor/dacaher/pixi-app/pixi-app";
-import {Dom} from "vendor/dacaher/pixi-app/util/dom";
+import {PixiAppWrapper as Wrapper, pixiAppWrapperEvent as WrapperEvent, PixiAppWrapperOptions as WrapperOpts} from "vendor/dacaher/pixi-app-wrapper";
+import {Dom} from "vendor/dacaher/pixi-app-wrapper/util/dom";
 
 /**
- * Showcase for PixiApp class.
+ * Showcase for PixiAppWrapper class.
  */
 export class SampleApp {
-    private app: PixiApp;
+    private app: Wrapper;
     private particlesEmitter: PIXI.particles.Emitter;
 
     constructor() {
@@ -19,7 +18,7 @@ export class SampleApp {
         const canvas = Dom.getElementOrCreateNew<HTMLCanvasElement>("app-canvas", "canvas", document.getElementById("app-root"));
 
         // if no view is specified, it appends canvas to body
-        const appOptions: PixiAppOptions = {
+        const appOptions: WrapperOpts = {
             width: 1280,
             height: 720,
             scale: "keep-aspect-ratio",
@@ -33,9 +32,9 @@ export class SampleApp {
             showMediaInfo: true,
         };
 
-        this.app = new PixiApp(appOptions);
-        this.app.on(PixiAppEvent.RESIZE_START, this.onResizeStart.bind(this));
-        this.app.on(PixiAppEvent.RESIZE_END, this.onResizeEnd.bind(this));
+        this.app = new Wrapper(appOptions);
+        this.app.on(WrapperEvent.RESIZE_START, this.onResizeStart.bind(this));
+        this.app.on(WrapperEvent.RESIZE_END, this.onResizeEnd.bind(this));
 
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
         this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
@@ -63,7 +62,7 @@ export class SampleApp {
         graphics.buttonMode = true;
         graphics.on("pointerup", () => {
             // pointerdown does not trigger a user event in chrome-android
-            PixiApp.toggleFulscreen(document.getElementById("app-root"));
+            Wrapper.toggleFulscreen(document.getElementById("app-root"));
         });
 
         this.app.stage.addChild(graphics);
