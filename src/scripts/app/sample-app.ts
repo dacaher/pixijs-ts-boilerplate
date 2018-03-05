@@ -305,6 +305,7 @@ export class SampleApp {
         spineBoy.state.setAnimation(0, "walk", true);
 
         spineBoy.interactive = true;
+        spineBoy.buttonMode = true;
 
         spineBoy.on("pointerdown", () => {
             spineBoy.state.setAnimation(0, "jump", false);
