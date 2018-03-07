@@ -30,6 +30,7 @@ This means that those deps will have to be manually managed. Some companies do n
 - [fps-meter](https://github.com/darsain/fpsmeter) 0.3.1
 - [eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
 - [gsap](https://github.com/greensock/GreenSock-JS) 1.20.4
+- [howler](https://github.com/goldfire/howler.js) 2.0.9
 
 ### Prerequisites
 

@@ -1,5 +1,6 @@
 import {RotatingSprite} from "app/rotating-sprite";
 import {TweenLite} from "gsap";
+import "howler";
 import {
     Dom,
     PixiAppWrapper as Wrapper,
@@ -16,6 +17,14 @@ import "pixi-spine";
 export class SampleApp {
     private app: Wrapper;
     private particlesEmitter: PIXI.particles.Emitter;
+
+    private textStyle = new PIXI.TextStyle({
+        fontFamily: "Verdana",
+        fontSize: 18,
+        fill: "#FFFFFF",
+        wordWrap: true,
+        wordWrapWidth: 440,
+    });
 
     constructor() {
 
@@ -48,6 +57,8 @@ export class SampleApp {
             .add("bunny", "assets/gfx/bunny.png")
             .add("bubble", "assets/gfx/Bubbles99.png")
             .add("spineboy", "assets/gfx/spineboy.json")
+            .add("play", "assets/gfx/play.png")
+            .add("stop", "assets/gfx/stop.png")
             .load(this.onAssetsLoaded.bind(this));
     }
 
@@ -106,15 +117,7 @@ export class SampleApp {
     }
 
     private addFullscreenText(x: number, y: number): void {
-        const style = new PIXI.TextStyle({
-            fontFamily: "Verdana",
-            fontSize: 18,
-            fill: "#FFFFFF",
-            wordWrap: true,
-            wordWrapWidth: 440,
-        });
-
-        const richText = new PIXI.Text("Click on the square to toggle fullscreen!", style);
+        const richText = new PIXI.Text("Click on the square to toggle fullscreen!", this.textStyle);
         richText.anchor.set(0.5, 0.5);
         richText.x = x;
         richText.y = y;
@@ -129,6 +132,7 @@ export class SampleApp {
         this.drawLayeredBunnies();
         this.drawParticles();
         this.drawSpineBoyAnim();
+        this.drawPlayMusic();
     }
 
     private drawRotatingExplorer(): void {
@@ -313,5 +317,46 @@ export class SampleApp {
         });
 
         this.app.stage.addChild(spineBoy);
+    }
+
+    private drawPlayMusic() {
+        const sound = new Howl({
+            src: ["assets/sfx/sound1.mp3"],
+        });
+
+        const container = new PIXI.Container();
+
+        const playButton = new PIXI.Sprite(PIXI.loader.resources.play.texture);
+        playButton.scale.set(0.75, 0.75);
+        playButton.interactive = true;
+        playButton.buttonMode = true;
+        playButton.on("pointerup", () => {
+            sound.play();
+            playButton.visible = false;
+            stopButton.visible = true;
+        });
+
+        const stopButton = new PIXI.Sprite(PIXI.loader.resources.stop.texture);
+        stopButton.scale.set(0.75, 0.75);
+        stopButton.interactive = true;
+        stopButton.buttonMode = true;
+        stopButton.visible = false;
+
+        stopButton.on("pointerup", () => {
+            sound.stop();
+            stopButton.visible = false;
+            playButton.visible = true;
+        });
+
+        const text = new PIXI.Text("Click to play music!", this.textStyle);
+        text.position.set(playButton.width + 10, playButton.height / 2 - text.height / 2);
+
+        container.addChild(playButton);
+        container.addChild(stopButton);
+        container.addChild(text);
+
+        container.position.set(this.app.initialWidth / 2 - container.width / 2, this.app.initialHeight * 0.1);
+
+        this.app.stage.addChild(container);
     }
 }
