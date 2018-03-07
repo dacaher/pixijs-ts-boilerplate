@@ -323,6 +323,10 @@ export class SampleApp {
         const sound = new Howl({
             src: ["assets/sfx/sound1.mp3"],
         });
+        sound.on("end", () => {
+            playButton.visible = true;
+            stopButton.visible = false;
+        });
 
         const container = new PIXI.Container();
 
