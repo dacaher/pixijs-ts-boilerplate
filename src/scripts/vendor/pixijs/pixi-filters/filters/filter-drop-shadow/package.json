@@ -1,0 +1,71 @@
+{
+  "_from": "@pixi/filter-drop-shadow@^2.6.0",
+  "_id": "@pixi/filter-drop-shadow@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-XTw/WHZHQV9cAF5Sw+ExrczygPk=",
+  "_location": "/@pixi/filter-drop-shadow",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-drop-shadow@^2.6.0",
+    "name": "@pixi/filter-drop-shadow",
+    "escapedName": "@pixi%2ffilter-drop-shadow",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-drop-shadow/-/filter-drop-shadow-2.6.0.tgz",
+  "_shasum": "5d3c3f587647415f5c005e52c3e131adccf280f9",
+  "_spec": "@pixi/filter-drop-shadow@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "dependencies": {
+    "@pixi/filter-kawase-blur": "^2.6.0"
+  },
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a drop shadow effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "globals": {
+    "@pixi/filter-kawase-blur": "PIXI.filters"
+  },
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-drop-shadow.js",
+  "module": "lib/filter-drop-shadow.es.js",
+  "name": "@pixi/filter-drop-shadow",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

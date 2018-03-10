@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-adjustment@^2.5.0",
+  "_id": "@pixi/filter-adjustment@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-VBrm9g/nTEPNbXS3g0fZfaShwgo=",
+  "_location": "/@pixi/filter-adjustment",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-adjustment@^2.5.0",
+    "name": "@pixi/filter-adjustment",
+    "escapedName": "@pixi%2ffilter-adjustment",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-adjustment/-/filter-adjustment-2.5.0.tgz",
+  "_shasum": "541ae6f60fe74c43cd6d74b78347d97da4a1c20a",
+  "_spec": "@pixi/filter-adjustment@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to adjust gamma, contrast, saturation, brightness or color channels",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-adjustment.js",
+  "module": "lib/filter-adjustment.es.js",
+  "name": "@pixi/filter-adjustment",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

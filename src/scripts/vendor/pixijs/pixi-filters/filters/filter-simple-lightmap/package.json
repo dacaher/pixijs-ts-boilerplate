@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-simple-lightmap@^2.6.0",
+  "_id": "@pixi/filter-simple-lightmap@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-8gRRAQcdnRd/1F9hcI+Hv/AZFJY=",
+  "_location": "/@pixi/filter-simple-lightmap",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-simple-lightmap@^2.6.0",
+    "name": "@pixi/filter-simple-lightmap",
+    "escapedName": "@pixi%2ffilter-simple-lightmap",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-simple-lightmap/-/filter-simple-lightmap-2.6.0.tgz",
+  "_shasum": "f2045101071d9d177fd45f61708f87bff0191496",
+  "_spec": "@pixi/filter-simple-lightmap@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to create a light-map from a texture",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-simple-lightmap.js",
+  "module": "lib/filter-simple-lightmap.es.js",
+  "name": "@pixi/filter-simple-lightmap",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-emboss@^2.5.0",
+  "_id": "@pixi/filter-emboss@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-PZfMT7WZHXaZ/+SnghbfjC41MHk=",
+  "_location": "/@pixi/filter-emboss",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-emboss@^2.5.0",
+    "name": "@pixi/filter-emboss",
+    "escapedName": "@pixi%2ffilter-emboss",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-emboss/-/filter-emboss-2.5.0.tgz",
+  "_shasum": "3d97cc4fb5991d7699ffe4a78216df8c2e353079",
+  "_spec": "@pixi/filter-emboss@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply an emboss effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-emboss.js",
+  "module": "lib/filter-emboss.es.js",
+  "name": "@pixi/filter-emboss",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

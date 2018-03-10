@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-radial-blur@^2.6.0",
+  "_id": "@pixi/filter-radial-blur@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-/S1SFHhjA/n08jsEB5c25hjgLXw=",
+  "_location": "/@pixi/filter-radial-blur",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-radial-blur@^2.6.0",
+    "name": "@pixi/filter-radial-blur",
+    "escapedName": "@pixi%2ffilter-radial-blur",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-radial-blur/-/filter-radial-blur-2.6.0.tgz",
+  "_shasum": "fd2d5214786303f9f4f23b04079736e618e02d7c",
+  "_spec": "@pixi/filter-radial-blur@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a radial blur effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-radial-blur.js",
+  "module": "lib/filter-radial-blur.es.js",
+  "name": "@pixi/filter-radial-blur",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

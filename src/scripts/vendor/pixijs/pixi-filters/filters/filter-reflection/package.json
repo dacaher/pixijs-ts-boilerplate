@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-reflection@^2.6.0",
+  "_id": "@pixi/filter-reflection@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-dJbLUaDmG/e8FY+o5h1FMZ2ozH8=",
+  "_location": "/@pixi/filter-reflection",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-reflection@^2.6.0",
+    "name": "@pixi/filter-reflection",
+    "escapedName": "@pixi%2ffilter-reflection",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-reflection/-/filter-reflection-2.6.0.tgz",
+  "_shasum": "7496cb51a0e61bf7bc158fa8e61d45319da8cc7f",
+  "_spec": "@pixi/filter-reflection@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply reflection and wave effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-reflection.js",
+  "module": "lib/filter-reflection.es.js",
+  "name": "@pixi/filter-reflection",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

@@ -21,6 +21,7 @@ This means that those deps will have to be manually managed. Some companies do n
 ### Included PixiJS plugins
 - pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 8c14aa9a8c842c028e97e353eb5eb7d4663ebee1)
 - [pixi-particles](https://github.com/pixijs/pixi-particles) 3.0.0
+- [pixi-filters](https://github.com/pixijs/pixi-filters) 2.6.0
 - [pixi-spine](https://github.com/pixijs/pixi-spine) (296c7039c107520e4bc0e0e4a3cc62545f970fca) ***
 
 *** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID [SPINE LICENSE](https://esotericsoftware.com/spine-purchase).

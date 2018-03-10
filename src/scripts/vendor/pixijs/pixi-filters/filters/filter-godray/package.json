@@ -1,0 +1,69 @@
+{
+  "_from": "@pixi/filter-godray@^2.6.0",
+  "_id": "@pixi/filter-godray@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-fJ/YXSlJdA9VXRuBf6f1/HGVLxw=",
+  "_location": "/@pixi/filter-godray",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-godray@^2.6.0",
+    "name": "@pixi/filter-godray",
+    "escapedName": "@pixi%2ffilter-godray",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-godray/-/filter-godray-2.6.0.tgz",
+  "_shasum": "7c9fd85d2949740f555d1b817fa7f5fc71952f1c",
+  "_spec": "@pixi/filter-godray@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Alain Galvan"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    },
+    {
+      "name": "Ivan Popelyshevl",
+      "email": "ivan.popelyshev@gmail.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply and animate atmospheric light rays",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-godray.js",
+  "module": "lib/filter-godray.es.js",
+  "name": "@pixi/filter-godray",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

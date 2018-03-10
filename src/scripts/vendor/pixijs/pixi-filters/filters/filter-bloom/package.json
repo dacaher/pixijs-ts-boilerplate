@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-bloom@^2.5.0",
+  "_id": "@pixi/filter-bloom@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-SkIFnDC+76SDwN7H7zYUsrPFjAU=",
+  "_location": "/@pixi/filter-bloom",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-bloom@^2.5.0",
+    "name": "@pixi/filter-bloom",
+    "escapedName": "@pixi%2ffilter-bloom",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-bloom/-/filter-bloom-2.5.0.tgz",
+  "_shasum": "4a42059c30beefa483c0dec7ef3614b2b3c58c05",
+  "_spec": "@pixi/filter-bloom@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a simple bloom effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-bloom.js",
+  "module": "lib/filter-bloom.es.js",
+  "name": "@pixi/filter-bloom",
+  "peerDependencies": {
+    "pixi.js": "^4.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

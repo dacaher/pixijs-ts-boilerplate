@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-motion-blur@^2.6.0",
+  "_id": "@pixi/filter-motion-blur@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-fuw/eLXZJqGD3DEEeGOr2aTKaHE=",
+  "_location": "/@pixi/filter-motion-blur",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-motion-blur@^2.6.0",
+    "name": "@pixi/filter-motion-blur",
+    "escapedName": "@pixi%2ffilter-motion-blur",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-motion-blur/-/filter-motion-blur-2.6.0.tgz",
+  "_shasum": "7eec3f78b5d926a183dc31047863abd9a4ca6871",
+  "_spec": "@pixi/filter-motion-blur@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a directional blur effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-motion-blur.js",
+  "module": "lib/filter-motion-blur.es.js",
+  "name": "@pixi/filter-motion-blur",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

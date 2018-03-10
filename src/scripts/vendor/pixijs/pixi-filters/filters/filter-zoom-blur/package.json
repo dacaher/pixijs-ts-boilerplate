@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-zoom-blur@^2.6.0",
+  "_id": "@pixi/filter-zoom-blur@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-Stlmowk3K3MeD8Rp2X3VG/edG9Y=",
+  "_location": "/@pixi/filter-zoom-blur",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-zoom-blur@^2.6.0",
+    "name": "@pixi/filter-zoom-blur",
+    "escapedName": "@pixi%2ffilter-zoom-blur",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-zoom-blur/-/filter-zoom-blur-2.6.0.tgz",
+  "_shasum": "4ad966a309372b731e0fc469d97dd51bf79d1bd6",
+  "_spec": "@pixi/filter-zoom-blur@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "finscn",
+      "email": "finscn@gmail.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply zoom blur effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-zoom-blur.js",
+  "module": "lib/filter-zoom-blur.es.js",
+  "name": "@pixi/filter-zoom-blur",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

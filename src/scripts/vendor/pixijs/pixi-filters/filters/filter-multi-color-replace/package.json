@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-multi-color-replace@^2.5.0",
+  "_id": "@pixi/filter-multi-color-replace@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-MINN38mEzsdFMDTqUSF6ORuWz2A=",
+  "_location": "/@pixi/filter-multi-color-replace",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-multi-color-replace@^2.5.0",
+    "name": "@pixi/filter-multi-color-replace",
+    "escapedName": "@pixi%2ffilter-multi-color-replace",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-multi-color-replace/-/filter-multi-color-replace-2.5.0.tgz",
+  "_shasum": "30834ddfc984cec7453034ea51217a391b96cf60",
+  "_spec": "@pixi/filter-multi-color-replace@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "finscn",
+      "email": "finscn@gmail.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to dynamically replace multiple colors",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-multi-color-replace.js",
+  "module": "lib/filter-multi-color-replace.es.js",
+  "name": "@pixi/filter-multi-color-replace",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

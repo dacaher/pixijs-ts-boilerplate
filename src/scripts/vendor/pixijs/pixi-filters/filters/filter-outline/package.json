@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-outline@^2.6.0",
+  "_id": "@pixi/filter-outline@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-qNFQPbF7y1gwzB9rQkyngAfrhB8=",
+  "_location": "/@pixi/filter-outline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-outline@^2.6.0",
+    "name": "@pixi/filter-outline",
+    "escapedName": "@pixi%2ffilter-outline",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-outline/-/filter-outline-2.6.0.tgz",
+  "_shasum": "a8d1503db17bcb5830cc1f6b424ca78007eb841f",
+  "_spec": "@pixi/filter-outline@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply an outline/stroke effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-outline.js",
+  "module": "lib/filter-outline.es.js",
+  "name": "@pixi/filter-outline",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

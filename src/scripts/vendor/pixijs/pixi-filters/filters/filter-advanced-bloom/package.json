@@ -1,0 +1,71 @@
+{
+  "_from": "@pixi/filter-advanced-bloom@^2.6.0",
+  "_id": "@pixi/filter-advanced-bloom@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-XeEQyXqaYcJ9Z9rw1nQRJERSdfs=",
+  "_location": "/@pixi/filter-advanced-bloom",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-advanced-bloom@^2.6.0",
+    "name": "@pixi/filter-advanced-bloom",
+    "escapedName": "@pixi%2ffilter-advanced-bloom",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-advanced-bloom/-/filter-advanced-bloom-2.6.0.tgz",
+  "_shasum": "5de110c97a9a61c27d67daf0d6741124445275fb",
+  "_spec": "@pixi/filter-advanced-bloom@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "finscn",
+      "email": "finscn@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "@pixi/filter-kawase-blur": "^2.6.0"
+  },
+  "deprecated": false,
+  "description": "PixiJS v4 filter to render Bloom Filter (with highlight) effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "globals": {
+    "@pixi/filter-kawase-blur": "PIXI.filters"
+  },
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-advanced-bloom.js",
+  "module": "lib/filter-advanced-bloom.es.js",
+  "name": "@pixi/filter-advanced-bloom",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

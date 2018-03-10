@@ -7,6 +7,14 @@ import {
     pixiAppWrapperEvent as WrapperEvent,
     PixiAppWrapperOptions as WrapperOpts,
 } from "pixi-app-wrapper";
+import {
+    AsciiFilter,
+    CRTFilter,
+    GlowFilter,
+    OldFilmFilter,
+    OutlineFilter,
+    ShockwaveFilter,
+} from "pixi-filters";
 import "pixi-layers";
 import "pixi-particles";
 import "pixi-spine";
@@ -170,16 +178,43 @@ export class SampleApp {
         const container = new PIXI.Container();
         this.app.stage.addChild(container);
 
+        const text = new PIXI.Text("Click us!", this.textStyle);
+        text.anchor.set(0.5, 0.5);
+        container.addChild(text);
+
+        const bunniesContainer = new PIXI.Container();
+        bunniesContainer.position.set(0, text.height + 5);
+        bunniesContainer.interactive = true;
+        bunniesContainer.buttonMode = true;
+        bunniesContainer.on("pointerdown", () => {
+            const index = Math.round(Math.random() * (filters.length - 1));
+            const randomFilter = filters[index];
+            bunniesContainer.filters = [randomFilter];
+        });
+        container.addChild(bunniesContainer);
+
         // Create a 5x5 grid of bunnies
         for (let i = 0; i < 25; i++) {
             const bunny = new PIXI.Sprite(PIXI.loader.resources.bunny.texture);
             bunny.x = (i % 5) * 40;
             bunny.y = Math.floor(i / 5) * 40;
-            container.addChild(bunny);
+            bunniesContainer.addChild(bunny);
         }
 
-        container.x = (this.app.initialWidth - container.width) - 10;
-        container.y = (this.app.initialHeight - container.height) - 10;
+        text.position.set(bunniesContainer.width / 2, 0);
+
+        container.x = this.app.initialWidth - container.width - 10;
+        container.y = this.app.initialHeight - container.height;
+
+        // Filters
+        const filters = [
+            new AsciiFilter(),
+            new CRTFilter(),
+            new GlowFilter(),
+            new OldFilmFilter(),
+            new ShockwaveFilter(new PIXI.Point(bunniesContainer.width / 2, bunniesContainer.height / 2)),
+            new OutlineFilter(1, 0xFF0000),
+        ];
     }
 
     private drawLayeredBunnies(): void {

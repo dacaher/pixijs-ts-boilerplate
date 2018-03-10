@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-crt@^2.6.0",
+  "_id": "@pixi/filter-crt@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-CrXEal7CCiD5ykxJrzdSCuTgMgQ=",
+  "_location": "/@pixi/filter-crt",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-crt@^2.6.0",
+    "name": "@pixi/filter-crt",
+    "escapedName": "@pixi%2ffilter-crt",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-crt/-/filter-crt-2.6.0.tgz",
+  "_shasum": "0ab5c46a5ec20a20f9ca4c49af37520ae4e03204",
+  "_spec": "@pixi/filter-crt@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply an effect resembling old CRT monitors",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-crt.js",
+  "module": "lib/filter-crt.es.js",
+  "name": "@pixi/filter-crt",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

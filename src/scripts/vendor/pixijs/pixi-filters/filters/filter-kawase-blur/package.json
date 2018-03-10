@@ -1,0 +1,62 @@
+{
+  "_from": "@pixi/filter-kawase-blur@^2.6.0",
+  "_id": "@pixi/filter-kawase-blur@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-1Fw02c86Cm2ec7qCZrXvj0H81lI=",
+  "_location": "/@pixi/filter-kawase-blur",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-kawase-blur@^2.6.0",
+    "name": "@pixi/filter-kawase-blur",
+    "escapedName": "@pixi%2ffilter-kawase-blur",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/@pixi/filter-advanced-bloom",
+    "/@pixi/filter-drop-shadow",
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-kawase-blur/-/filter-kawase-blur-2.6.0.tgz",
+  "_shasum": "d45c34d9cf3a0a6d9e73ba8266b5ef8f41fcd652",
+  "_spec": "@pixi/filter-kawase-blur@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply an alternative, fast blur effect to Gaussian",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-kawase-blur.js",
+  "module": "lib/filter-kawase-blur.es.js",
+  "name": "@pixi/filter-kawase-blur",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

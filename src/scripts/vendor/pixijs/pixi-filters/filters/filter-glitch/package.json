@@ -1,0 +1,60 @@
+{
+  "_from": "@pixi/filter-glitch@^2.6.0",
+  "_id": "@pixi/filter-glitch@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-Vu3GnpuESCJB8TBxPWLP2QGS+uc=",
+  "_location": "/@pixi/filter-glitch",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-glitch@^2.6.0",
+    "name": "@pixi/filter-glitch",
+    "escapedName": "@pixi%2ffilter-glitch",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-glitch/-/filter-glitch-2.6.0.tgz",
+  "_shasum": "56edc69e9b84482241f130713d62cfd90192fae7",
+  "_spec": "@pixi/filter-glitch@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "finscn",
+    "email": "finscn@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a glitch effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-glitch.js",
+  "module": "lib/filter-glitch.es.js",
+  "name": "@pixi/filter-glitch",
+  "peerDependencies": {
+    "pixi.js": "^4.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}

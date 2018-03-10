@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-pixelate@^2.5.0",
+  "_id": "@pixi/filter-pixelate@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-B66z8ApI2cSnyyKIYNYyLXfbS8M=",
+  "_location": "/@pixi/filter-pixelate",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-pixelate@^2.5.0",
+    "name": "@pixi/filter-pixelate",
+    "escapedName": "@pixi%2ffilter-pixelate",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-pixelate/-/filter-pixelate-2.5.0.tgz",
+  "_shasum": "07aeb3f00a48d9c4a7cb228860d6322d77db4bc3",
+  "_spec": "@pixi/filter-pixelate@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a pixelation effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-pixelate.js",
+  "module": "lib/filter-pixelate.es.js",
+  "name": "@pixi/filter-pixelate",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-dot@^2.5.0",
+  "_id": "@pixi/filter-dot@2.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-JdrRhGYutTehjKOOzwA9l92ZnXU=",
+  "_location": "/@pixi/filter-dot",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-dot@^2.5.0",
+    "name": "@pixi/filter-dot",
+    "escapedName": "@pixi%2ffilter-dot",
+    "scope": "@pixi",
+    "rawSpec": "^2.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.5.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-dot/-/filter-dot-2.5.0.tgz",
+  "_shasum": "25dad184662eb537a18ca38ecf003d97dd999d75",
+  "_spec": "@pixi/filter-dot@^2.5.0",
+  "_where": "/home/david/IdeaProjects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to apply a black and white dot effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-dot.js",
+  "module": "lib/filter-dot.es.js",
+  "name": "@pixi/filter-dot",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.5.0"
+}

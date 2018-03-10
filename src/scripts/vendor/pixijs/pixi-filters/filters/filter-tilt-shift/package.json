@@ -1,0 +1,65 @@
+{
+  "_from": "@pixi/filter-tilt-shift@^2.6.0",
+  "_id": "@pixi/filter-tilt-shift@2.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-O8yjv07zxcYYLZ9WA12lR83e9/k=",
+  "_location": "/@pixi/filter-tilt-shift",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@pixi/filter-tilt-shift@^2.6.0",
+    "name": "@pixi/filter-tilt-shift",
+    "escapedName": "@pixi%2ffilter-tilt-shift",
+    "scope": "@pixi",
+    "rawSpec": "^2.6.0",
+    "saveSpec": null,
+    "fetchSpec": "^2.6.0"
+  },
+  "_requiredBy": [
+    "/pixi-filters"
+  ],
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-tilt-shift/-/filter-tilt-shift-2.6.0.tgz",
+  "_shasum": "3bcca3bf4ef3c5c6182d9f56035da547cddef7f9",
+  "_spec": "@pixi/filter-tilt-shift@^2.6.0",
+  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "author": {
+    "name": "Mat Groves"
+  },
+  "bugs": {
+    "url": "https://github.com/pixijs/pixi-filters/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Matt Karl",
+      "email": "matt@mattkarl.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "PixiJS v4 filter to render a tilt-shift-like camera effect",
+  "devDependencies": {
+    "@tools/fragments": "^2.0.0"
+  },
+  "files": [
+    "lib",
+    "types.d.ts"
+  ],
+  "homepage": "http://pixijs.com/",
+  "license": "MIT",
+  "main": "lib/filter-tilt-shift.js",
+  "module": "lib/filter-tilt-shift.es.js",
+  "name": "@pixi/filter-tilt-shift",
+  "peerDependencies": {
+    "pixi.js": "^4.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixijs/pixi-filters.git"
+  },
+  "types": "types.d.ts",
+  "version": "2.6.0"
+}
