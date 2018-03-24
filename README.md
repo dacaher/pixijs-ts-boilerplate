@@ -6,7 +6,7 @@ Just another PixiJS Typescript Boilerplate
 
 Another boilerplate to speed up project setup for developing typescript apps with PixiJS.
 Ready to compile code for dev and production env.
-Provides a helper class (PixiApp) to manage resizing (full size, keeping aspect ratio or no resize at all),
+Provides a helper class (PixiAppWrapper) to manage resizing (full size, keeping aspect ratio or no resize at all),
 alignment of the stage within the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
 display some media info and a [fps-meter](https://github.com/darsain/fpsmeter).
 

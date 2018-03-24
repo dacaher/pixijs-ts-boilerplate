@@ -25,6 +25,7 @@ import "pixi-spine";
 export class SampleApp {
     private app: Wrapper;
     private particlesEmitter: PIXI.particles.Emitter;
+    private spineBoy: PIXI.spine.Spine;
 
     private textStyle = new PIXI.TextStyle({
         fontFamily: "Verdana",
@@ -104,11 +105,19 @@ export class SampleApp {
     private onResizeStart(): void {
         window.console.log("RESIZE STARTED!");
         this.stopEmittingParticles();
+
+        if (this.spineBoy) {
+            this.spineBoy.visible = false;
+        }
     }
 
     private onResizeEnd(args: any): void {
         window.console.log("RESIZE ENDED!", args);
         this.startEmittingParticles();
+
+        if (this.spineBoy) {
+            this.spineBoy.visible = true;
+        }
     }
 
     private stopEmittingParticles(): void {
@@ -319,7 +328,7 @@ export class SampleApp {
         };
 
         // Start emitting
-        this.particlesEmitter.emit = true;
+        this.startEmittingParticles();
 
         // Start the update
         // update();
@@ -328,30 +337,30 @@ export class SampleApp {
 
     private drawSpineBoyAnim() {
         // create a spine boy
-        const spineBoy = new PIXI.spine.Spine(PIXI.loader.resources.spineboy.spineData);
+        this.spineBoy = new PIXI.spine.Spine(PIXI.loader.resources.spineboy.spineData);
 
-        spineBoy.scale.set(0.5);
+        this.spineBoy.scale.set(0.5);
 
         // set the position
-        spineBoy.x = this.app.initialWidth * 0.5;
-        spineBoy.y = this.app.initialHeight;
+        this.spineBoy.x = this.app.initialWidth * 0.5;
+        this.spineBoy.y = this.app.initialHeight;
 
         // set up the mixes!
-        spineBoy.stateData.setMix("walk", "jump", 0.2);
-        spineBoy.stateData.setMix("jump", "walk", 0.4);
+        this.spineBoy.stateData.setMix("walk", "jump", 0.2);
+        this.spineBoy.stateData.setMix("jump", "walk", 0.4);
 
         // play animation
-        spineBoy.state.setAnimation(0, "walk", true);
+        this.spineBoy.state.setAnimation(0, "walk", true);
 
-        spineBoy.interactive = true;
-        spineBoy.buttonMode = true;
+        this.spineBoy.interactive = true;
+        this.spineBoy.buttonMode = true;
 
-        spineBoy.on("pointerdown", () => {
-            spineBoy.state.setAnimation(0, "jump", false);
-            spineBoy.state.addAnimation(0, "walk", true, 0);
+        this.spineBoy.on("pointerdown", () => {
+            this.spineBoy.state.setAnimation(0, "jump", false);
+            this.spineBoy.state.addAnimation(0, "walk", true, 0);
         });
 
-        this.app.stage.addChild(spineBoy);
+        this.app.stage.addChild(this.spineBoy);
     }
 
     private drawPlayMusic() {
