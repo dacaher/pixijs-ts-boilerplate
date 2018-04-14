@@ -15,7 +15,6 @@ import {
     OutlineFilter,
     ShockwaveFilter,
 } from "pixi-filters";
-import "pixi-layers";
 import "pixi-particles";
 import "pixi-spine";
 

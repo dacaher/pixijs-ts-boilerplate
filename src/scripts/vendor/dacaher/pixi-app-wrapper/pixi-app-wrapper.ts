@@ -1,6 +1,7 @@
 import EventEmitter = require("eventemitter3");
 import "fpsmeter";
 import {Dom, pixiAppWrapperEvent} from "pixi-app-wrapper";
+import "pixi-layers";
 import * as PIXI from "pixi.js";
 import * as screenfull from "screenfull";
 import {MediaInfoData, MediaInfoViewer} from "./info/media-info-viewer";
