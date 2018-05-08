@@ -148,8 +148,8 @@ export class PixiAppWrapper extends EventEmitter {
                     y: this.stage.y,
                     initialWidth: this.initialWidth,
                     initialHeight: this.initialHeight,
-                    currentWidth: Math.ceil(this.stage.width),
-                    currentHeight: Math.ceil(this.stage.height),
+                    currentWidth: Math.ceil(this.initialWidth * this.stage.scale.x),
+                    currentHeight: Math.ceil(this.initialHeight * this.stage.scale.y),
                     scaleX: this.stage.scale.x.toFixed(2),
                     scaleY: this.stage.scale.y.toFixed(2),
                     scaling: this.appOptions.scale ? this.appOptions.scale.valueOf() : this.defaultScaleMethod,
@@ -271,8 +271,8 @@ export class PixiAppWrapper extends EventEmitter {
                         y: this.stage.scale.y,
                     },
                     size: {
-                        width: this.stage.width,
-                        height: this.stage.height,
+                        width: this.initialWidth * this.stage.scale.x,
+                        height: this.initialHeight * this.stage.scale.y,
                     },
                 },
                 view: {
@@ -289,7 +289,7 @@ export class PixiAppWrapper extends EventEmitter {
     }
 
     private align(): void {
-        const {x, y} = this.alignStrategy.align(this.stage.width, this.stage.height, this.view.clientWidth, this.view.clientHeight);
+        const {x, y} = this.alignStrategy.align(this.initialWidth * this.stage.scale.x, this.initialHeight * this.stage.scale.y, this.view.clientWidth, this.view.clientHeight);
         this.stage.position.set(x, y);
     }
 }
