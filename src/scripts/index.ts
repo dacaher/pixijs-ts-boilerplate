@@ -8,4 +8,3 @@ import "styles/style.css"; // Required to bundle styles!
  */
 import {SampleApp} from "app/sample-app";
 const sampleApp = new SampleApp();
-sampleApp.drawScreenBorder();

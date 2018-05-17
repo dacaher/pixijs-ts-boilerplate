@@ -15,6 +15,7 @@ export interface DisplayData {
         scaleY: string,
         scaling: string;
         alignment: string;
+        orientation: "landscape" | "portrait";
     };
 }
 
@@ -81,7 +82,8 @@ export class MediaInfoViewer {
             `<div>current ${this.data.display.stage.currentWidth}x${this.data.display.stage.currentHeight}</div>` +
             `<div>scale (${this.data.display.stage.scaleX}, ${this.data.display.stage.scaleY})</div>` +
             `<div>scaling ${this.data.display.stage.scaling}</div>` +
-            `<div>alignment ${this.data.display.stage.alignment}</div>`
+            `<div>alignment ${this.data.display.stage.alignment}</div>` +
+            `<div>orientation ${this.data.display.stage.orientation}</div>`
             ;
     }
 }
