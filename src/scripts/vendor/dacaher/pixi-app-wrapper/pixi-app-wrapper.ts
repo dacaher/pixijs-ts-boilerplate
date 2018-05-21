@@ -96,13 +96,6 @@ export class PixiAppWrapper extends EventEmitter {
         this.app = new PIXI.Application(options);
         this.app.stage = new PIXI.display.Stage();
 
-        this.app.stage.interactive = true;
-        this.app.stage.buttonMode = true;
-        this.app.stage.on("pointerup", (event: PIXI.interaction.InteractionEvent) => {
-            event.stopPropagation();
-            window.console.log(event.data.global);
-        });
-
         this.configure(options);
         this.ticker.add(this.resize.bind(this));
 
@@ -305,8 +298,6 @@ export class PixiAppWrapper extends EventEmitter {
         let changed = false;
 
         if (this.appOptions.changeOrientation) {
-
-            // TODO hay que comprobar ratios y no directamente w y h...
             if (this.landscape && this.view.clientHeight > this.view.clientWidth) {
                 // change to portrait mode
                 changed = true;

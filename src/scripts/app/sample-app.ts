@@ -52,8 +52,8 @@ export class SampleApp {
 
         // if no view is specified, it appends canvas to body
         const appOptions: WrapperOpts = {
-            width: 800,
-            height: 600,
+            width: 1920,
+            height: 1080,
             scale: "keep-aspect-ratio",
             align: "middle",
             resolution: window.devicePixelRatio,
@@ -92,7 +92,7 @@ export class SampleApp {
         const button = new PIXI.Graphics();
         button.lineStyle(2, 0xFF00FF, 1);
         button.beginFill(0xFF00BB, 0.25);
-        button.drawRoundedRect(x, y, w, h, r);
+        button.drawRoundedRect(0, 0, w, h, r);
         button.endFill();
 
         button.interactive = true;
@@ -103,6 +103,8 @@ export class SampleApp {
         });
 
         this.fullScreenButton.addChild(button);
+        this.fullScreenButton.position.set(x, y);
+
         this.app.stage.addChild(this.fullScreenButton);
     }
 
@@ -120,27 +122,13 @@ export class SampleApp {
 
     private onResizeStart(): void {
         window.console.log("RESIZE STARTED!");
-        this.stopEmittingParticles();
-
-        if (this.spineBoy) {
-            this.spineBoy.visible = false;
-        }
     }
 
     private onResizeEnd(args: any): void {
         window.console.log("RESIZE ENDED!", args);
 
         if (args.stage.orientation.changed && this.assetsLoaded) {
-            // relocate/resize views instead...
-            // this.removeViews();
-            // this.createViews();
             this.relocateViews();
-        } else {
-            this.startEmittingParticles();
-
-            if (this.spineBoy) {
-                this.spineBoy.visible = true;
-            }
         }
     }
 
@@ -447,15 +435,15 @@ export class SampleApp {
     }
 
     private relocateViews(): void {
+        /*
         this.screenBorder.width = this.app.initialWidth - 2;
         this.screenBorder.height = this.app.initialHeight - 2;
         window.console.log(this.screenBorder.width, this.screenBorder.height);
+        */
+        this.app.stage.removeChild(this.screenBorder);
+        this.drawScreenBorder();
 
-        // TODO not working...
-        // this.fullScreenButton.position.set(this.app.initialWidth / 2 - this.fullScreenButton.width / 2, this.app.initialHeight / 2 - this.fullScreenButton.height / 2);
-        this.app.stage.removeChild(this.fullScreenButton);
-
-
+        this.fullScreenButton.position.set(this.app.initialWidth / 2 - this.fullScreenButton.width / 2, this.app.initialHeight / 2 - this.fullScreenButton.height / 2);
         this.fullScreenText.position.set(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
         this.filteredBunnies.position.set(this.app.initialWidth - this.filteredBunnies.width - 10, this.app.initialHeight - this.filteredBunnies.height);
         this.layeredBunnies.position.set((this.app.initialWidth - this.layeredBunnies.width) - 10, 10);
