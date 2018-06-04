@@ -18,6 +18,7 @@
       "app/*": ["src/scripts/app/*"],
       "vendor/*": ["src/scripts/vendor/*"],
       "pixi-app-wrapper": ["src/scripts/vendor/dacaher/pixi-app-wrapper"],
+      "pixi-assets-loader": ["src/scripts/vendor/dacaher/pixi-assets-loader"],
       "fpsmeter": ["src/scripts/vendor/darsain/fpsmeter/fpsmeter"],
       "screenfull": ["src/scripts/vendor/sindresorhus/screenfull/screenfull"],
       "eventemitter3": ["src/scripts/vendor/primus/eventemitter3"],
@@ -27,7 +28,8 @@
       "pixi-spine": ["src/scripts/vendor/pixijs/pixi-spine/pixi-spine"],
       "pixi-filters": ["src/scripts/vendor/pixijs/pixi-filters"],
       "@pixi/filter-*": ["src/scripts/vendor/pixijs/pixi-filters/filters/filter-*"],
-      "howler": ["src/scripts/vendor/goldfire/howler.js"]
+      "howler": ["src/scripts/vendor/goldfire/howler.js"],
+      "collections": ["src/scripts/vendor/basarat/typescript-collections/index.ts"]
     }
   },
   "include": [

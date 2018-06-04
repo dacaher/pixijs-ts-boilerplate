@@ -7,6 +7,7 @@ import {
     pixiAppWrapperEvent as WrapperEvent,
     PixiAppWrapperOptions as WrapperOpts,
 } from "pixi-app-wrapper";
+import {PixiAssetsLoader} from "pixi-assets-loader";
 import {
     AsciiFilter,
     CRTFilter,
@@ -17,6 +18,7 @@ import {
 } from "pixi-filters";
 import "pixi-particles";
 import "pixi-spine";
+import {AssetPriority} from "vendor/dacaher/pixi-assets-loader/asset-priority";
 
 /**
  * Showcase for PixiAppWrapper class.
@@ -38,6 +40,8 @@ export class SampleApp {
     private sound: Howl;
 
     private assetsLoaded: boolean;
+
+    private loader: PixiAssetsLoader;
 
     private textStyle = new PIXI.TextStyle({
         fontFamily: "Verdana",
@@ -70,8 +74,28 @@ export class SampleApp {
         this.app.on(WrapperEvent.RESIZE_START, this.onResizeStart.bind(this));
         this.app.on(WrapperEvent.RESIZE_END, this.onResizeEnd.bind(this));
 
+        this.createViews(); // Draw views that can be already drawn
+
         this.assetsLoaded = false;
 
+        this.loader = new PixiAssetsLoader();
+        this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_LOADED, this.onAssetsLoaded.bind(this));
+        this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, this.onAssetsProgress.bind(this));
+        this.loader.on(PixiAssetsLoader.ASSET_ERROR, this.onAssetsError.bind(this));
+
+        this.loader.addAssets([
+            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.LOW},
+            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.LOWEST},
+            {id: "bunny", url: "assets/gfx/bunnyy.png", priority: AssetPriority.HIGH},
+            {id: "spineboy", url: "assets/gfx/spineboy.atlas", priority: AssetPriority.HIGHEST},
+            {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST},
+            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL},
+            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.LOW},
+        ]);
+
+        this.loader.load();
+
+        /*
         PIXI.loader
             .add("explorer", "assets/gfx/explorer.png")
             .add("bunny", "assets/gfx/bunny.png")
@@ -80,6 +104,7 @@ export class SampleApp {
             .add("play", "assets/gfx/play.png")
             .add("stop", "assets/gfx/stop.png")
             .load(this.onAssetsLoaded.bind(this));
+        */
     }
 
     public drawSquare(x = 0, y = 0, s = 50, r = 10): void {
@@ -106,6 +131,21 @@ export class SampleApp {
         this.fullScreenButton.position.set(x, y);
 
         this.app.stage.addChild(this.fullScreenButton);
+    }
+
+    private onAssetsLoaded(args: any): void {
+        window.console.log(`[SAMPLE APP] onAssetsLoaded ${JSON.stringify(args)}`);
+        this.assetsLoaded = true;
+        this.createViewsByPriority(args.priority);
+    }
+
+    private onAssetsProgress(args: any): void {
+        window.console.log(`[SAMPLE APP] onAssetsProgress ${JSON.stringify(args)}`);
+    }
+
+    private onAssetsError(args: any): void {
+        window.console.log(`[SAMPLE APP] onAssetsError ${JSON.stringify(args)}`);
+        window.console.log(`[SAMPLE APP] onAssetsError ${args.error.message}`);
     }
 
     private drawScreenBorder(width = 4): void {
@@ -154,21 +194,47 @@ export class SampleApp {
         this.app.stage.addChild(this.fullScreenText);
     }
 
-    private onAssetsLoaded(): void {
-        this.assetsLoaded = true;
-        this.createViews();
-    }
-
     private createViews(): void {
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
         this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
         this.drawScreenBorder();
+
+        /*
         this.drawRotatingExplorer();
         this.drawBunnies();
         this.drawLayeredBunnies();
         this.drawParticles();
         this.drawSpineBoyAnim();
         this.drawPlayMusic();
+        */
+    }
+
+    private createViewsByPriority(priority: number): void {
+        switch (priority) {
+            case AssetPriority.HIGHEST:
+                this.drawSpineBoyAnim();
+                break;
+
+            case AssetPriority.HIGH:
+                this.drawBunnies();
+                this.drawLayeredBunnies();
+                break;
+
+            case AssetPriority.NORMAL:
+                this.drawParticles();
+                break;
+
+            case AssetPriority.LOW:
+                this.drawPlayMusic();
+                break;
+
+            case AssetPriority.LOWEST:
+                this.drawRotatingExplorer();
+                break;
+
+            default:
+                break;
+        }
     }
 
     private removeViews(): void {
@@ -358,7 +424,7 @@ export class SampleApp {
         this.app.ticker.add(update);
     }
 
-    private drawSpineBoyAnim() {
+    private drawSpineBoyAnim(): void {
         // create a spine boy
         this.spineBoy = new PIXI.spine.Spine(PIXI.loader.resources.spineboy.spineData);
 
@@ -386,7 +452,7 @@ export class SampleApp {
         this.app.stage.addChild(this.spineBoy);
     }
 
-    private drawPlayMusic() {
+    private drawPlayMusic(): void {
         if (!this.sound) {
             this.sound = new Howl({
                 src: ["assets/sfx/sound1.mp3"],

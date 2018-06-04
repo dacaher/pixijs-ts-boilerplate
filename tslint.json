@@ -10,7 +10,8 @@
         "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
         "object-literal-sort-keys": false,
         "interface-name": [true, "never-prefix"],
-        "arrow-parens": [true, "ban-single-arg-parens"]
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "typedef": [true, "call-signature"]
     },
     "rulesDirectory": [],
     "linterOptions": {
