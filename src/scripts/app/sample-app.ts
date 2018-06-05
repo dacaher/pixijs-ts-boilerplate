@@ -7,7 +7,7 @@ import {
     pixiAppWrapperEvent as WrapperEvent,
     PixiAppWrapperOptions as WrapperOpts,
 } from "pixi-app-wrapper";
-import {PixiAssetsLoader} from "pixi-assets-loader";
+import {Asset, AssetPriority, PixiAssetsLoader} from "pixi-assets-loader";
 import {
     AsciiFilter,
     CRTFilter,
@@ -18,7 +18,6 @@ import {
 } from "pixi-filters";
 import "pixi-particles";
 import "pixi-spine";
-import {AssetPriority} from "vendor/dacaher/pixi-assets-loader/asset-priority";
 
 /**
  * Showcase for PixiAppWrapper class.
@@ -83,14 +82,36 @@ export class SampleApp {
         this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, this.onAssetsProgress.bind(this));
         this.loader.on(PixiAssetsLoader.ASSET_ERROR, this.onAssetsError.bind(this));
 
+        /*
         this.loader.addAssets([
-            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.LOW},
-            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.LOWEST},
-            {id: "bunny", url: "assets/gfx/bunnyy.png", priority: AssetPriority.HIGH},
-            {id: "spineboy", url: "assets/gfx/spineboy.atlas", priority: AssetPriority.HIGHEST},
-            {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST},
-            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL},
-            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.LOW},
+            {id: "pdf", url: "assets/1.pdf", priority: AssetPriority.HIGH, type: "pdf"},
+            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL, type: "texture"},
+        ]);
+        this.loader.load();
+
+        this.loader.addAssets([
+            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.LOWEST, type: "texture"},
+            {id: "bunny", url: "assets/gfx/bunny.png", priority: AssetPriority.HIGH, type: "texture"},
+            {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST, type: "animation"},
+            // {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL, type: "texture"},
+            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.LOW, type: "texture"},
+            {id: "music", url: "assets/sfx/sound1.mp3", priority: AssetPriority.LOW, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
+        ]);
+        */
+
+        this.loader.addAssets([
+            {id: "pdf1", url: "assets/1.pdf", priority: AssetPriority.HIGHEST, type: "pdf"},
+            {id: "pdf2", url: "assets/2.pdf", priority: AssetPriority.HIGHEST, type: "pdf"},
+            {id: "txt1", url: "assets/1.txt", priority: AssetPriority.HIGHEST, type: "txt"},
+            {id: "txt2", url: "assets/2.txt", priority: AssetPriority.HIGHEST, type: "txt"},
+            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            {id: "bunny", url: "assets/gfx/bunny.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            // {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST, type: "animation"},
+            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.HIGHEST, type: "texture"},
+            {id: "music", url: "assets/sfx/sound1.mp3", priority: AssetPriority.HIGHEST, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
         ]);
 
         this.loader.load();
@@ -134,7 +155,7 @@ export class SampleApp {
     }
 
     private onAssetsLoaded(args: any): void {
-        window.console.log(`[SAMPLE APP] onAssetsLoaded ${JSON.stringify(args)}`);
+        window.console.log(`[SAMPLE APP] onAssetsLoaded ${args}`);
         this.assetsLoaded = true;
         this.createViewsByPriority(args.priority);
     }
@@ -216,8 +237,8 @@ export class SampleApp {
                 break;
 
             case AssetPriority.HIGH:
-                this.drawBunnies();
-                this.drawLayeredBunnies();
+                // this.drawBunnies();
+                // this.drawLayeredBunnies();
                 break;
 
             case AssetPriority.NORMAL:
@@ -453,11 +474,12 @@ export class SampleApp {
     }
 
     private drawPlayMusic(): void {
-        if (!this.sound) {
+
+        /*if (!this.sound) {
             this.sound = new Howl({
                 src: ["assets/sfx/sound1.mp3"],
             });
-        }
+        }*/
 
         this.sound.on("end", () => {
             playButton.visible = true;

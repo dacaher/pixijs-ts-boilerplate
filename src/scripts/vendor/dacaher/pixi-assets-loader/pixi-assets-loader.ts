@@ -1,8 +1,28 @@
 import {EventEmitter} from "eventemitter3";
-import PriorityQueue from "../../basarat/typescript-collections/PriorityQueue"; // TODO relative url...
-import {Asset} from "./asset";
-import {LoadAsset} from "./load-asset";
-import {SoundAsset} from "./sound-asset";
+import PriorityQueue from "../../basarat/typescript-collections/PriorityQueue"; // TODO relative url and avoid merging all collections!? ...
+
+export interface Asset {
+    id: string;
+    url: string;
+    priority: number;
+    type?: any;
+}
+
+export interface SoundAsset extends Asset {
+    autoplay: boolean;
+    loop?: boolean;
+    volume?: number;
+    mute?: boolean;
+    rate?: number;
+    html5?: boolean;
+    howl?: Howl;
+}
+
+export interface LoadAsset {
+    asset: Asset;
+    loaded: boolean;
+    error: Error | null;
+}
 
 export class PixiAssetsLoader extends EventEmitter {
 
@@ -57,24 +77,29 @@ export class PixiAssetsLoader extends EventEmitter {
     private currentPriorityLoading: number | null;
 
     /**
-     * Generic assets load counter.
-     */
-    private genericAssetsCounter: number;
-
-    /**
      * Generic assets to load.
      */
     private genericAssetsToLoad: number;
 
     /**
-     * Sound assets load counter.
+     * Generic assets to load remaining.
      */
-    private soundAssetsCounter: number;
+    private genericAssetsRemaining: number;
 
     /**
      * Sound assets to load.
      */
     private soundAssetsToLoad: number;
+
+    /**
+     * Sound assets to load remaining.
+     */
+    private soundAssetsRemaining: number;
+
+    /**
+     * Total progress percentage.
+     */
+    private loadPercent: number;
 
     constructor() {
         super();
@@ -125,25 +150,28 @@ export class PixiAssetsLoader extends EventEmitter {
     private initLoadingQueue(): void {
         this.assetsLoading = {};
         this.currentPriorityLoading = null;
-        this.genericAssetsCounter = 0;
+        this.genericAssetsRemaining = 0;
         this.genericAssetsToLoad = 0;
-        this.soundAssetsCounter = 0;
+        this.soundAssetsRemaining = 0;
         this.soundAssetsToLoad = 0;
+        this.loadPercent = 0;
     }
 
     private onGenericAssetProgress(loader: PIXI.loaders.Loader, resource: PIXI.loaders.Resource): void {
+        this.genericAssetsRemaining--;
+
         // Calculate real percentage (including sound assets)
         const realPercent = loader.progress * this.genericAssetsToLoad / Object.keys(this.assetsLoading).length;
+        this.loadPercent += realPercent;
 
         window.console.log(`onGenericAssetProgress: ${resource.name}`);
         window.console.log(`url: ${resource.url}`);
-        window.console.log(`progress: ${realPercent}%`);
+        window.console.log(`inner progress: ${loader.progress}%`);
+        window.console.log(`real progress: ${this.loadPercent}%`);
 
         if (resource.error) {
             window.console.log(`error: ${resource.error.message}`);
         }
-
-        this.genericAssetsCounter--;
 
         this.emit(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, {
             priority: this.currentPriorityLoading,
@@ -172,6 +200,51 @@ export class PixiAssetsLoader extends EventEmitter {
         const loadAsset = this.assetsLoading[resource.name];
 
         // Some generic resources add other resources to load we don't know about
+        if (loadAsset) {
+            loadAsset.loaded = true;
+            loadAsset.error = null;
+
+            this.emit(PixiAssetsLoader.ASSET_LOADED, loadAsset);
+        }
+    }
+
+    private onSoundAssetProgress(): void {
+        this.soundAssetsRemaining--;
+
+        // Calculate real percentage (including generic assets)
+        const innerPercent = (this.soundAssetsToLoad - this.soundAssetsRemaining) * 100 / this.soundAssetsToLoad;
+        const realPercent =  innerPercent * this.soundAssetsToLoad / Object.keys(this.assetsLoading).length;
+
+        this.loadPercent += realPercent;
+
+        window.console.log(`onSoundAssetProgress: progress ${innerPercent}% - real progress: ${this.loadPercent}%`);
+
+        this.emit(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, {
+            priority: this.currentPriorityLoading,
+            progress: realPercent,
+        });
+    }
+
+    private onSoundAssetError(asset: Asset, error: Error): void {
+        window.console.log(`onSoundAssetError: ${asset.id} error: ${error.message}`);
+
+        this.onSoundAssetProgress();
+
+        const loadAsset = this.assetsLoading[asset.id];
+        if (loadAsset) {
+            loadAsset.loaded = false;
+            loadAsset.error = error instanceof Error ? error : new Error(`Error loading sound ${asset.id}`);
+
+            this.emit(PixiAssetsLoader.ASSET_ERROR, loadAsset);
+        }
+    }
+
+    private onSoundAssetLoad(asset: Asset): void {
+        window.console.log(`onSoundAssetLoad: ${asset.id}`);
+
+        this.onSoundAssetProgress();
+
+        const loadAsset = this.assetsLoading[asset.id];
         if (loadAsset) {
             loadAsset.loaded = true;
             loadAsset.error = null;
@@ -215,12 +288,12 @@ export class PixiAssetsLoader extends EventEmitter {
     }
 
     private startLoadingAssets(): void {
-        this.loader.reset();
+        // this.loader.reset();
 
         const loadAssets = Object.keys(this.assetsLoading).map(key => this.assetsLoading[key]);
 
         loadAssets.forEach(loadAsset => {
-            if ((loadAsset.asset as SoundAsset).autoplay) {
+            if ((loadAsset.asset as SoundAsset).autoplay !== undefined) {
                 this.loadSoundAsset(loadAsset.asset as SoundAsset);
             } else {
                 this.addGenericAsset(loadAsset.asset);
@@ -232,33 +305,44 @@ export class PixiAssetsLoader extends EventEmitter {
     }
 
     private loadSoundAsset(asset: SoundAsset): void {
-        // TODO impl
-        // this.soundAssetsCounter++;
-        // this.soundAssetsToLoad++;
+        this.soundAssetsRemaining++;
+        this.soundAssetsToLoad++;
+
+        asset.howl = new Howl({
+            src: [asset.url],
+            autoplay: asset.autoplay,
+            loop: asset.loop || false,
+            volume: asset.volume || 1,
+            mute: asset.mute || false,
+            rate: asset.rate || 1,
+            html5: asset.html5 || false,
+            onload: this.onSoundAssetLoad.bind(this, asset),
+            onloaderror: (soundId: number, error: any) => {
+                const loadError = error instanceof Error ? error : new Error(`Error loading sound ${asset.id}`);
+                this.onSoundAssetError(asset, loadError);
+            },
+
+        });
     }
 
     private addGenericAsset(asset: Asset): void {
-        this.genericAssetsCounter++;
+        this.genericAssetsRemaining++;
         this.genericAssetsToLoad++;
         this.loader.add(asset.id, asset.url); // Add all assets to the loader
     }
 
     private loadGenericAssets(): void {
-        if (this.genericAssetsCounter > 0) {
-            this.loader.load(this.onGenericAssetsLoaded.bind(this));
+        if (this.genericAssetsRemaining > 0) {
+            this.loader.load(this.checkAllAssetsLoaded.bind(this));
         }
     }
 
-    private onGenericAssetsLoaded(): void {
-        this.checkAllAssetsLoaded();
-    }
-
     private checkAllAssetsLoaded(): void {
-        if (this.genericAssetsCounter + this.soundAssetsCounter <= 0) {
+        if (this.genericAssetsRemaining + this.soundAssetsRemaining <= 0) {
             // Notify priority group loaded
             this.emit(PixiAssetsLoader.PRIORITY_GROUP_LOADED, {
                 priority: this.currentPriorityLoading,
-                assets: this.assetsLoading,
+                assets: Object.keys(this.assetsLoading).map(key => this.assetsLoading[key]),
             });
 
             // Load next priority group
