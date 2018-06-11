@@ -7,7 +7,7 @@ import {
     pixiAppWrapperEvent as WrapperEvent,
     PixiAppWrapperOptions as WrapperOpts,
 } from "pixi-app-wrapper";
-import {Asset, AssetPriority, PixiAssetsLoader} from "pixi-assets-loader";
+import {Asset, AssetPriority, LoadAsset, PixiAssetsLoader, SoundAsset} from "pixi-assets-loader";
 import {
     AsciiFilter,
     CRTFilter,
@@ -27,7 +27,8 @@ export class SampleApp {
 
     private screenBorder: PIXI.Graphics;
     private fullScreenButton: PIXI.Container;
-    private fullScreenText: PIXI.Text;
+    private fullScreenText: PIXI.extras.BitmapText;
+    private loadingText: PIXI.Text;
     private explorer: RotatingSprite;
     private filteredBunnies: PIXI.Container;
     private layeredBunnies: PIXI.Container;
@@ -38,17 +39,21 @@ export class SampleApp {
     private particlesEmitter: PIXI.particles.Emitter;
     private sound: Howl;
 
-    private assetsLoaded: boolean;
-
     private loader: PixiAssetsLoader;
+
+    private totalAssets: number;
+    private loadingProgress: number;
+    private assetsCount: { [key: number]: { total: number, progress: number } } = {};
 
     private textStyle = new PIXI.TextStyle({
         fontFamily: "Verdana",
-        fontSize: 18,
+        fontSize: 24,
         fill: "#FFFFFF",
         wordWrap: true,
         wordWrapWidth: 440,
     });
+
+    private bitmapTextStyle: PIXI.extras.BitmapTextStyle = {font: "35px Desyrel", align: "center"};
 
     constructor() {
         const canvas = Dom.getElementOrCreateNew<HTMLCanvasElement>("app-canvas", "canvas", document.getElementById("app-root"));
@@ -75,57 +80,37 @@ export class SampleApp {
 
         this.createViews(); // Draw views that can be already drawn
 
-        this.assetsLoaded = false;
+        const assets = [
+            {id: "desyrel", url: "assets/fonts/desyrel.xml", priority: AssetPriority.HIGHEST, type: "font"},
+            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.LOW, type: "texture"},
+            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.LOW, type: "texture"},
+            {id: "bunny", url: "assets/gfx/bunny.png", priority: AssetPriority.HIGH, type: "texture"},
+            {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST, type: "animation"},
+            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL, type: "texture"},
+            {id: "sound1", url: "assets/sfx/sound1.mp3", priority: AssetPriority.LOW, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
+            {id: "atlas1", url: "assets/gfx/treasureHunter.json", priority: AssetPriority.LOWEST, type: "atlas"},
+            // 404 Assets to test loading errors
+            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.LOWEST, type: "texture"},
+            {id: "sound2", url: "assets/sfx/sound2.mp3", priority: AssetPriority.LOW, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
+        ];
+
+        assets.forEach(asset => {
+           if (!this.assetsCount[asset.priority]) {
+               this.assetsCount[asset.priority] = {total: 1, progress: 0};
+           } else {
+               this.assetsCount[asset.priority].total++;
+           }
+        });
+
+        this.loadingProgress = 0;
+        this.totalAssets = assets.length;
 
         this.loader = new PixiAssetsLoader();
         this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_LOADED, this.onAssetsLoaded.bind(this));
         this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, this.onAssetsProgress.bind(this));
         this.loader.on(PixiAssetsLoader.ASSET_ERROR, this.onAssetsError.bind(this));
 
-        /*
-        this.loader.addAssets([
-            {id: "pdf", url: "assets/1.pdf", priority: AssetPriority.HIGH, type: "pdf"},
-            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL, type: "texture"},
-        ]);
-        this.loader.load();
-
-        this.loader.addAssets([
-            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.LOWEST, type: "texture"},
-            {id: "bunny", url: "assets/gfx/bunny.png", priority: AssetPriority.HIGH, type: "texture"},
-            {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST, type: "animation"},
-            // {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.NORMAL, type: "texture"},
-            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.LOW, type: "texture"},
-            {id: "music", url: "assets/sfx/sound1.mp3", priority: AssetPriority.LOW, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
-        ]);
-        */
-
-        this.loader.addAssets([
-            {id: "pdf1", url: "assets/1.pdf", priority: AssetPriority.HIGHEST, type: "pdf"},
-            {id: "pdf2", url: "assets/2.pdf", priority: AssetPriority.HIGHEST, type: "pdf"},
-            {id: "txt1", url: "assets/1.txt", priority: AssetPriority.HIGHEST, type: "txt"},
-            {id: "txt2", url: "assets/2.txt", priority: AssetPriority.HIGHEST, type: "txt"},
-            {id: "stop", url: "assets/gfx/stop.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            {id: "explorer", url: "assets/gfx/explorer.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            {id: "bunny", url: "assets/gfx/bunny.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            // {id: "spineboy", url: "assets/gfx/spineboy.json", priority: AssetPriority.HIGHEST, type: "animation"},
-            {id: "bubble", url: "assets/gfx/Bubbles99.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            {id: "play", url: "assets/gfx/play.png", priority: AssetPriority.HIGHEST, type: "texture"},
-            {id: "music", url: "assets/sfx/sound1.mp3", priority: AssetPriority.HIGHEST, autoplay: false, loop: false, mute: false, rate: 1, type: "sound"} as Asset,
-        ]);
-
-        this.loader.load();
-
-        /*
-        PIXI.loader
-            .add("explorer", "assets/gfx/explorer.png")
-            .add("bunny", "assets/gfx/bunny.png")
-            .add("bubble", "assets/gfx/Bubbles99.png")
-            .add("spineboy", "assets/gfx/spineboy.json")
-            .add("play", "assets/gfx/play.png")
-            .add("stop", "assets/gfx/stop.png")
-            .load(this.onAssetsLoaded.bind(this));
-        */
+        this.loader.addAssets(assets).load();
     }
 
     public drawSquare(x = 0, y = 0, s = 50, r = 10): void {
@@ -154,19 +139,30 @@ export class SampleApp {
         this.app.stage.addChild(this.fullScreenButton);
     }
 
-    private onAssetsLoaded(args: any): void {
-        window.console.log(`[SAMPLE APP] onAssetsLoaded ${args}`);
-        this.assetsLoaded = true;
+    private onAssetsLoaded(args: { priority: number, assets: LoadAsset[] }): void {
+        window.console.log(`[SAMPLE APP] onAssetsLoaded ${args.assets.map(loadAsset => loadAsset.asset.id)}`);
+
+        args.assets.forEach(loadAsset => {
+            if (loadAsset.asset.id === "sound1" && loadAsset.loaded) {
+                this.sound = (loadAsset.asset as SoundAsset).howl!;
+            }
+        });
+
         this.createViewsByPriority(args.priority);
     }
 
-    private onAssetsProgress(args: any): void {
+    private onAssetsProgress(args: { priority: number, progress: number }): void {
         window.console.log(`[SAMPLE APP] onAssetsProgress ${JSON.stringify(args)}`);
+        const percentFactor = this.assetsCount[args.priority].total / this.totalAssets;
+
+        this.loadingProgress += (args.progress - this.assetsCount[args.priority].progress) * percentFactor;
+        this.assetsCount[args.priority].progress = args.progress;
+
+        this.loadingText.text = `Loading... ${this.loadingProgress}%`;
     }
 
-    private onAssetsError(args: any): void {
-        window.console.log(`[SAMPLE APP] onAssetsError ${JSON.stringify(args)}`);
-        window.console.log(`[SAMPLE APP] onAssetsError ${args.error.message}`);
+    private onAssetsError(args: LoadAsset): void {
+        window.console.log(`[SAMPLE APP] onAssetsError ${args.asset.id}: ${args.error!.message}`);
     }
 
     private drawScreenBorder(width = 4): void {
@@ -177,8 +173,6 @@ export class SampleApp {
         this.screenBorder.drawRect(halfWidth, halfWidth, this.app.initialWidth - width, this.app.initialHeight - width);
 
         this.app.stage.addChild(this.screenBorder);
-
-        window.console.log(this.screenBorder.width, this.screenBorder.height);
     }
 
     private onResizeStart(): void {
@@ -188,7 +182,7 @@ export class SampleApp {
     private onResizeEnd(args: any): void {
         window.console.log("RESIZE ENDED!", args);
 
-        if (args.stage.orientation.changed && this.assetsLoaded) {
+        if (args.stage.orientation.changed) {
             this.relocateViews();
         }
     }
@@ -207,38 +201,35 @@ export class SampleApp {
     }
 
     private addFullscreenText(x: number, y: number): void {
-        this.fullScreenText = new PIXI.Text("Click on the square to toggle fullscreen!", this.textStyle);
-        this.fullScreenText.anchor.set(0.5, 0.5);
-        this.fullScreenText.x = x;
-        this.fullScreenText.y = y;
+        this.fullScreenText = new PIXI.extras.BitmapText("Click on the square\n to toggle fullscreen!", this.bitmapTextStyle);
+        this.fullScreenText.position.set(x - this.fullScreenText.width / 2, y);
 
         this.app.stage.addChild(this.fullScreenText);
     }
 
+    private drawLoadingText(x: number, y: number): void {
+        this.loadingText = new PIXI.Text("Loading... 0%", this.textStyle);
+        this.loadingText.position.set(x, y);
+
+        this.app.stage.addChild(this.loadingText);
+    }
+
     private createViews(): void {
         this.drawSquare(this.app.initialWidth / 2 - 25, this.app.initialHeight / 2 - 25);
-        this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
         this.drawScreenBorder();
-
-        /*
-        this.drawRotatingExplorer();
-        this.drawBunnies();
-        this.drawLayeredBunnies();
-        this.drawParticles();
-        this.drawSpineBoyAnim();
-        this.drawPlayMusic();
-        */
+        this.drawLoadingText(this.app.initialWidth / 5, 10);
     }
 
     private createViewsByPriority(priority: number): void {
         switch (priority) {
             case AssetPriority.HIGHEST:
+                this.addFullscreenText(this.app.initialWidth / 2, this.app.initialHeight / 2 - 125);
                 this.drawSpineBoyAnim();
                 break;
 
             case AssetPriority.HIGH:
-                // this.drawBunnies();
-                // this.drawLayeredBunnies();
+                this.drawBunnies();
+                this.drawLayeredBunnies();
                 break;
 
             case AssetPriority.NORMAL:
@@ -263,8 +254,9 @@ export class SampleApp {
     }
 
     private drawRotatingExplorer(): void {
-        // This creates a texture from a "explorer.png" image
-        this.explorer = new RotatingSprite(PIXI.loader.resources.explorer.texture);
+        // This creates a texture from a "explorer.png" within the atlas
+        this.explorer = new RotatingSprite(PIXI.loader.resources.atlas1.textures!["explorer.png"]);
+        this.explorer.scale.set(2, 2);
 
         // Setup the position of the explorer
         const maxEdge = Math.max(this.explorer.width, this.explorer.height);
@@ -321,6 +313,8 @@ export class SampleApp {
         }
 
         text.position.set(bunniesContainer.width / 2, 0);
+
+        bunniesContainer.hitArea = new PIXI.Rectangle(0, 0, bunniesContainer.width, bunniesContainer.height);
 
         this.filteredBunnies.x = this.app.initialWidth - this.filteredBunnies.width - 10;
         this.filteredBunnies.y = this.app.initialHeight - this.filteredBunnies.height;
@@ -474,13 +468,6 @@ export class SampleApp {
     }
 
     private drawPlayMusic(): void {
-
-        /*if (!this.sound) {
-            this.sound = new Howl({
-                src: ["assets/sfx/sound1.mp3"],
-            });
-        }*/
-
         this.sound.on("end", () => {
             playButton.visible = true;
             stopButton.visible = false;
@@ -510,7 +497,7 @@ export class SampleApp {
             playButton.visible = true;
         });
 
-        const text = new PIXI.Text("Click to play music!", this.textStyle);
+        const text = new PIXI.extras.BitmapText("Click to play music!", this.bitmapTextStyle);
         text.position.set(playButton.width + 10, playButton.height / 2 - text.height / 2);
 
         this.playMusicContainer.addChild(playButton);
@@ -531,17 +518,43 @@ export class SampleApp {
         this.app.stage.removeChild(this.screenBorder);
         this.drawScreenBorder();
 
-        this.fullScreenButton.position.set(this.app.initialWidth / 2 - this.fullScreenButton.width / 2, this.app.initialHeight / 2 - this.fullScreenButton.height / 2);
-        this.fullScreenText.position.set(this.app.initialWidth / 2, this.app.initialHeight / 2 - 50);
-        this.filteredBunnies.position.set(this.app.initialWidth - this.filteredBunnies.width - 10, this.app.initialHeight - this.filteredBunnies.height);
-        this.layeredBunnies.position.set((this.app.initialWidth - this.layeredBunnies.width) - 10, 10);
-        this.particlesContainer.position.set(this.app.initialWidth * 0.75, this.app.initialHeight * 0.5);
-        this.spineBoy.position.set(this.app.initialWidth * 0.5, this.app.initialHeight);
-        this.playMusicContainer.position.set(this.app.initialWidth / 2 - this.playMusicContainer.width / 2, this.app.initialHeight * 0.1);
+        if (this.fullScreenButton) {
+            this.fullScreenButton.position.set(this.app.initialWidth / 2 - this.fullScreenButton.width / 2, this.app.initialHeight / 2 - this.fullScreenButton.height / 2);
+        }
 
-        TweenLite.killTweensOf(this.explorer, true);
-        const maxEdge = Math.max(this.explorer.width, this.explorer.height);
-        this.explorer.position.set(Math.ceil(maxEdge / 2) + 10, Math.ceil(maxEdge / 2) + 10);
-        TweenLite.to(this.explorer, 2, {y: this.app.initialHeight / 2});
+        if (this.fullScreenText) {
+            this.fullScreenText.position.set(this.app.initialWidth / 2 - this.fullScreenText.width / 2, this.app.initialHeight / 2 - 125);
+        }
+
+        if (this.loadingText) {
+            this.loadingText.position.set(this.app.initialWidth / 5, 10);
+        }
+
+        if (this.filteredBunnies) {
+            this.filteredBunnies.position.set(this.app.initialWidth - this.filteredBunnies.width - 10, this.app.initialHeight - this.filteredBunnies.height);
+        }
+
+        if (this.layeredBunnies) {
+            this.layeredBunnies.position.set((this.app.initialWidth - this.layeredBunnies.width) - 10, 10);
+        }
+
+        if (this.particlesContainer) {
+            this.particlesContainer.position.set(this.app.initialWidth * 0.75, this.app.initialHeight * 0.5);
+        }
+
+        if (this.spineBoy) {
+            this.spineBoy.position.set(this.app.initialWidth * 0.5, this.app.initialHeight);
+        }
+
+        if (this.playMusicContainer) {
+            this.playMusicContainer.position.set(this.app.initialWidth / 2 - this.playMusicContainer.width / 2, this.app.initialHeight * 0.1);
+        }
+
+        if (this.explorer) {
+            TweenLite.killTweensOf(this.explorer, true);
+            const maxEdge = Math.max(this.explorer.width, this.explorer.height);
+            this.explorer.position.set(Math.ceil(maxEdge / 2) + 10, Math.ceil(maxEdge / 2) + 10);
+            TweenLite.to(this.explorer, 2, {y: this.app.initialHeight / 2});
+        }
     }
 }
