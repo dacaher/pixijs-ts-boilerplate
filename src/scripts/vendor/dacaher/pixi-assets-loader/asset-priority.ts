@@ -1,8 +1,8 @@
 export class AssetPriority {
     public static readonly HIGHEST = 100;
-    public static readonly HIGH = 80;
-    public static readonly NORMAL = 40;
-    public static readonly LOW = 20;
+    public static readonly HIGH = 75;
+    public static readonly NORMAL = 50;
+    public static readonly LOW = 25;
     public static readonly LOWEST = 0;
 
     public static getPriority(priority: number): number {
