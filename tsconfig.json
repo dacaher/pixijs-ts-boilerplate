@@ -29,7 +29,7 @@
       "pixi-filters": ["src/scripts/vendor/pixijs/pixi-filters"],
       "@pixi/filter-*": ["src/scripts/vendor/pixijs/pixi-filters/filters/filter-*"],
       "howler": ["src/scripts/vendor/goldfire/howler.js"],
-      "collections": ["src/scripts/vendor/basarat/typescript-collections/index.ts"]
+      "typescript-collections/*": ["src/scripts/vendor/basarat/typescript-collections/*"]
     }
   },
   "include": [

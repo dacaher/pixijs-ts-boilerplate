@@ -1,5 +1,5 @@
 import {EventEmitter} from "eventemitter3";
-import PriorityQueue from "../../basarat/typescript-collections/PriorityQueue"; // TODO relative url and avoid merging all collections!? ...
+import PriorityQueue from "typescript-collections/PriorityQueue";
 
 export interface Asset {
     id: string;
@@ -99,7 +99,7 @@ export class PixiAssetsLoader extends EventEmitter {
     /**
      * Progress percentages.
      */
-    private progressPercents: {generic: number, sound: number, total: number};
+    private progressPercents: { generic: number, sound: number, total: number };
 
     /**
      * Custom asset loader that makes use of PIXI.loader and Howler to load.
@@ -229,7 +229,7 @@ export class PixiAssetsLoader extends EventEmitter {
         const innerPercent = (this.soundAssetsToLoad - this.soundAssetsRemaining) * 100 / this.soundAssetsToLoad;
         const innerIncrement = innerPercent - this.progressPercents.sound;
         this.progressPercents.sound = innerPercent;
-        const totalIncrement =  innerIncrement * this.soundAssetsToLoad / Object.keys(this.assetsLoading).length;
+        const totalIncrement = innerIncrement * this.soundAssetsToLoad / Object.keys(this.assetsLoading).length;
         this.progressPercents.total += totalIncrement;
 
         this.emit(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, {
