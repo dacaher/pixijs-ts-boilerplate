@@ -321,7 +321,7 @@ export class PixiAssetsLoader extends EventEmitter {
         });
 
         // Load generic assets through the loader
-        this.genericAssetsRemaining = this.soundAssetsToLoad;
+        this.genericAssetsRemaining = this.genericAssetsToLoad;
         this.loadGenericAssets();
     }
 

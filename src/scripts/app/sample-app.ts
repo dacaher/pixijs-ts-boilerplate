@@ -109,6 +109,7 @@ export class SampleApp {
         this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_LOADED, this.onAssetsLoaded.bind(this));
         this.loader.on(PixiAssetsLoader.PRIORITY_GROUP_PROGRESS, this.onAssetsProgress.bind(this));
         this.loader.on(PixiAssetsLoader.ASSET_ERROR, this.onAssetsError.bind(this));
+        this.loader.on(PixiAssetsLoader.ALL_ASSETS_LOADED, this.onAllAssetsLoaded.bind(this));
 
         this.loader.addAssets(assets).load();
     }
@@ -163,6 +164,10 @@ export class SampleApp {
 
     private onAssetsError(args: LoadAsset): void {
         window.console.log(`[SAMPLE APP] onAssetsError ${args.asset.id}: ${args.error!.message}`);
+    }
+
+    private onAllAssetsLoaded(): void {
+        window.console.log("[SAMPLE APP] onAllAssetsLoaded !!!!");
     }
 
     private drawScreenBorder(width = 4): void {
