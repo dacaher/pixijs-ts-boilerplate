@@ -360,7 +360,7 @@ export class PixiAssetsLoader extends EventEmitter {
             // Notify priority group loaded
             this.emit(PixiAssetsLoader.PRIORITY_GROUP_LOADED, {
                 priority: this.currentPriorityLoading,
-                assets: Object.keys(this.assetsLoading).map(key => this.assetsLoading[key]),
+                assets: Object.keys(this.assetsLoading).map(key => this.assetsLoading[key]).filter(loadAsset => loadAsset.loaded),
             });
 
             // Load next priority group
