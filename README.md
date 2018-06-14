@@ -7,8 +7,8 @@ Just another PixiJS Typescript Boilerplate
 Another boilerplate to speed up project setup for developing typescript apps with PixiJS.
 Ready to compile code for dev and production env.
 Provides a helper class (PixiAppWrapper) to manage resizing (full size, keeping aspect ratio or no resize at all),
-alignment of the stage within the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
-display some media info and a [fps-meter](https://github.com/darsain/fpsmeter).
+device orientation, alignment of the stage within the canvas view, toggle [fullscreen](https://github.com/sindresorhus/screenfull.js/),
+display some media info and a [fps-meter](https://github.com/darsain/fpsmeter), and some classes to assist with assets loading.
 
 Versions:
 - [Typescript](https://www.typescriptlang.org/) 2.7.1
@@ -17,6 +17,7 @@ Versions:
 
 Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions).
 This means that those deps will have to be manually managed. Some companies do not want to heavily rely on npm repos.
+Migrating back to npm dependencies should be fairly simple.
 
 ### Included PixiJS plugins
 - pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 8c14aa9a8c842c028e97e353eb5eb7d4663ebee1)
@@ -32,6 +33,7 @@ This means that those deps will have to be manually managed. Some companies do n
 - [eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
 - [gsap](https://github.com/greensock/GreenSock-JS) 1.20.4
 - [howler](https://github.com/goldfire/howler.js) 2.0.9
+- [typescript-collections](https://github.com/basarat/typescript-collections) 3758b3bea35f17d2c86c56b9110666d7b80609f2
 
 ### Prerequisites
 
