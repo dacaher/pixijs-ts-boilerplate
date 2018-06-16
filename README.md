@@ -11,7 +11,7 @@ alignment of the stage within the canvas view, toggle [fullscreen](https://githu
 display some media info and a [fps-meter](https://github.com/darsain/fpsmeter).
 
 Versions:
-- [Typescript](https://www.typescriptlang.org/) 2.7.1
+- [Typescript](https://www.typescriptlang.org/) 2.9.2
 - [Webpack](https://webpack.js.org/) 3.10.0
 - [PixiJS](http://www.pixijs.com/) 4.7.0
 
