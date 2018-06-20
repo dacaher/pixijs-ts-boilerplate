@@ -17,12 +17,12 @@ Versions:
 
 Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions).
 This means that those deps will have to be manually managed. Some companies do not want to heavily rely on npm repos.
-Migrating back to npm dependencies should be fairly simple.
+Going back to npm dependencies should be fairly simple.
 
 ### Included PixiJS plugins
 - pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 59999bc9b4a4fe9ed739f6d7b17ba4c69068204f - Apr 11, 2018
 - [pixi-particles](https://github.com/pixijs/pixi-particles) 3.0.0
-- [pixi-filters](https://github.com/pixijs/pixi-filters) 2.6.0
+- [pixi-filters](https://github.com/pixijs/pixi-filters) 2.6.1
 - [pixi-spine](https://github.com/pixijs/pixi-spine) 1.5.16 ***
 
 *** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID [SPINE LICENSE](https://esotericsoftware.com/spine-purchase).
