@@ -648,6 +648,7 @@ declare module PIXI.spine.core {
         intValue: number;
         floatValue: number;
         stringValue: string;
+        audio: string;
         constructor(name: string);
     }
 }
@@ -682,6 +683,7 @@ declare module PIXI.spine.core {
         static NONE: number;
         static BEFORE: number;
         static AFTER: number;
+        static epsilon: number;
         data: PathConstraintData;
         bones: Array<Bone>;
         target: Slot;
@@ -773,7 +775,7 @@ declare module PIXI.spine.core {
         findSlot(slotName: string): Slot;
         findSlotIndex(slotName: string): number;
         setSkinByName(skinName: string): void;
-        setSkin(newSkin: Skin): void;
+        setSkin(newSkin: Skin | null): void;
         getAttachmentByName(slotName: string, attachmentName: string): Attachment;
         getAttachment(slotIndex: number, attachmentName: string): Attachment;
         setAttachment(slotName: string, attachmentName: string): void;
@@ -1135,6 +1137,7 @@ declare module PIXI.spine.core {
         static newShortArray(size: number): ArrayLike<number>;
         static toFloatArray(array: Array<number>): number[] | Float32Array;
         static toSinglePrecision(value: number): number;
+        static webkit602BugfixHelper(alpha: number, pose: MixPose): void;
     }
     class DebugUtils {
         static logBones(skeleton: Skeleton): void;

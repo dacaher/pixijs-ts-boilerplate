@@ -1,28 +1,28 @@
 {
-  "_from": "@pixi/filter-glitch@^2.6.0",
-  "_id": "@pixi/filter-glitch@2.6.0",
+  "_from": "@pixi/filter-glitch@^2.6.1",
+  "_id": "@pixi/filter-glitch@2.6.1",
   "_inBundle": false,
-  "_integrity": "sha1-Vu3GnpuESCJB8TBxPWLP2QGS+uc=",
+  "_integrity": "sha512-z3rl6kcMU7E11XyLgj9izLZDdeTw+tMKSvcSsD0ena+l9dORewLzmOiHprlHc7SJcdxIcy7u/9QuCsdXo/+TXQ==",
   "_location": "/@pixi/filter-glitch",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@pixi/filter-glitch@^2.6.0",
+    "raw": "@pixi/filter-glitch@^2.6.1",
     "name": "@pixi/filter-glitch",
     "escapedName": "@pixi%2ffilter-glitch",
     "scope": "@pixi",
-    "rawSpec": "^2.6.0",
+    "rawSpec": "^2.6.1",
     "saveSpec": null,
-    "fetchSpec": "^2.6.0"
+    "fetchSpec": "^2.6.1"
   },
   "_requiredBy": [
     "/pixi-filters"
   ],
-  "_resolved": "https://registry.npmjs.org/@pixi/filter-glitch/-/filter-glitch-2.6.0.tgz",
-  "_shasum": "56edc69e9b84482241f130713d62cfd90192fae7",
-  "_spec": "@pixi/filter-glitch@^2.6.0",
-  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-glitch/-/filter-glitch-2.6.1.tgz",
+  "_shasum": "8fece6cd68a5720d0abe74bb1b90592c0e4a8bac",
+  "_spec": "@pixi/filter-glitch@^2.6.1",
+  "_where": "/tmp/p/node_modules/pixi-filters",
   "author": {
     "name": "finscn",
     "email": "finscn@gmail.com"
@@ -56,5 +56,5 @@
     "url": "git+https://github.com/pixijs/pixi-filters.git"
   },
   "types": "types.d.ts",
-  "version": "2.6.0"
+  "version": "2.6.1"
 }

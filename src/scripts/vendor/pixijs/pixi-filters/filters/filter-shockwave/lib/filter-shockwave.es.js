@@ -1,6 +1,6 @@
 /*!
- * @pixi/filter-shockwave - v2.6.0
- * Compiled Wed, 28 Feb 2018 22:04:57 UTC
+ * @pixi/filter-shockwave - v2.6.1
+ * Compiled Thu, 03 May 2018 14:20:43 UTC
  *
  * @pixi/filter-shockwave is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license

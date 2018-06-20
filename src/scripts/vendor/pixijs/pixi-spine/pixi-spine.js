@@ -654,41 +654,37 @@ var pixi_spine;
                 if (!(slotAttachment instanceof core.VertexAttachment) || !slotAttachment.applyDeform(this.attachment))
                     return;
                 var verticesArray = slot.attachmentVertices;
+                if (verticesArray.length == 0)
+                    alpha = 1;
                 var frameVertices = this.frameVertices;
                 var vertexCount = frameVertices[0].length;
-                var vertices = core.Utils.setArraySize(verticesArray, vertexCount);
                 var frames = this.frames;
                 if (time < frames[0]) {
                     var vertexAttachment = slotAttachment;
                     switch (pose) {
                         case MixPose.setup:
-                            var zeroVertices = void 0;
-                            if (vertexAttachment.bones == null) {
-                                zeroVertices = vertexAttachment.vertices;
-                            }
-                            else {
-                                zeroVertices = zeros;
-                                if (zeroVertices.length < vertexCount)
-                                    zeros = zeroVertices = core.Utils.newFloatArray(vertexCount);
-                            }
-                            core.Utils.arrayCopy(zeroVertices, 0, vertices, 0, vertexCount);
+                            verticesArray.length = 0;
                             return;
                         case MixPose.current:
-                            if (alpha == 1)
+                            if (alpha == 1) {
+                                verticesArray.length = 0;
                                 break;
+                            }
+                            var vertices_1 = core.Utils.setArraySize(verticesArray, vertexCount);
                             if (vertexAttachment.bones == null) {
                                 var setupVertices = vertexAttachment.vertices;
-                                for (var i_1 = 0; i_1 < vertexCount; i_1++)
-                                    vertices[i_1] += (setupVertices[i_1] - vertices[i_1]) * alpha;
+                                for (var i = 0; i < vertexCount; i++)
+                                    vertices_1[i] += (setupVertices[i] - vertices_1[i]) * alpha;
                             }
                             else {
                                 alpha = 1 - alpha;
                                 for (var i = 0; i < vertexCount; i++)
-                                    vertices[i] *= alpha;
+                                    vertices_1[i] *= alpha;
                             }
                     }
                     return;
                 }
+                var vertices = core.Utils.setArraySize(verticesArray, vertexCount);
                 if (time >= frames[frames.length - 1]) {
                     var lastVertices = frameVertices[frames.length - 1];
                     if (alpha == 1) {
@@ -698,19 +694,19 @@ var pixi_spine;
                         var vertexAttachment = slotAttachment;
                         if (vertexAttachment.bones == null) {
                             var setupVertices = vertexAttachment.vertices;
-                            for (var i_2 = 0; i_2 < vertexCount; i_2++) {
-                                var setup = setupVertices[i_2];
-                                vertices[i_2] = setup + (lastVertices[i_2] - setup) * alpha;
+                            for (var i = 0; i < vertexCount; i++) {
+                                var setup = setupVertices[i];
+                                vertices[i] = setup + (lastVertices[i] - setup) * alpha;
                             }
                         }
                         else {
-                            for (var i_3 = 0; i_3 < vertexCount; i_3++)
-                                vertices[i_3] = lastVertices[i_3] * alpha;
+                            for (var i = 0; i < vertexCount; i++)
+                                vertices[i] = lastVertices[i] * alpha;
                         }
                     }
                     else {
-                        for (var i_4 = 0; i_4 < vertexCount; i_4++)
-                            vertices[i_4] += (lastVertices[i_4] - vertices[i_4]) * alpha;
+                        for (var i = 0; i < vertexCount; i++)
+                            vertices[i] += (lastVertices[i] - vertices[i]) * alpha;
                     }
                     return;
                 }
@@ -720,31 +716,31 @@ var pixi_spine;
                 var frameTime = frames[frame];
                 var percent = this.getCurvePercent(frame - 1, 1 - (time - frameTime) / (frames[frame - 1] - frameTime));
                 if (alpha == 1) {
-                    for (var i_5 = 0; i_5 < vertexCount; i_5++) {
-                        var prev = prevVertices[i_5];
-                        vertices[i_5] = prev + (nextVertices[i_5] - prev) * percent;
+                    for (var i = 0; i < vertexCount; i++) {
+                        var prev = prevVertices[i];
+                        vertices[i] = prev + (nextVertices[i] - prev) * percent;
                     }
                 }
                 else if (pose == MixPose.setup) {
                     var vertexAttachment = slotAttachment;
                     if (vertexAttachment.bones == null) {
                         var setupVertices = vertexAttachment.vertices;
-                        for (var i_6 = 0; i_6 < vertexCount; i_6++) {
-                            var prev = prevVertices[i_6], setup = setupVertices[i_6];
-                            vertices[i_6] = setup + (prev + (nextVertices[i_6] - prev) * percent - setup) * alpha;
+                        for (var i = 0; i < vertexCount; i++) {
+                            var prev = prevVertices[i], setup = setupVertices[i];
+                            vertices[i] = setup + (prev + (nextVertices[i] - prev) * percent - setup) * alpha;
                         }
                     }
                     else {
-                        for (var i_7 = 0; i_7 < vertexCount; i_7++) {
-                            var prev = prevVertices[i_7];
-                            vertices[i_7] = (prev + (nextVertices[i_7] - prev) * percent) * alpha;
+                        for (var i = 0; i < vertexCount; i++) {
+                            var prev = prevVertices[i];
+                            vertices[i] = (prev + (nextVertices[i] - prev) * percent) * alpha;
                         }
                     }
                 }
                 else {
-                    for (var i_8 = 0; i_8 < vertexCount; i_8++) {
-                        var prev = prevVertices[i_8];
-                        vertices[i_8] += (prev + (nextVertices[i_8] - prev) * percent - vertices[i_8]) * alpha;
+                    for (var i = 0; i < vertexCount; i++) {
+                        var prev = prevVertices[i];
+                        vertices[i] += (prev + (nextVertices[i] - prev) * percent - vertices[i]) * alpha;
                     }
                 }
             };
@@ -1272,8 +1268,10 @@ var pixi_spine;
                             if (timeline instanceof core.RotateTimeline) {
                                 this.applyRotateTimeline(timeline, skeleton, animationTime, mix, pose, timelinesRotation, ii << 1, firstFrame);
                             }
-                            else
+                            else {
+                                core.Utils.webkit602BugfixHelper(mix, pose);
                                 timeline.apply(skeleton, animationLast, animationTime, events, mix, pose, core.MixDirection.in);
+                            }
                         }
                     }
                     this.queueEvents(current, animationTime);
@@ -1289,8 +1287,10 @@ var pixi_spine;
                 if (from.mixingFrom != null)
                     this.applyMixingFrom(from, skeleton, currentPose);
                 var mix = 0;
-                if (to.mixDuration == 0)
+                if (to.mixDuration == 0) {
                     mix = 1;
+                    currentPose = core.MixPose.setup;
+                }
                 else {
                     mix = to.mixTime / to.mixDuration;
                     if (mix > 1)
@@ -1528,8 +1528,13 @@ var pixi_spine;
                     last.next = entry;
                     if (delay <= 0) {
                         var duration = last.animationEnd - last.animationStart;
-                        if (duration != 0)
-                            delay += duration * (1 + ((last.trackTime / duration) | 0)) - this.data.getMix(last.animation, animation);
+                        if (duration != 0) {
+                            if (last.loop)
+                                delay += duration * (1 + ((last.trackTime / duration) | 0));
+                            else
+                                delay += duration;
+                            delay -= this.data.getMix(last.animation, animation);
+                        }
                         else
                             delay = 0;
                     }
@@ -1966,11 +1971,11 @@ var pixi_spine;
                     throw new Error("from cannot be null.");
                 if (to == null)
                     throw new Error("to cannot be null.");
-                var key = from.name + to.name;
+                var key = from.name + "." + to.name;
                 this.animationToMixTime[key] = duration;
             };
             AnimationStateData.prototype.getMix = function (from, to) {
-                var key = from.name + to.name;
+                var key = from.name + "." + to.name;
                 var value = this.animationToMixTime[key];
                 return value === undefined ? this.defaultMix : value;
             };
@@ -2648,11 +2653,19 @@ var pixi_spine;
                         lengths = core.Utils.setArraySize(this.lengths, boneCount);
                     for (var i = 0, n = spacesCount - 1; i < n;) {
                         var bone = bones[i];
-                        var setupLength = bone.data.length, x = setupLength * bone.matrix.a, y = setupLength * bone.matrix.b;
-                        var length_1 = Math.sqrt(x * x + y * y);
-                        if (scale)
-                            lengths[i] = length_1;
-                        spaces[++i] = (lengthSpacing ? setupLength + spacing : spacing) * length_1 / setupLength;
+                        var setupLength = bone.data.length;
+                        if (setupLength < PathConstraint.epsilon) {
+                            if (scale)
+                                lengths[i] = 0;
+                            spaces[++i] = 0;
+                        }
+                        else {
+                            var x = setupLength * bone.matrix.a, y = setupLength * bone.matrix.b;
+                            var length_1 = Math.sqrt(x * x + y * y);
+                            if (scale)
+                                lengths[i] = length_1;
+                            spaces[++i] = (lengthSpacing ? setupLength + spacing : spacing) * length_1 / setupLength;
+                        }
                     }
                 }
                 else {
@@ -2959,6 +2972,7 @@ var pixi_spine;
             PathConstraint.NONE = -1;
             PathConstraint.BEFORE = -2;
             PathConstraint.AFTER = -3;
+            PathConstraint.epsilon = 0.00001;
             return PathConstraint;
         }());
         core.PathConstraint = PathConstraint;
@@ -4208,6 +4222,7 @@ var pixi_spine;
                         data.intValue = this.getValue(eventMap, "int", 0);
                         data.floatValue = this.getValue(eventMap, "float", 0);
                         data.stringValue = this.getValue(eventMap, "string", "");
+                        data.audio = this.getValue(eventMap, "audio", null);
                         skeletonData.events.push(data);
                     }
                 }
@@ -4770,7 +4785,7 @@ var pixi_spine;
                         for (var key in dictionary) {
                             var skinAttachment = dictionary[key];
                             if (slotAttachment == skinAttachment) {
-                                var attachment = this.getAttachment(slotIndex, name);
+                                var attachment = this.getAttachment(slotIndex, key);
                                 if (attachment != null)
                                     slot.setAttachment(attachment);
                                 break;
@@ -6018,6 +6033,8 @@ var pixi_spine;
             Utils.toSinglePrecision = function (value) {
                 return Utils.SUPPORTS_TYPED_ARRAYS ? Math.fround(value) : value;
             };
+            Utils.webkit602BugfixHelper = function (alpha, pose) {
+            };
             Utils.SUPPORTS_TYPED_ARRAYS = typeof (Float32Array) !== "undefined";
             return Utils;
         }());
@@ -6609,107 +6626,6 @@ var pixi_spine;
         core.SwirlEffect = SwirlEffect;
     })(core = pixi_spine.core || (pixi_spine.core = {}));
 })(pixi_spine || (pixi_spine = {}));
-var pixi_spine;
-(function (pixi_spine) {
-    PIXI.spine = pixi_spine;
-})(pixi_spine || (pixi_spine = {}));
-var pixi_spine;
-(function (pixi_spine) {
-    function isJson(resource) {
-        return resource.type === PIXI.loaders.Resource.TYPE.JSON;
-    }
-    function atlasParser() {
-        return function (resource, next) {
-            if (!resource.data ||
-                !isJson(resource) ||
-                !resource.data.bones) {
-                return next();
-            }
-            var metadata = resource.metadata || {};
-            var metadataSkeletonScale = metadata ? resource.metadata.spineSkeletonScale : null;
-            var metadataAtlas = metadata ? resource.metadata.spineAtlas : null;
-            if (metadataAtlas === false) {
-                return next();
-            }
-            if (metadataAtlas && metadataAtlas.pages) {
-                var spineJsonParser = new pixi_spine.core.SkeletonJson(new pixi_spine.core.AtlasAttachmentLoader(metadataAtlas));
-                var skeletonData = spineJsonParser.readSkeletonData(resource.data);
-                resource.spineData = skeletonData;
-                resource.spineAtlas = metadataAtlas;
-                return next();
-            }
-            var metadataAtlasSuffix = metadata.spineAtlasSuffix || '.atlas';
-            var atlasPath = resource.url.substr(0, resource.url.lastIndexOf('.')) + metadataAtlasSuffix;
-            if (resource.metadata && resource.metadata.spineAtlasFile) {
-                atlasPath = resource.metadata.spineAtlasFile;
-            }
-            atlasPath = atlasPath.replace(this.baseUrl, '');
-            var atlasOptions = {
-                crossOrigin: resource.crossOrigin,
-                xhrType: PIXI.loaders.Resource.XHR_RESPONSE_TYPE.TEXT,
-                metadata: metadata.spineMetadata || null,
-                parentResource: resource
-            };
-            var imageOptions = {
-                crossOrigin: resource.crossOrigin,
-                metadata: metadata.imageMetadata || null,
-                parentResource: resource
-            };
-            var baseUrl = resource.url.substr(0, resource.url.lastIndexOf('/') + 1);
-            baseUrl = baseUrl.replace(this.baseUrl, '');
-            var adapter = metadata.images ? staticImageLoader(metadata.images)
-                : metadata.image ? staticImageLoader({ 'default': metadata.image })
-                    : metadata.imageLoader ? metadata.imageLoader(this, resource.name + '_atlas_page_', baseUrl, imageOptions)
-                        : imageLoaderAdapter(this, resource.name + '_atlas_page_', baseUrl, imageOptions);
-            this.add(resource.name + '_atlas', atlasPath, atlasOptions, function (atlasResource) {
-                new pixi_spine.core.TextureAtlas(atlasResource.xhr.responseText, adapter, function (spineAtlas) {
-                    var spineJsonParser = new pixi_spine.core.SkeletonJson(new pixi_spine.core.AtlasAttachmentLoader(spineAtlas));
-                    if (metadataSkeletonScale) {
-                        spineJsonParser.scale = metadataSkeletonScale;
-                    }
-                    resource.spineData = spineJsonParser.readSkeletonData(resource.data);
-                    resource.spineAtlas = spineAtlas;
-                    next();
-                });
-            });
-        };
-    }
-    pixi_spine.atlasParser = atlasParser;
-    function imageLoaderAdapter(loader, namePrefix, baseUrl, imageOptions) {
-        if (baseUrl && baseUrl.lastIndexOf('/') !== (baseUrl.length - 1)) {
-            baseUrl += '/';
-        }
-        return function (line, callback) {
-            var name = namePrefix + line;
-            var url = baseUrl + line;
-            loader.add(name, url, imageOptions, function (resource) {
-                callback(resource.texture.baseTexture);
-            });
-        };
-    }
-    pixi_spine.imageLoaderAdapter = imageLoaderAdapter;
-    function syncImageLoaderAdapter(baseUrl, crossOrigin) {
-        if (baseUrl && baseUrl.lastIndexOf('/') !== (baseUrl.length - 1)) {
-            baseUrl += '/';
-        }
-        return function (line, callback) {
-            callback(PIXI.BaseTexture.fromImage(line, crossOrigin));
-        };
-    }
-    pixi_spine.syncImageLoaderAdapter = syncImageLoaderAdapter;
-    function staticImageLoader(pages) {
-        return function (line, callback) {
-            var page = pages[line] || pages['default'];
-            if (page && page.baseTexture)
-                callback(page.baseTexture);
-            else
-                callback(page);
-        };
-    }
-    pixi_spine.staticImageLoader = staticImageLoader;
-    PIXI.loaders.Loader.addPixiMiddleware(atlasParser);
-    PIXI.loader.use(atlasParser());
-})(pixi_spine || (pixi_spine = {}));
 (function () {
     if (!Math.fround) {
         Math.fround = Math.fround = (function (array) {
@@ -7188,5 +7104,118 @@ var pixi_spine;
         this.worldAlpha = this.alpha * this.parent.worldAlpha;
         this._currentBounds = null;
     }
+})(pixi_spine || (pixi_spine = {}));
+var pixi_spine;
+(function (pixi_spine) {
+    PIXI.spine = pixi_spine;
+    var TextureProto = PIXI.Texture.prototype;
+    if (!TextureProto._updateUvs) {
+        TextureProto._updateUvs = TextureProto.updateUvs;
+    }
+})(pixi_spine || (pixi_spine = {}));
+var pixi_spine;
+(function (pixi_spine) {
+    function isJson(resource) {
+        return resource.type === PIXI.loaders.Resource.TYPE.JSON;
+    }
+    function atlasParser() {
+        return function (resource, next) {
+            if (!resource.data ||
+                !isJson(resource) ||
+                !resource.data.bones) {
+                return next();
+            }
+            var metadata = resource.metadata || {};
+            var metadataSkeletonScale = metadata ? resource.metadata.spineSkeletonScale : null;
+            var metadataAtlas = metadata ? resource.metadata.spineAtlas : null;
+            if (metadataAtlas === false) {
+                return next();
+            }
+            if (metadataAtlas && metadataAtlas.pages) {
+                var spineJsonParser = new pixi_spine.core.SkeletonJson(new pixi_spine.core.AtlasAttachmentLoader(metadataAtlas));
+                var skeletonData = spineJsonParser.readSkeletonData(resource.data);
+                resource.spineData = skeletonData;
+                resource.spineAtlas = metadataAtlas;
+                return next();
+            }
+            var metadataAtlasSuffix = metadata.spineAtlasSuffix || '.atlas';
+            var atlasPath = resource.url.substr(0, resource.url.lastIndexOf('.')) + metadataAtlasSuffix;
+            if (resource.metadata && resource.metadata.spineAtlasFile) {
+                atlasPath = resource.metadata.spineAtlasFile;
+            }
+            atlasPath = atlasPath.replace(this.baseUrl, '');
+            var atlasOptions = {
+                crossOrigin: resource.crossOrigin,
+                xhrType: PIXI.loaders.Resource.XHR_RESPONSE_TYPE.TEXT,
+                metadata: metadata.spineMetadata || null,
+                parentResource: resource
+            };
+            var imageOptions = {
+                crossOrigin: resource.crossOrigin,
+                metadata: metadata.imageMetadata || null,
+                parentResource: resource
+            };
+            var baseUrl = resource.url.substr(0, resource.url.lastIndexOf('/') + 1);
+            baseUrl = baseUrl.replace(this.baseUrl, '');
+            var adapter = metadata.images ? staticImageLoader(metadata.images)
+                : metadata.image ? staticImageLoader({ 'default': metadata.image })
+                    : metadata.imageLoader ? metadata.imageLoader(this, resource.name + '_atlas_page_', baseUrl, imageOptions)
+                        : imageLoaderAdapter(this, resource.name + '_atlas_page_', baseUrl, imageOptions);
+            var createSkeletonWithRawAtlas = function (rawData) {
+                new pixi_spine.core.TextureAtlas(rawData, adapter, function (spineAtlas) {
+                    var spineJsonParser = new pixi_spine.core.SkeletonJson(new pixi_spine.core.AtlasAttachmentLoader(spineAtlas));
+                    if (metadataSkeletonScale) {
+                        spineJsonParser.scale = metadataSkeletonScale;
+                    }
+                    resource.spineData = spineJsonParser.readSkeletonData(resource.data);
+                    resource.spineAtlas = spineAtlas;
+                    next();
+                });
+            };
+            if (resource.metadata && resource.metadata.atlasRawData) {
+                createSkeletonWithRawAtlas(resource.metadata.atlasRawData);
+            }
+            else {
+                this.add(resource.name + '_atlas', atlasPath, atlasOptions, function (atlasResource) {
+                    createSkeletonWithRawAtlas(atlasResource.xhr.responseText);
+                });
+            }
+        };
+    }
+    pixi_spine.atlasParser = atlasParser;
+    function imageLoaderAdapter(loader, namePrefix, baseUrl, imageOptions) {
+        if (baseUrl && baseUrl.lastIndexOf('/') !== (baseUrl.length - 1)) {
+            baseUrl += '/';
+        }
+        return function (line, callback) {
+            var name = namePrefix + line;
+            var url = baseUrl + line;
+            loader.add(name, url, imageOptions, function (resource) {
+                callback(resource.texture.baseTexture);
+            });
+        };
+    }
+    pixi_spine.imageLoaderAdapter = imageLoaderAdapter;
+    function syncImageLoaderAdapter(baseUrl, crossOrigin) {
+        if (baseUrl && baseUrl.lastIndexOf('/') !== (baseUrl.length - 1)) {
+            baseUrl += '/';
+        }
+        return function (line, callback) {
+            callback(PIXI.BaseTexture.fromImage(line, crossOrigin));
+        };
+    }
+    pixi_spine.syncImageLoaderAdapter = syncImageLoaderAdapter;
+    function staticImageLoader(pages) {
+        return function (line, callback) {
+            var page = pages[line] || pages['default'];
+            if (page && page.baseTexture)
+                callback(page.baseTexture);
+            else
+                callback(page);
+        };
+    }
+    pixi_spine.staticImageLoader = staticImageLoader;
+    PIXI.loaders.Loader.addPixiMiddleware(atlasParser);
+    PIXI.loader.use(atlasParser());
 })(pixi_spine || (pixi_spine = {}));
 //# sourceMappingURL=pixi-spine.js.map

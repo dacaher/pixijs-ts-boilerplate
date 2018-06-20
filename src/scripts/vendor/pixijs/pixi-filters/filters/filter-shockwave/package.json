@@ -1,28 +1,28 @@
 {
-  "_from": "@pixi/filter-shockwave@^2.6.0",
-  "_id": "@pixi/filter-shockwave@2.6.0",
+  "_from": "@pixi/filter-shockwave@^2.6.1",
+  "_id": "@pixi/filter-shockwave@2.6.1",
   "_inBundle": false,
-  "_integrity": "sha1-fnaDhPS7vVOk24temSvjaYTG6gM=",
+  "_integrity": "sha512-Q8HvxwR/Kff3p2nopD2jP4E0MTr7x/IFOtIsC0f5KIKgNVu2UHvV8oRTB6Y0kVhMR2hDQk/Peu2jda6DrFVYXA==",
   "_location": "/@pixi/filter-shockwave",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@pixi/filter-shockwave@^2.6.0",
+    "raw": "@pixi/filter-shockwave@^2.6.1",
     "name": "@pixi/filter-shockwave",
     "escapedName": "@pixi%2ffilter-shockwave",
     "scope": "@pixi",
-    "rawSpec": "^2.6.0",
+    "rawSpec": "^2.6.1",
     "saveSpec": null,
-    "fetchSpec": "^2.6.0"
+    "fetchSpec": "^2.6.1"
   },
   "_requiredBy": [
     "/pixi-filters"
   ],
-  "_resolved": "https://registry.npmjs.org/@pixi/filter-shockwave/-/filter-shockwave-2.6.0.tgz",
-  "_shasum": "7e768384f4bbbd53a4db8b5e992be36984c6ea03",
-  "_spec": "@pixi/filter-shockwave@^2.6.0",
-  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-shockwave/-/filter-shockwave-2.6.1.tgz",
+  "_shasum": "1894d0c3b0188fb2a846ef995b3c2f5b043cfaab",
+  "_spec": "@pixi/filter-shockwave@^2.6.1",
+  "_where": "/tmp/p/node_modules/pixi-filters",
   "author": {
     "name": "Mat Groves"
   },
@@ -61,5 +61,5 @@
     "url": "git+https://github.com/pixijs/pixi-filters.git"
   },
   "types": "types.d.ts",
-  "version": "2.6.0"
+  "version": "2.6.1"
 }

@@ -1,28 +1,28 @@
 {
-  "_from": "@pixi/filter-motion-blur@^2.6.0",
-  "_id": "@pixi/filter-motion-blur@2.6.0",
+  "_from": "@pixi/filter-motion-blur@^2.6.1",
+  "_id": "@pixi/filter-motion-blur@2.6.1",
   "_inBundle": false,
-  "_integrity": "sha1-fuw/eLXZJqGD3DEEeGOr2aTKaHE=",
+  "_integrity": "sha512-OjYGWvpPU9ptuuUTuetxurzTgy97DKxpoxP2StlvVKbuBXxah7viZUKAtpSkMCSYCaUS/OZuqTtszziBG5ApxA==",
   "_location": "/@pixi/filter-motion-blur",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@pixi/filter-motion-blur@^2.6.0",
+    "raw": "@pixi/filter-motion-blur@^2.6.1",
     "name": "@pixi/filter-motion-blur",
     "escapedName": "@pixi%2ffilter-motion-blur",
     "scope": "@pixi",
-    "rawSpec": "^2.6.0",
+    "rawSpec": "^2.6.1",
     "saveSpec": null,
-    "fetchSpec": "^2.6.0"
+    "fetchSpec": "^2.6.1"
   },
   "_requiredBy": [
     "/pixi-filters"
   ],
-  "_resolved": "https://registry.npmjs.org/@pixi/filter-motion-blur/-/filter-motion-blur-2.6.0.tgz",
-  "_shasum": "7eec3f78b5d926a183dc31047863abd9a4ca6871",
-  "_spec": "@pixi/filter-motion-blur@^2.6.0",
-  "_where": "/home/david/projects/test-projects/pixi-tests/node_modules/pixi-filters",
+  "_resolved": "https://registry.npmjs.org/@pixi/filter-motion-blur/-/filter-motion-blur-2.6.1.tgz",
+  "_shasum": "047c9999afb5838a7fa4f923f9237f9eeda284e8",
+  "_spec": "@pixi/filter-motion-blur@^2.6.1",
+  "_where": "/tmp/p/node_modules/pixi-filters",
   "author": {
     "name": "finscn",
     "email": "finscn@gmail.com"
@@ -56,5 +56,5 @@
     "url": "git+https://github.com/pixijs/pixi-filters.git"
   },
   "types": "types.d.ts",
-  "version": "2.6.0"
+  "version": "2.6.1"
 }

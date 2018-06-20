@@ -13,23 +13,23 @@ display some media info and a [fps-meter](https://github.com/darsain/fpsmeter), 
 Versions:
 - [Typescript](https://www.typescriptlang.org/) 2.9.2
 - [Webpack](https://webpack.js.org/) 3.10.0
-- [PixiJS](http://www.pixijs.com/) 4.7.0
+- [PixiJS](http://www.pixijs.com/) 4.8.1
 
 Note: Starting from v2 non-dev dependencies are kept inside the src/scripts/vendor folder (impl) and src/types (definitions).
 This means that those deps will have to be manually managed. Some companies do not want to heavily rely on npm repos.
 Migrating back to npm dependencies should be fairly simple.
 
 ### Included PixiJS plugins
-- pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 8c14aa9a8c842c028e97e353eb5eb7d4663ebee1)
+- pixi-layers (former [pixi-display](https://github.com/pixijs/pixi-display) : 59999bc9b4a4fe9ed739f6d7b17ba4c69068204f - Apr 11, 2018
 - [pixi-particles](https://github.com/pixijs/pixi-particles) 3.0.0
 - [pixi-filters](https://github.com/pixijs/pixi-filters) 2.6.0
-- [pixi-spine](https://github.com/pixijs/pixi-spine) (296c7039c107520e4bc0e0e4a3cc62545f970fca) ***
+- [pixi-spine](https://github.com/pixijs/pixi-spine) 1.5.16 ***
 
 *** PLEASE NOTE THAT IN ORDER TO USE THE SPINE RUNTIME YOU MUST OWN A VALID [SPINE LICENSE](https://esotericsoftware.com/spine-purchase).
 
 ### Other 3rd party libs
-- [fullscreen](https://github.com/sindresorhus/screenfull.js/) 3.3.2
-- [fps-meter](https://github.com/darsain/fpsmeter) 0.3.1
+- [screenfull](https://github.com/sindresorhus/screenfull.js/) 3.3.2
+- [fpsmeter](https://github.com/darsain/fpsmeter) 0.3.1
 - [eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
 - [gsap](https://github.com/greensock/GreenSock-JS) 1.20.4
 - [howler](https://github.com/goldfire/howler.js) 2.0.9
@@ -80,7 +80,6 @@ Index.ts is the entry point for bundling the application.
 - Finally remove folder src/scripts/app and assets/gfx/* when not needed.
 
 Note that pixi.js is kept as a external dependency and it is not bundled within the application.
-Not really sure if I should bundle it as well.
 
 ## NPM scripts
 
