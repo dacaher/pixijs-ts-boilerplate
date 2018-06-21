@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.0.3
- * DATE: 2018-02-15
+ * VERSION: 0.0.4
+ * DATE: 2018-05-21
  * UPDATES AND DOCS AT: http://greensock.com
  *
  * @license Copyright (c) 2008-2018, GreenSock. All rights reserved.
@@ -30,16 +30,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 							if (pt.r && type !== -1) {
 								val = Math.round(pt.s + pt.c);
 								if (!type) {
-									pt.t[pt.p] = mod(val + pt.xs0, target);
+									pt.t[pt.p] = mod.call(tween, val + pt.xs0, target, tween);
 								} else if (type === 1) {
 									str = pt.xs0 + val + pt.xs1;
 									for (i = 1; i < pt.l; i++) {
 										str += pt["xn"+i] + pt["xs"+(i+1)];
 									}
-									pt.t[pt.p] = mod(str, target);
+									pt.t[pt.p] = mod.call(tween, str, target, tween);
 								}
 							} else {
-								pt.t[pt.p] = mod(pt.e, target);
+								pt.t[pt.p] = mod.call(tween, pt.e, target, tween);
 							}
 						} else {
 							oldSetRatio.call(pt, v);
@@ -53,16 +53,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 							val = 0;
 						}
 						if (!type) {
-							pt.t[pt.p] = mod(val + pt.xs0, target);
+							pt.t[pt.p] = mod.call(tween, val + pt.xs0, target, tween);
 						} else if (type === 1) {
 							str = pt.xs0 + val + pt.xs1;
 							for (i = 1; i < pt.l; i++) {
 								str += pt["xn"+i] + pt["xs"+(i+1)];
 							}
-							pt.t[pt.p] = mod(str, target);
+							pt.t[pt.p] = mod.call(tween, str, target, tween);
 
 						} else if (type === -1) { //non-tweening value
-							pt.t[pt.p] = mod(pt.xs0, target);
+							pt.t[pt.p] = mod.call(tween, pt.xs0, target, tween);
 
 						} else if (oldSetRatio) {
 							oldSetRatio.call(pt, v);
@@ -70,7 +70,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 					} else {
 						if (type !== 2) {
-							pt.t[pt.p] = mod(pt.b, target);
+							pt.t[pt.p] = mod.call(tween, pt.b, target, tween);
 						} else {
 							oldSetRatio.call(pt, v);
 						}
@@ -80,6 +80,11 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 			_modCSS = function(lookup, cssp) {
 				var pt = cssp._firstPT,
 					hasBezier = (lookup.rotation && cssp._overwriteProps.join("").indexOf("bezier") !== -1); //when a Bezier tween is applying autoRotation, it's a very special case we need to handle differently.
+				if (lookup.scale) {
+					lookup.scaleX = lookup.scaleY = lookup.scale;
+				} else if (lookup.rotationZ) {
+					lookup.rotation = lookup.rotationZ;
+				}
 				while (pt) {
 					if (typeof(lookup[pt.p]) === "function") {
 						_cssRatioSetter(pt, cssp, lookup[pt.p]);
@@ -92,7 +97,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 			ModifiersPlugin = _gsScope._gsDefine.plugin({
 				propName: "modifiers",
-				version: "0.0.3",
+				version: "0.0.4",
 				API: 2,
 
 				//called when the tween renders for the first time. This is where initial values should be recorded and any setup routines should run.
@@ -108,6 +113,12 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 						mpt = this,
 						pt = tween._firstPT,
 						val, next;
+					//initAll() gets called for each and every ModifiersPlugin instance in a tween, so if there are multiple targets, there will be multiple instances. Since we're ripping through the whole tween (and all the PropTweens), we only need to run this code ONCE. So we're setting a toggle on the first PropTween that just tells us if we've done it already. We don't set it on the tween instance because if it gets invalidated, we don't want to have to track this property and reset it. PropTweens get blown away when a tween is invalidated.
+					if (pt._modInitted) {
+						return false;
+					} else {
+						pt._modInitted = 1;
+					}
 					while (pt) {
 						next = pt._next; //record here, because it may get removed
 						val = lookup[pt.n];
@@ -116,11 +127,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 								_modCSS(lookup, pt.t);
 							} else if (pt.t !== mpt) { //don't run modProps on modProps :)
 								val = lookup[pt.t._propName];
+								pt.t._tween = tween;
 								pt.t._mod((typeof(val) === "object") ? val : lookup);
 							}
 						} else if (typeof(val) === "function") {
 							if (pt.f === 2 && pt.t) { //a blob (text containing multiple numeric values)
 								pt.t._applyPT.m = val;
+								pt.t._tween = tween;
 							} else {
 								this._add(pt.t, pt.p, pt.s, pt.c, val);
 								//remove from linked list

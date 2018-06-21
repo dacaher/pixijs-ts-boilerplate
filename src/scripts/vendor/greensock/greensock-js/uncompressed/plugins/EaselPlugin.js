@@ -226,7 +226,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 		};
 
 
-	_gsScope._gsDefine.plugin({
+	var EaselPlugin = _gsScope._gsDefine.plugin({
 		propName: "easel",
 		priority: -1,
 		version: "0.2.2",

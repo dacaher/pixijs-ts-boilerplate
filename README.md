@@ -30,9 +30,9 @@ Going back to npm dependencies should be fairly simple.
 ### Other 3rd party libs
 - [screenfull](https://github.com/sindresorhus/screenfull.js/) 3.3.2
 - [fpsmeter](https://github.com/darsain/fpsmeter) 0.3.1
-- [eventemitter3](https://github.com/primus/eventemitter3) 3.0.1
-- [gsap](https://github.com/greensock/GreenSock-JS) 1.20.4
-- [howler](https://github.com/goldfire/howler.js) 2.0.9
+- [eventemitter3](https://github.com/primus/eventemitter3) 3.1.0
+- [gsap](https://github.com/greensock/GreenSock-JS) 2.0.1
+- [howler.js](https://github.com/goldfire/howler.js) 2.0.12
 - [typescript-collections](https://github.com/basarat/typescript-collections) 3758b3bea35f17d2c86c56b9110666d7b80609f2
 
 ### Prerequisites

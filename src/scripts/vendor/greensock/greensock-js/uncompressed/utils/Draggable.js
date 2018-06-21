@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.16.2
- * DATE: 2018-02-15
+ * VERSION: 0.16.4
+ * DATE: 2018-05-30
  * UPDATES AND DOCS AT: http://greensock.com
  *
  * Requires TweenLite and CSSPlugin version 1.17.0 or later (TweenMax contains both TweenLite and CSSPlugin). ThrowPropsPlugin is required for momentum-based continuation of movement after the mouse/touch is released (ThrowPropsPlugin is a membership benefit of Club GreenSock - http://greensock.com/club/).
@@ -437,12 +437,11 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 				}
 				parentRect = offsetParent.getBoundingClientRect();
 				m = e.getScreenCTM();
+
 				point2 = e.createSVGPoint();
 				point1 = point2.matrixTransform(m);
-				point2.x = point2.y = 10;
-				point2 = point2.matrixTransform(m);
-				cache.scaleX = (point2.x - point1.x) / 10;
-				cache.scaleY = (point2.y - point1.y) / 10;
+				cache.scaleX = Math.sqrt(m.a * m.a + m.b * m.b);
+				cache.scaleY = Math.sqrt(m.d * m.d + m.c * m.c);
 				if (_svgBorderFactor === undefined) {
 					_setEnvironmentVariables();
 				}
@@ -802,8 +801,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 			_addListener = function(element, type, func, capture) {
 				if (element.addEventListener) {
-					element.addEventListener(_touchEventLookup[type], func, capture);
-					if (type !== _touchEventLookup[type]) { //some browsers actually support both, so must we.
+					var touchType = _touchEventLookup[type];
+					capture = capture || {passive:false};
+					element.addEventListener(touchType || type, func, capture);
+					if (touchType && type !== touchType) { //some browsers actually support both, so must we.
 						element.addEventListener(type, func, capture);
 					}
 				} else if (element.attachEvent) {
@@ -813,8 +814,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 			_removeListener = function(element, type, func) {
 				if (element.removeEventListener) {
-					element.removeEventListener(_touchEventLookup[type], func);
-					if (type !== _touchEventLookup[type]) {
+					var touchType = _touchEventLookup[type];
+					element.removeEventListener(touchType || type, func);
+					if (touchType && type !== touchType) {
 						element.removeEventListener(type, func);
 					}
 				} else if (element.detachEvent) {
@@ -908,8 +910,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 				}
 			},
 
-			_addPaddingBR,
-			_addPaddingLeft = (function() { //this function is in charge of analyzing browser behavior related to padding. It sets the _addPaddingBR to true if the browser doesn't normally factor in the bottom or right padding on the element inside the scrolling area, and it sets _addPaddingLeft to true if it's a browser that requires the extra offset (offsetLeft) to be added to the paddingRight (like Opera).
+			_addPaddingBR = (function() { //this function is in charge of analyzing browser behavior related to padding. It sets the _addPaddingBR to true if the browser doesn't normally factor in the bottom or right padding on the element inside the scrolling area, and it sets _addPaddingLeft to true if it's a browser that requires the extra offset (offsetLeft) to be added to the paddingRight (like Opera).
 				var div = _doc.createElement("div"),
 					child = _doc.createElement("div"),
 					childStyle = child.style,
@@ -920,14 +921,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 				div.style.cssText = child.innerHTML = "width:90px; height:40px; padding:10px; overflow:auto; visibility: hidden";
 				div.appendChild(child);
 				parent.appendChild(div);
-				_addPaddingBR = (child.offsetHeight + 18 > div.scrollHeight); //div.scrollHeight should be child.offsetHeight + 20 because of the 10px of padding on each side, but some browsers ignore one side. We allow a 2px margin of error.
-				childStyle.width = "100%";
-				if (!_transformProp) {
-					childStyle.paddingRight = "500px";
-					val = div.scrollLeft = div.scrollWidth - div.clientWidth;
-					childStyle.left = "-90px";
-					val = (val !== div.scrollLeft);
-				}
+				val = (child.offsetHeight + 18 > div.scrollHeight); //div.scrollHeight should be child.offsetHeight + 20 because of the 10px of padding on each side, but some browsers ignore one side. We allow a 2px margin of error.
 				parent.removeChild(div);
 				return val;
 			}()),
@@ -1008,7 +1002,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 						} else {
 							style.left = -offsetLeft + "px";
 						}
-						if (_addPaddingLeft && offsetLeft + extraPadRight >= 0) {
+						if (offsetLeft + extraPadRight >= 0) {
 							style.paddingRight = offsetLeft + extraPadRight + "px";
 						}
 					}
@@ -1686,7 +1680,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 							_setSelectable(triggers, true); //accommodates things like inputs and elements with contentEditable="true" (otherwise user couldn't drag to select text)
 							return;
 						}
-						allowNativeTouchScrolling = (!touchEventTarget || allowX === allowY || self.vars.allowNativeTouchScrolling === false) ? false : allowX ? "y" : "x";
+						allowNativeTouchScrolling = (!touchEventTarget || allowX === allowY || self.vars.allowNativeTouchScrolling === false || (self.vars.allowContextMenu && e && (e.ctrlKey || e.which > 2))) ? false : allowX ? "y" : "x"; //note: in Chrome, right-clicking (for a context menu) fires onPress and it doesn't have the event.which set properly, so we must look for event.ctrlKey. If the user wants to allow context menus we should of course sense it here and not allow native touch scrolling.
 						if (_isOldIE) {
 							e = _populateIEEvent(e, true);
 						} else if (!allowNativeTouchScrolling && !self.allowEventDefault) {
@@ -1916,6 +1910,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 						self.isPressed = false;
 						var originalEvent = e,
 							wasDragging = self.isDragging,
+							isContextMenuRelease = (self.vars.allowContextMenu && e && (e.ctrlKey || e.which > 2)),
 							placeholderDelayedCall = TweenLite.delayedCall(0.001, removePlaceholder),
 							touches, i, syntheticEvent, eventTarget, syntheticClick;
 						if (touchEventTarget) {
@@ -1931,7 +1926,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 							_removeListener(e.target, "mouseup", onRelease);
 						}
 						dirty = false;
-						if (isClicking) {
+						if (isClicking && !isContextMenuRelease) {
 							if (e) {
 								_removeListener(e.target, "change", onRelease);
 								self.pointerEvent = originalEvent;
@@ -1973,7 +1968,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 							self.pointerX = e.pageX;
 							self.pointerY = e.pageY;
 						}
-						if (originalEvent && !wasDragging) {
+						if (isContextMenuRelease && originalEvent) {
+							originalEvent.preventDefault();
+							if (originalEvent.preventManipulation) {
+								originalEvent.preventManipulation();  //for some Microsoft browsers
+							}
+							_dispatchEvent(self, "release", "onRelease");
+						} else if (originalEvent && !wasDragging) {
 							if (interrupted && (vars.snap || vars.bounds)) { //otherwise, if the user clicks on the object while it's animating to a snapped position, and then releases without moving 3 pixels, it will just stay there (it should animate/snap)
 								animate(vars.throwProps);
 							}
@@ -1985,7 +1986,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 								}
 								eventTarget = originalEvent.target || originalEvent.srcElement || target; //old IE uses srcElement
 								clickTime = _getTime();
-								syntheticClick = function() { // some browsers (like Firefox) won't trust script-generated clicks, so if the user tries to click on a video to play it, for example, it simply won't work. Since a regular "click" event will most likely be generated anyway (one that has its isTrusted flag set to true), we must slightly delay our script-generated click so that the "real"/trusted one is prioritized. Remember, when there are duplicate events in quick succession, we suppress all but the first one. Some browsers don't even trigger the "real" one at all, so our synthetic one is a safety valve that ensures that no matter what, a click event does get dispatched.
+								syntheticClick = function () { // some browsers (like Firefox) won't trust script-generated clicks, so if the user tries to click on a video to play it, for example, it simply won't work. Since a regular "click" event will most likely be generated anyway (one that has its isTrusted flag set to true), we must slightly delay our script-generated click so that the "real"/trusted one is prioritized. Remember, when there are duplicate events in quick succession, we suppress all but the first one. Some browsers don't even trigger the "real" one at all, so our synthetic one is a safety valve that ensures that no matter what, a click event does get dispatched.
 									if (clickTime !== clickDispatch && self.enabled() && !self.isPressed) {
 										if (eventTarget.click) { //some browsers (like mobile Safari) don't properly trigger the click event
 											eventTarget.click();
@@ -2327,6 +2328,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 					self.isThrowing = false;
 					TweenLite.killTweensOf(scrollProxy || target, true, killProps);
 					self.disable();
+					TweenLite.set(triggers, {clearProps:"userSelect"});
 					delete _lookup[target._gsDragID];
 					return self;
 				};
@@ -2372,7 +2374,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 		p.constructor = Draggable;
 		p.pointerX = p.pointerY = p.startX = p.startY = p.deltaX = p.deltaY = 0;
 		p.isDragging = p.isPressed = false;
-		Draggable.version = "0.16.1";
+		Draggable.version = "0.16.4";
 		Draggable.zIndex = 1000;
 
 		_addListener(_doc, "touchcancel", function() {
